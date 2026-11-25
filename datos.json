@@ -1,10 +1,11 @@
 {
   "portada": {
-    "nombre": "MUSA",
+    "nombre": "-",
     "lemaParte1": "VIVIR LA FRATERNIDAD",
     "lemaParte2": "A TRAVÉS DEL ARTE",
     "subtitulo": "“GRUPO ESTUDIANTIL PARA LA PROMOCIÓN Y EDUCACIÓN EN SALUD A TRAVÉS DE LA ARTETERAPIA”",
-    "bannerDerecho": "CONOCE A MUSA · UNIVERSIDAD LA SALLE BAJÍO"
+    "bannerDerecho": "CONOCE A MUSA · UNIVERSIDAD LA SALLE BAJÍO",
+    "logo": "/img/LOGO_2026 (1).png"
   },
   "identidad": {
     "quienesTitulo": "¿QUIÉNES SOMOS?",
