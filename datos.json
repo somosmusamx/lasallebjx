@@ -61,18 +61,30 @@
   },
   "blog": [
     {
-      "titulo": "Bienvenidos al espacio oficial de MUSA La Salle Bajío",
-      "fecha": "Noviembre 2026",
+      "titulo": "Jardín MUSA: Cuando el arte y la empatía florecen en la Casa Hogar Amigo Daniel",
+      "fecha": "25 de abril de 2026",
       "tags": [
         "MUSA",
         "La Salle Bajío"
       ],
-      "resumen": "Aquí compartiremos crónicas de nuestras brigadas, talleres campus y proyectos de arteterapia.",
-      "contenido": "Este es el espacio digital independiente del **Capítulo La Salle Bajío**.\n\nA través de este blog documentaremos nuestras intervenciones creativas, jornadas de educación para la salud y brigadas comunitarias."
+      "imagen": "/img/3-1.webp",
+      "resumen": "Crónica de nuestra brigada comunitaria del 25 de abril en la Casa Hogar Amigo Daniel, donde los colores, la arteterapia y la música crearon un espacio seguro de expresión y acompañamiento emocional.",
+      "contenido": "El pasado 25 de abril, el arte y la empatía florecieron en una de las jornadas más significativas de nuestra agrupación: Jardín MUSA, una brigada comunitaria de arteterapia realizada en la Casa Hogar Amigo Daniel.\n\n\nBajo nuestra convicción de que el arte es nuestro lenguaje y la salud nuestro mensaje, acudimos con el propósito de transformar el entorno cotidiano en un espacio seguro de expresión emocional, juego e introspección. A través de dinámicas creativas colectivas inspiradas en la obra de Anna Bruder (A Line Florist) y acompañadas por la calidez de la música coral junto al Coro Polifónico, cada participante tuvo la oportunidad de intervenir y dar vida a su propio espacio floral.\n\n\nDesde el enfoque de la Enfermería, estas intervenciones trascienden la actividad recreativa. Al integrar la arteterapia, la ludoterapia y la música en el acompañamiento comunitario, favorecemos la canalización de emociones, fortalecemos la autoestima y construimos vínculos empáticos que impactan directamente en el bienestar psicosocial y el desarrollo integral de las niñas y los niños.\n\n\nDurante la jornada comprobamos que los recuerdos más valiosos no se guardan en una galería, sino en cada sonrisa compartida, en cada trazo libre sobre el papel y en la conexión genuina que logramos sembrar juntos.\n\n\nAgradecemos profundamente a la Casa Hogar Amigo Daniel por abrirnos sus puertas y permitirnos ser un puente entre el servicio y la calidez, así como a @annabruder por la inspiración detrás de este proyecto que nos permitió cultivar bienestar a través del color."
+    },
+    {
+      "titulo": "Arteterapia y Prevención del Suicidio",
+      "fecha": "10 de septiembre de 2026",
+      "tags": [
+        "MUSA",
+        "La Salle Bajío"
+      ],
+      "imagen": "/img/Ejes_MUSA-1.png",
+      "resumen": "Crónica de la jornada de arteterapia realizada en colaboración con Desarrollo Estudiantil como parte de las acciones de concientización y prevención del suicidio en la comunidad universitaria.",
+      "contenido": "Florecer es cuidarte y cuidarte es crecer.\n\nA veces, cuidar de nosotros mismos comienza con algo tan pequeño como detenernos, crear y dedicarle tiempo a algo que queremos ver crecer. En Decora una Maceta: Floreciendo tu Vida Universitaria, transformamos el arte en un espacio para expresar, reflexionar y reconocer la importancia de cuidar nuestra salud mental.\n\nCada maceta representa nuestra historia, nuestras emociones y aquello que nos sostiene. Cada suculenta nos recuerda que, incluso en momentos difíciles, la vida merece cuidado, atención y la oportunidad de seguir creciendo. Así como una planta necesita tiempo, agua, luz y cuidado, las personas también necesitamos espacios para respirar, vínculos que nos acompañen y redes de apoyo a las que podamos acudir.\n\nEsta actividad formó parte de nuestras acciones de concientización en torno a la prevención del suicidio, desarrolladas en colaboración con Desarrollo Estudiantil de la Universidad La Salle Bajío. Desde MUSA —como Grupo Estudiantil de Promoción y Educación en Salud a través de la Arteterapia como Intervención de Enfermería—, apostamos por generar entornos cercanos, sensibles y libres de estigma donde el diálogo y la expresión creativa sean un primer puente hacia el autocuidado y la búsqueda de acompañamiento oportuno.\n\nComo parte de esta jornada de sensibilización y cercanía con la comunidad estudiantil, también se compartieron listones amarillos como símbolo visible de apoyo, escucha y prevención, reafirmando que nadie tiene que atravesar los momentos complejos en soledad."
     }
   ],
   "contacto": {
-    "textoFooter": "MUSA · Grupo Estudiantil Autónomo · Universidad La Salle Bajío",
+    "textoFooter": "MUSA · Grupo Estudiantil Autónomo · Universidad La Salle Bajío ",
     "instagramUrl": "https://instagram.com/musa.lasallebjx",
     "instagramHandle": "@musa.lasallebjx"
   }
