@@ -1,21 +1,17 @@
 {
   "portada": {
     "nombre": "MUSA",
-    "lemaParte1": "EL ARTE NUESTRO LENGUAJE,",
-    "lemaParte2": "LA SALUD NUESTRO MENSAJE.",
+    "lemaParte1": "VIVIR LA FRATERNIDAD",
+    "lemaParte2": "A TRAVÉS DEL ARTE",
     "subtitulo": "“GRUPO ESTUDIANTIL PARA LA PROMOCIÓN Y EDUCACIÓN EN SALUD A TRAVÉS DE LA ARTETERAPIA”",
-    "bannerDerecho": "CONOCE A MUSA · UNIVERSIDAD LA SALLE BAJÍO",
-    "logo": "",
-    "fotoPortada": ""
+    "bannerDerecho": "CONOCE A MUSA · UNIVERSIDAD LA SALLE BAJÍO"
   },
   "identidad": {
     "quienesTitulo": "¿QUIÉNES SOMOS?",
     "quienesTexto": "Somos una **agrupación estudiantil nacida en la Universidad La Salle Bajío**, dedicada a la integración del arte y la salud. A través de la arteterapia, la ludoterapia y la risoterapia, buscamos **crear intervenciones que impacten positivamente** en el bienestar físico, mental y emocional de las personas, transformando los entornos de cuidado.",
-    "fotoQuienes": "",
     "enfermeriaTitulo": "LIDERAZGO DESDE EL CUIDADO",
     "enfermeriaSubtitulo": "EL NÚCLEO DE ENFERMERÍA",
     "enfermeriaTexto1": "Aunque MUSA es un equipo multidisciplinario que se enriquece con diversas perspectivas, **su fundación, dirección y liderazgo están a cargo de estudiantes de Enfermería.**",
-    "fotoEnfermeria": "",
     "enfermeriaTexto2": "Esto garantiza que cada una de nuestras intervenciones creativas esté fundamentada en el **Proceso de Atención Enfermero (PAE)** y en los principios del cuidado holístico:",
     "enfermeriaPuntos": [
       "Entendemos el entorno clínico,",
@@ -29,20 +25,17 @@
       {
         "titulo": "INTERVENCIONES CREATIVAS",
         "subtitulo": "Arteterapia pura",
-        "descripcion": "Fomentamos la expresión emocional, la introspección y la reducción del estrés mediante dinámicas creativas directas (como la campaña *“Yo Soy...”*).",
-        "imagen": ""
+        "descripcion": "Fomentamos la expresión emocional, la introspección y la reducción del estrés mediante dinámicas creativas directas (como la campaña *“Yo Soy...”*)."
       },
       {
         "titulo": "EDUCACIÓN PARA LA SALUD",
         "subtitulo": "A través de la arteterapia",
-        "descripcion": "Liderado 100% por estudiantes de Enfermería, este eje transforma la prevención y el autocuidado en experiencias didácticas, interactivas y memorables (como el taller *“Yo Sí Me Cuido”*).",
-        "imagen": ""
+        "descripcion": "Liderado 100% por estudiantes de Enfermería, este eje transforma la prevención y el autocuidado en experiencias didácticas, interactivas y memorables (como el taller *“Yo Sí Me Cuido”*)."
       },
       {
         "titulo": "BRIGADAS DE ARTETERAPIA",
         "subtitulo": "Fusión de nuestros 2 primeros ejes",
-        "descripcion": "Llevamos nuestro modelo de atención a hospitales, asilos y casas hogar mediante intervenciones breves de arte, música, ludoterapia y risoterapia (como *“Jardín MUSA”*).",
-        "imagen": ""
+        "descripcion": "Llevamos nuestro modelo de atención a hospitales, asilos y casas hogar mediante intervenciones breves de arte, música, ludoterapia y risoterapia (como *“Jardín MUSA”*)."
       }
     ]
   },
@@ -68,8 +61,10 @@
     {
       "titulo": "Bienvenidos al espacio oficial de MUSA La Salle Bajío",
       "fecha": "Noviembre 2026",
-      "tags": ["MUSA", "La Salle Bajío"],
-      "imagen": "",
+      "tags": [
+        "MUSA",
+        "La Salle Bajío"
+      ],
       "resumen": "Aquí compartiremos crónicas de nuestras brigadas, talleres campus y proyectos de arteterapia.",
       "contenido": "Este es el espacio digital independiente del **Capítulo La Salle Bajío**.\n\nA través de este blog documentaremos nuestras intervenciones creativas, jornadas de educación para la salud y brigadas comunitarias."
     }
