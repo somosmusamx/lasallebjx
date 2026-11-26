@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Editorial | MUSA La Salle Bajío</title>
+  <title>Panel Editorial y Miembros | MUSA La Salle Bajío</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,291 +29,98 @@
       min-height: 100vh;
     }
 
-    .display-title {
-      font-family: 'Anton', Impact, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
+    .display-title { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
 
     /* LOGIN */
-    .login-wrap {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-    .login-card {
-      background: #ffffff;
-      border: 2px solid var(--musa-lilac);
-      border-radius: 22px;
-      padding: 2.25rem;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: 0 12px 30px rgba(74, 20, 92, 0.08);
-    }
-    .login-card h1 {
-      font-size: 2rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 0.25rem;
-    }
-    .login-sub {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-    }
+    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+    .login-card { background: #ffffff; border: 2px solid var(--musa-lilac); border-radius: 22px; padding: 2.25rem; width: 100%; max-width: 420px; box-shadow: 0 12px 30px rgba(74, 20, 92, 0.08); }
+    .login-card h1 { font-size: 2rem; color: var(--musa-deep-purple); margin-bottom: 0.25rem; }
+    .login-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
 
     /* TOPBAR */
-    .topbar {
-      background: #ffffff;
-      border-bottom: 2px solid var(--musa-lilac);
-      padding: 0.85rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      position: sticky;
-      top: 0;
-      z-index: 30;
-    }
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .topbar-brand {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.35rem;
-      color: var(--musa-deep-purple);
-    }
-    .user-badge {
-      background: var(--musa-lilac-soft);
-      color: var(--musa-deep-purple);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-    }
-    .topbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
+    .topbar { background: #ffffff; border-bottom: 2px solid var(--musa-lilac); padding: 0.85rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; position: sticky; top: 0; z-index: 30; }
+    .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+    .topbar-brand { font-family: 'Anton', sans-serif; font-size: 1.35rem; color: var(--musa-deep-purple); }
+    .user-badge { background: var(--musa-lilac-soft); color: var(--musa-deep-purple); font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 999px; }
+    .topbar-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 
-    /* CONTENEDOR PRINCIPAL */
-    .admin-main {
-      max-width: 1020px;
-      margin: 2rem auto 4rem;
-      padding: 0 1.25rem;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 0.65rem;
-      margin-bottom: 1.75rem;
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      background: #ffffff;
-      color: var(--musa-deep-purple);
-      border: 2px solid var(--musa-lilac);
-      padding: 0.65rem 1.3rem;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    .tab-btn.is-active {
-      background: var(--musa-deep-purple);
-      color: #ffffff;
-      border-color: var(--musa-deep-purple);
-    }
-
+    /* CONTENEDOR */
+    .admin-main { max-width: 1040px; margin: 2rem auto 4rem; padding: 0 1.25rem; }
+    .tabs { display: flex; gap: 0.65rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+    .tab-btn { background: #ffffff; color: var(--musa-deep-purple); border: 2px solid var(--musa-lilac); padding: 0.65rem 1.3rem; border-radius: 999px; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+    .tab-btn.is-active { background: var(--musa-deep-purple); color: #ffffff; border-color: var(--musa-deep-purple); }
     .panel-section { display: none; }
     .panel-section.is-active { display: block; }
 
-    .card {
-      background: #ffffff;
-      border: 2px solid var(--musa-lilac);
-      border-radius: 18px;
-      padding: 1.75rem;
-      margin-bottom: 1.5rem;
-    }
-    .card h2 {
-      font-size: 1.55rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 0.35rem;
-    }
-    .card-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-    }
+    .card { background: #ffffff; border: 2px solid var(--musa-lilac); border-radius: 18px; padding: 1.75rem; margin-bottom: 1.5rem; }
+    .card h2 { font-size: 1.55rem; color: var(--musa-deep-purple); margin-bottom: 0.35rem; }
+    .card-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
 
     .form-group { margin-bottom: 1rem; }
-    .form-group label {
-      display: block;
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: var(--musa-deep-purple);
-      margin-bottom: 0.35rem;
+    .form-group label { display: block; font-size: 0.84rem; font-weight: 700; color: var(--musa-deep-purple); margin-bottom: 0.35rem; }
+    .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"],
+    .form-group input[type="url"], .form-group select, .form-group textarea {
+      width: 100%; padding: 0.72rem 0.9rem; border: 1.5px solid var(--musa-lilac); border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 0.93rem; background: var(--musa-cream);
     }
-    .form-group input[type="text"],
-    .form-group input[type="email"],
-    .form-group input[type="password"],
-    .form-group input[type="url"],
-    .form-group textarea {
-      width: 100%;
-      padding: 0.72rem 0.9rem;
-      border: 1.5px solid var(--musa-lilac);
-      border-radius: 10px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.93rem;
-      background: var(--musa-cream);
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    @media (max-width: 680px) {
-      .form-row { grid-template-columns: 1fr; }
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-row-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    @media (max-width: 680px) { .form-row { grid-template-columns: 1fr; } }
 
-    .btn {
-      background: var(--musa-deep-purple);
-      color: #ffffff;
-      border: 2px solid var(--musa-deep-purple);
-      padding: 0.65rem 1.3rem;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.86rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-    .btn.outline {
-      background: transparent;
-      color: var(--musa-deep-purple);
-    }
-    .btn.danger {
-      background: transparent;
-      color: var(--danger);
-      border-color: var(--danger);
-    }
-    .btn.small {
-      padding: 0.42rem 0.9rem;
-      font-size: 0.8rem;
-    }
-    .btn:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-    }
+    .btn { background: var(--musa-deep-purple); color: #ffffff; border: 2px solid var(--musa-deep-purple); padding: 0.65rem 1.3rem; border-radius: 999px; font-weight: 700; font-size: 0.86rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .btn.outline { background: transparent; color: var(--musa-deep-purple); }
+    .btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+    .btn.small { padding: 0.42rem 0.9rem; font-size: 0.8rem; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
-    .status-msg {
-      margin-top: 0.85rem;
-      font-size: 0.88rem;
-      font-weight: 700;
-    }
+    .status-msg { margin-top: 0.85rem; font-size: 0.88rem; font-weight: 700; }
     .status-msg.error { color: var(--danger); }
     .status-msg.success { color: var(--success); }
 
-    /* GRID DE IMÁGENES */
-    .images-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .img-slot {
-      border: 1.5px solid var(--musa-lilac);
-      border-radius: 14px;
-      padding: 1rem;
-      background: var(--musa-cream);
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-    }
-    .img-slot-title {
-      font-weight: 800;
-      font-size: 0.9rem;
-      color: var(--musa-deep-purple);
-    }
-    .img-preview-box {
-      width: 100%;
-      height: 150px;
-      border-radius: 10px;
-      background: #ffffff;
-      border: 1px dashed var(--musa-lilac);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      text-align: center;
-      padding: 0.5rem;
-    }
-    .img-preview-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .img-preview-box.is-logo img {
-      object-fit: contain;
-      padding: 0.5rem;
-    }
-    .img-slot-actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
+    /* IMÁGENES */
+    .images-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
+    .img-slot { border: 1.5px solid var(--musa-lilac); border-radius: 14px; padding: 1rem; background: var(--musa-cream); display: flex; flex-direction: column; gap: 0.65rem; }
+    .img-slot-title { font-weight: 800; font-size: 0.9rem; color: var(--musa-deep-purple); }
+    .img-preview-box { width: 100%; height: 150px; border-radius: 10px; background: #ffffff; border: 1px dashed var(--musa-lilac); display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 0.5rem; }
+    .img-preview-box img { width: 100%; height: 100%; object-fit: cover; }
+    .img-preview-box.is-logo img { object-fit: contain; padding: 0.5rem; }
+    .img-slot-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
 
-    /* LISTA DE POSTS */
-    .post-item {
-      border: 1.5px solid var(--musa-lilac);
-      border-radius: 14px;
-      padding: 1.15rem;
-      background: var(--musa-cream);
-      margin-bottom: 0.9rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
+    /* POSTS & MIEMBROS */
+    .post-item { border: 1.5px solid var(--musa-lilac); border-radius: 14px; padding: 1.15rem; background: var(--musa-cream); margin-bottom: 0.9rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
     .post-item-info { flex: 1; min-width: 220px; }
-    .post-item h3 {
-      font-size: 1.05rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 0.25rem;
-    }
-    .post-meta {
-      font-size: 0.8rem;
-      color: var(--musa-blue);
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-    }
-    .post-item-actions {
-      display: flex;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-    }
+    .post-item h3 { font-size: 1.05rem; color: var(--musa-deep-purple); margin-bottom: 0.25rem; }
+    .post-meta { font-size: 0.8rem; color: var(--musa-blue); font-weight: 700; margin-bottom: 0.35rem; }
+    .post-item-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+
+    .cred-box { display: none; background: #f0fdf4; border: 2px solid var(--success); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.9rem; }
+    .table-wrap { overflow-x: auto; }
+    table.musa-table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+    table.musa-table th, table.musa-table td { padding: 0.75rem 0.65rem; border-bottom: 1px solid var(--musa-lilac-soft); text-align: left; vertical-align: middle; }
+    table.musa-table th { font-size: 0.74rem; text-transform: uppercase; color: var(--musa-deep-purple); background: var(--musa-lilac-soft); }
+    .pill-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.74rem; font-weight: 700; background: var(--musa-lilac-soft); color: var(--musa-deep-purple); }
+    .pill-ok { background: #dcfce7; color: #166534; }
+    .pill-warn { background: #fef3c7; color: #92400e; }
+
+    /* MODAL PERFIL Y BITÁCORA */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(31, 22, 39, 0.72); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-backdrop.open { display: flex; }
+    .modal-box { background: #ffffff; border: 2px solid var(--musa-lilac); border-radius: 20px; max-width: 680px; width: 100%; padding: 1.75rem; max-height: 90vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .modal-close { background: var(--musa-lilac-soft); color: var(--musa-deep-purple); border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: 800; cursor: pointer; }
+    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
+    .profile-field { background: var(--musa-cream); border: 1px solid var(--musa-lilac); border-radius: 10px; padding: 0.6rem 0.85rem; }
+    .profile-field small { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--musa-blue); }
+    .session-log-card { background: var(--musa-cream); border: 1.5px solid var(--musa-lilac); border-left: 5px solid var(--musa-deep-purple); border-radius: 12px; padding: 0.95rem 1.1rem; margin-bottom: 0.75rem; font-size: 0.88rem; }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA DE INICIO DE SESIÓN -->
+  <!-- LOGIN -->
   <div id="login-view" class="login-wrap">
     <div class="login-card">
       <h1 class="display-title">MUSA LA SALLE BAJÍO</h1>
-      <p class="login-sub">Acceso exclusivo para edición de imágenes y publicaciones del blog.</p>
-
+      <p class="login-sub">Acceso exclusivo para administración editorial y gestión del Portal de Miembros.</p>
       <form id="login-form">
         <div class="form-group">
           <label for="login-email">Correo institucional</label>
@@ -329,7 +136,7 @@
     </div>
   </div>
 
-  <!-- PANEL EDITORIAL -->
+  <!-- PANEL -->
   <div id="admin-view" style="display:none;">
     <header class="topbar">
       <div class="topbar-left">
@@ -337,6 +144,7 @@
         <span class="user-badge" id="current-user-email"></span>
       </div>
       <div class="topbar-actions">
+        <a href="portal.html" target="_blank" rel="noopener" class="btn outline small">Portal Miembros ↗</a>
         <a href="index.html" target="_blank" rel="noopener" class="btn outline small">Ver sitio ↗</a>
         <button type="button" class="btn danger small" id="logout-btn">Cerrar sesión</button>
       </div>
@@ -344,71 +152,111 @@
 
     <main class="admin-main">
       <div class="tabs">
-        <button type="button" class="tab-btn is-active" data-tab="imagenes">Imágenes del sitio</button>
+        <button type="button" class="tab-btn is-active" data-tab="miembros">Miembros y PARES MUSA</button>
+        <button type="button" class="tab-btn" data-tab="imagenes">Imágenes del sitio</button>
         <button type="button" class="tab-btn" data-tab="blog">Publicaciones del Blog</button>
       </div>
 
-      <!-- PESTAÑA 1: IMÁGENES -->
-      <section id="tab-imagenes" class="panel-section is-active">
+      <!-- PESTAÑA 1: MIEMBROS Y PARES MUSA -->
+      <section id="tab-miembros" class="panel-section is-active">
+        <div class="card">
+          <h2 class="display-title">REGISTRAR INTEGRANTE</h2>
+          <p class="card-desc">Da de alta a miembros de MUSA o de la Escuela de Medicina del Bajío (EMB) y asígnalos al programa PARES MUSA.</p>
+
+          <form id="member-form">
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="m-nombre">Nombre completo</label>
+                <input type="text" id="m-nombre" required placeholder="Ej. Sofía Martínez López" />
+              </div>
+              <div class="form-group">
+                <label for="m-correo">Correo electrónico</label>
+                <input type="email" id="m-correo" required placeholder="correo@ejemplo.com" />
+              </div>
+              <div class="form-group">
+                <label for="m-afiliacion">Afiliación</label>
+                <select id="m-afiliacion">
+                  <option value="Miembro MUSA">Miembro MUSA</option>
+                  <option value="Miembro EMB">Miembro EMB (Escuela de Medicina del Bajío)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="m-pares">Programa PARES MUSA</label>
+                <select id="m-pares">
+                  <option value="No pertenece">No pertenece a PARES MUSA</option>
+                  <option value="Tutor">Tutor</option>
+                  <option value="Tutorado">Tutorado</option>
+                </select>
+              </div>
+              <div class="form-group" id="m-tutor-wrap" style="display:none;">
+                <label for="m-tutor">Vincular con Tutor</label>
+                <select id="m-tutor"></select>
+              </div>
+            </div>
+            <button type="submit" class="btn" id="m-submit-btn">Registrar y generar accesos</button>
+            <p id="m-status" class="status-msg"></p>
+          </form>
+
+          <div id="m-cred-box" class="cred-box"></div>
+        </div>
+
+        <div class="card">
+          <h2 class="display-title">DIRECTORIO DE MIEMBROS (<span id="members-count">0</span>)</h2>
+          <p class="card-desc">Consulta perfiles, vinculaciones y la bitácora de sesiones de cada integrante del programa PARES MUSA.</p>
+          <div class="form-group">
+            <input type="text" id="search-member" placeholder="Buscar por nombre, usuario, afiliación o rol..." />
+          </div>
+          <div class="table-wrap">
+            <table class="musa-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Usuario</th>
+                  <th>Afiliación</th>
+                  <th>PARES MUSA</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="members-tbody"><tr><td colspan="5">Cargando integrantes...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PESTAÑA 2: IMÁGENES -->
+      <section id="tab-imagenes" class="panel-section">
         <div class="card">
           <h2 class="display-title">IMÁGENES DEL MICROSITIO</h2>
           <p class="card-desc">Sube una imagen desde tu dispositivo o pega un enlace directo. Al finalizar, presiona <strong>Guardar imágenes</strong>.</p>
-
           <div class="images-grid" id="images-grid"></div>
-
           <button type="button" class="btn" id="save-images-btn">Guardar imágenes</button>
           <p id="images-status" class="status-msg"></p>
         </div>
       </section>
 
-      <!-- PESTAÑA 2: BLOG -->
+      <!-- PESTAÑA 3: BLOG -->
       <section id="tab-blog" class="panel-section">
         <div class="card">
           <h2 class="display-title" id="post-form-heading">NUEVA PUBLICACIÓN</h2>
           <p class="card-desc">Redacta una crónica, aviso o artículo para el blog del capítulo. Puedes usar <code>**negritas**</code> y saltos de línea.</p>
-
           <form id="post-form">
             <input type="hidden" id="post-id" />
-
             <div class="form-row">
-              <div class="form-group">
-                <label for="post-titulo">Título de la publicación</label>
-                <input type="text" id="post-titulo" required placeholder="Ej. Crónica de nuestra brigada Jardín MUSA" />
-              </div>
-              <div class="form-group">
-                <label for="post-fecha">Fecha visible</label>
-                <input type="text" id="post-fecha" required placeholder="Ej. Noviembre 2026" />
-              </div>
+              <div class="form-group"><label for="post-titulo">Título de la publicación</label><input type="text" id="post-titulo" required /></div>
+              <div class="form-group"><label for="post-fecha">Fecha visible</label><input type="text" id="post-fecha" required placeholder="Ej. Noviembre 2026" /></div>
             </div>
-
-            <div class="form-group">
-              <label for="post-tags">Etiquetas (separadas por coma)</label>
-              <input type="text" id="post-tags" placeholder="Ej. MUSA, La Salle Bajío, Brigadas" value="MUSA, La Salle Bajío" />
-            </div>
-
+            <div class="form-group"><label for="post-tags">Etiquetas (separadas por coma)</label><input type="text" id="post-tags" value="MUSA, La Salle Bajío" /></div>
             <div class="form-group">
               <label>Imagen de portada (opcional)</label>
               <div class="img-preview-box" id="post-img-preview" style="max-width:340px; margin-bottom:0.65rem;">Sin imagen seleccionada</div>
               <div class="img-slot-actions" style="margin-bottom:0.5rem;">
-                <label class="btn outline small" style="cursor:pointer;">
-                  Subir imagen
-                  <input type="file" id="post-img-file" accept="image/*" style="display:none;" />
-                </label>
+                <label class="btn outline small" style="cursor:pointer;">Subir imagen<input type="file" id="post-img-file" accept="image/*" style="display:none;" /></label>
                 <button type="button" class="btn danger small" id="post-img-clear">Quitar imagen</button>
               </div>
               <input type="url" id="post-img-url" placeholder="O pega un enlace directo a la imagen (https://...)" />
             </div>
-
-            <div class="form-group">
-              <label for="post-resumen">Resumen breve (aparece en la tarjeta del blog)</label>
-              <textarea id="post-resumen" rows="2" required placeholder="Describe en 1 o 2 líneas de qué trata la publicación..."></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="post-contenido">Contenido completo</label>
-              <textarea id="post-contenido" rows="7" required placeholder="Escribe aquí el texto completo de la publicación..."></textarea>
-            </div>
-
+            <div class="form-group"><label for="post-resumen">Resumen breve</label><textarea id="post-resumen" rows="2" required></textarea></div>
+            <div class="form-group"><label for="post-contenido">Contenido completo</label><textarea id="post-contenido" rows="7" required></textarea></div>
             <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
               <button type="submit" class="btn" id="post-submit-btn">Publicar entrada</button>
               <button type="button" class="btn outline" id="post-cancel-btn" style="display:none;">Cancelar edición</button>
@@ -419,30 +267,27 @@
 
         <div class="card">
           <h2 class="display-title">PUBLICACIONES ACTIVAS</h2>
-          <p class="card-desc">Aquí puedes editar o eliminar las entradas publicadas en el blog.</p>
           <div id="posts-admin-list">Cargando publicaciones...</div>
         </div>
       </section>
     </main>
   </div>
 
+  <!-- MODAL PERFIL + BITÁCORA PARES MUSA -->
+  <div id="member-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 class="display-title" style="font-size:1.35rem; color:var(--musa-deep-purple);" id="modal-m-title">PERFIL DEL INTEGRANTE</h2>
+        <button type="button" class="modal-close" id="close-member-modal">✕</button>
+      </div>
+      <div id="modal-m-body"></div>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import {
-      getFirestore,
-      doc,
-      getDoc,
-      setDoc,
-      deleteDoc,
-      collection,
-      getDocs
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCwvRexIpb_5vCZ-72Hh4qWG-wwPlShY3k",
@@ -471,6 +316,14 @@
     let currentImages = {};
     let currentPostImage = "";
     let postsCache = [];
+    let membersCache = [];
+    let sessionsCache = [];
+
+    function setStatus(elId, text, type = "") {
+      const el = document.getElementById(elId);
+      el.textContent = text;
+      el.className = "status-msg" + (type ? " " + type : "");
+    }
 
     function compressImage(file, maxWidth, isLogo = false) {
       return new Promise((resolve, reject) => {
@@ -481,20 +334,11 @@
           img.onerror = () => reject(new Error("El archivo no es una imagen válida."));
           img.onload = () => {
             let { width, height } = img;
-            if (width > maxWidth) {
-              height = Math.round((height * maxWidth) / width);
-              width = maxWidth;
-            }
+            if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
             const canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            const dataUrl = isLogo
-              ? canvas.toDataURL("image/png")
-              : canvas.toDataURL("image/jpeg", 0.72);
-            resolve(dataUrl);
+            canvas.width = width; canvas.height = height;
+            canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+            resolve(isLogo ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 0.72));
           };
           img.src = e.target.result;
         };
@@ -502,10 +346,17 @@
       });
     }
 
-    function setStatus(elId, text, type = "") {
-      const el = document.getElementById(elId);
-      el.textContent = text;
-      el.className = "status-msg" + (type ? " " + type : "");
+    function generateUsername(nombre) {
+      const clean = nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z\s]/g, "").trim().toUpperCase().split(/\s+/);
+      const base = (clean[0] || "USR").substring(0, 4) + (clean[1] ? clean[1].substring(0, 2) : "");
+      return "MUSA" + base + Math.floor(100 + Math.random() * 900);
+    }
+
+    function generatePassword(len = 9) {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#$%";
+      let pass = "";
+      for (let i = 0; i < len; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+      return pass;
     }
 
     document.querySelectorAll(".tab-btn").forEach((btn) => {
@@ -521,48 +372,234 @@
       const email = document.getElementById("login-email").value.trim();
       const password = document.getElementById("login-password").value;
       const btn = document.getElementById("login-btn");
-
       btn.disabled = true;
       setStatus("login-status", "Verificando credenciales...");
-
       try {
         await signInWithEmailAndPassword(auth, email, password);
         document.getElementById("login-form").reset();
         setStatus("login-status", "");
       } catch (err) {
-        setStatus("login-status", "Correo o contraseña incorrectos. Solicita acceso al administrador de MUSA.", "error");
-      } finally {
-        btn.disabled = false;
-      }
+        setStatus("login-status", "Correo o contraseña incorrectos.", "error");
+      } finally { btn.disabled = false; }
     });
 
-    document.getElementById("logout-btn").addEventListener("click", async () => {
-      await signOut(auth);
-    });
+    document.getElementById("logout-btn").addEventListener("click", async () => { await signOut(auth); });
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         document.getElementById("login-view").style.display = "none";
         document.getElementById("admin-view").style.display = "block";
         document.getElementById("current-user-email").textContent = user.email;
-        await loadImagesFromFirestore();
-        await loadPostsFromFirestore();
+        await Promise.all([loadMembersAndSessions(), loadImagesFromFirestore(), loadPostsFromFirestore()]);
       } else {
         document.getElementById("admin-view").style.display = "none";
         document.getElementById("login-view").style.display = "flex";
       }
     });
 
+    // ================= MIEMBROS Y PARES MUSA =================
+    document.getElementById("m-pares").addEventListener("change", (e) => {
+      document.getElementById("m-tutor-wrap").style.display = e.target.value === "Tutorado" ? "block" : "none";
+    });
+
+    function populateTutorSelect() {
+      const sel = document.getElementById("m-tutor");
+      const tutors = membersCache.filter(m => m.rolPares === "Tutor");
+      sel.innerHTML = `<option value="">-- Sin asignar por ahora --</option>` +
+        tutors.map(t => `<option value="${t.usuario}">${t.nombre} (${t.usuario})</option>`).join("");
+    }
+
+    async function loadMembersAndSessions() {
+      try {
+        const [mSnap, sSnap] = await Promise.all([getDocs(collection(db, "miembros")), getDocs(collection(db, "sesiones"))]);
+        membersCache = [];
+        mSnap.forEach(d => membersCache.push({ id: d.id, ...d.data() }));
+        membersCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+
+        sessionsCache = [];
+        sSnap.forEach(d => sessionsCache.push({ id: d.id, ...d.data() }));
+        sessionsCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+
+        populateTutorSelect();
+        renderMembersTable();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById("member-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("m-submit-btn");
+      btn.disabled = true;
+      setStatus("m-status", "Registrando integrante...");
+
+      const nombre = document.getElementById("m-nombre").value.trim();
+      const correo = document.getElementById("m-correo").value.trim();
+      const afiliacion = document.getElementById("m-afiliacion").value;
+      const rolPares = document.getElementById("m-pares").value;
+      const tutorUsuario = rolPares === "Tutorado" ? document.getElementById("m-tutor").value : "";
+      const tutorObj = membersCache.find(t => t.usuario === tutorUsuario);
+
+      const usuario = generateUsername(nombre);
+      const password = generatePassword(9);
+
+      const memberData = {
+        usuario, password, nombre, correo, afiliacion, rolPares,
+        tutorUsuario: tutorUsuario || "",
+        tutorNombre: tutorObj ? tutorObj.nombre : "",
+        foto: "",
+        creadoEn: Date.now()
+      };
+
+      try {
+        await setDoc(doc(db, "miembros", usuario), memberData);
+        document.getElementById("member-form").reset();
+        document.getElementById("m-tutor-wrap").style.display = "none";
+        await loadMembersAndSessions();
+        setStatus("m-status", "Integrante registrado correctamente.", "success");
+
+        const mailBody = encodeURIComponent(
+          `Hola ${nombre},\n\nTe damos la bienvenida al Portal de Miembros MUSA La Salle Bajío.\n\nTus accesos personales son:\nUsuario: ${usuario}\nContraseña: ${password}\n\nIngresa en: ${window.location.origin}/portal.html\n\nSaludos,\nMUSA La Salle Bajío`
+        );
+        const box = document.getElementById("m-cred-box");
+        box.innerHTML = `
+          <strong>Accesos generados para ${nombre}:</strong><br>
+          Usuario: <strong>${usuario}</strong> &nbsp;|&nbsp; Contraseña: <strong>${password}</strong>
+          <div style="margin-top:0.65rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <a class="btn small" href="mailto:${correo}?subject=${encodeURIComponent("Tus accesos al Portal de Miembros MUSA")}&body=${mailBody}">Enviar por correo</a>
+            <button type="button" class="btn outline small" onclick="navigator.clipboard.writeText('Usuario: ${usuario} | Contraseña: ${password}'); alert('Copiado al portapapeles.');">Copiar accesos</button>
+          </div>
+        `;
+        box.style.display = "block";
+      } catch (err) {
+        setStatus("m-status", "Error al registrar: " + err.message, "error");
+      } finally { btn.disabled = false; }
+    });
+
+    document.getElementById("search-member").addEventListener("input", renderMembersTable);
+
+    function renderMembersTable() {
+      const q = (document.getElementById("search-member").value || "").toLowerCase();
+      const filtered = membersCache.filter(m =>
+        (m.nombre || "").toLowerCase().includes(q) ||
+        (m.usuario || "").toLowerCase().includes(q) ||
+        (m.afiliacion || "").toLowerCase().includes(q) ||
+        (m.rolPares || "").toLowerCase().includes(q)
+      );
+      document.getElementById("members-count").textContent = membersCache.length;
+      const tbody = document.getElementById("members-tbody");
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:1rem;">Sin integrantes registrados.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = filtered.map(m => `
+        <tr>
+          <td><strong>${m.nombre}</strong><br><small style="color:var(--text-muted);">${m.correo}</small></td>
+          <td><strong>${m.usuario}</strong></td>
+          <td><span class="pill-tag">${m.afiliacion}</span></td>
+          <td>
+            <span class="pill-tag">${m.rolPares}</span>
+            ${m.rolPares === "Tutorado" && m.tutorNombre ? `<br><small style="color:var(--text-muted);">Tutor: ${m.tutorNombre}</small>` : ""}
+          </td>
+          <td style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <button type="button" class="btn outline small view-member-btn" data-id="${m.usuario}">Perfil / Bitácora</button>
+            <button type="button" class="btn danger small del-member-btn" data-id="${m.usuario}" data-name="${m.nombre}">Baja</button>
+          </td>
+        </tr>
+      `).join("");
+
+      tbody.querySelectorAll(".view-member-btn").forEach(btn => {
+        btn.addEventListener("click", () => openMemberProfileModal(btn.dataset.id));
+      });
+      tbody.querySelectorAll(".del-member-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          if (!confirm(`¿Dar de baja a ${btn.dataset.name} (${btn.dataset.id})?`)) return;
+          await deleteDoc(doc(db, "miembros", btn.dataset.id));
+          await loadMembersAndSessions();
+        });
+      });
+    }
+
+    function openMemberProfileModal(usuario) {
+      const m = membersCache.find(x => x.usuario === usuario);
+      if (!m) return;
+      const body = document.getElementById("modal-m-body");
+      const tutors = membersCache.filter(t => t.rolPares === "Tutor");
+
+      let bitacoraHtml = "";
+      if (m.rolPares === "Tutor" || m.rolPares === "Tutorado") {
+        const relSessions = sessionsCache.filter(s => s.tutorUsuario === m.usuario || s.tutoradoUsuario === m.usuario);
+        bitacoraHtml = `
+          <hr style="margin:1.1rem 0; border:none; border-top:1.5px solid var(--musa-lilac-soft);" />
+          <h3 class="display-title" style="color:var(--musa-deep-purple); font-size:1.1rem; margin-bottom:0.65rem;">BITÁCORA DE SESIONES PARES MUSA (${relSessions.length})</h3>
+          ${relSessions.length ? relSessions.map(s => `
+            <div class="session-log-card">
+              <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.35rem;">
+                <strong>${s.fecha} · ${s.hora} (${s.modalidad})</strong>
+                <span class="pill-tag ${s.confirmado ? "pill-ok" : "pill-warn"}">${s.confirmado ? "✓ Confirmada por Tutorado" : "Pendiente de confirmación"}</span>
+              </div>
+              <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.4rem;">
+                Tutor: <strong>${s.tutorNombre}</strong> · Tutorado: <strong>${s.tutoradoNombre}</strong>
+              </div>
+              <p><strong>Temas tratados:</strong> ${s.temas}</p>
+              <p style="margin-top:0.25rem;"><strong>Acuerdos:</strong> ${s.acuerdos}</p>
+            </div>
+          `).join("") : `<p style="font-size:0.88rem; color:var(--text-muted);">Aún no hay sesiones registradas para este integrante.</p>`}
+        `;
+      }
+
+      const relinkHtml = m.rolPares === "Tutorado" ? `
+        <div style="background:var(--musa-lilac-soft); padding:0.85rem; border-radius:12px; margin-bottom:1rem;">
+          <label style="display:block; font-size:0.78rem; font-weight:700; color:var(--musa-deep-purple); margin-bottom:0.35rem;">Reasignar Tutor vinculado:</label>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <select id="relink-tutor-sel" style="flex:1; padding:0.45rem; border-radius:8px; border:1px solid var(--musa-lilac);">
+              <option value="">-- Sin asignar --</option>
+              ${tutors.map(t => `<option value="${t.usuario}" ${t.usuario === m.tutorUsuario ? "selected" : ""}>${t.nombre} (${t.usuario})</option>`).join("")}
+            </select>
+            <button type="button" class="btn small" id="save-relink-btn">Guardar vínculo</button>
+          </div>
+        </div>
+      ` : "";
+
+      body.innerHTML = `
+        <div class="profile-grid">
+          <div class="profile-field"><small>Nombre</small><strong>${m.nombre}</strong></div>
+          <div class="profile-field"><small>Usuario</small><strong>${m.usuario}</strong></div>
+          <div class="profile-field"><small>Contraseña</small><strong>${m.password}</strong></div>
+          <div class="profile-field"><small>Correo</small><strong>${m.correo}</strong></div>
+          <div class="profile-field"><small>Afiliación</small><strong>${m.afiliacion}</strong></div>
+          <div class="profile-field"><small>PARES MUSA</small><strong>${m.rolPares}</strong></div>
+        </div>
+        ${relinkHtml}
+        ${bitacoraHtml}
+      `;
+
+      const relinkBtn = document.getElementById("save-relink-btn");
+      if (relinkBtn) {
+        relinkBtn.addEventListener("click", async () => {
+          const newTutorUser = document.getElementById("relink-tutor-sel").value;
+          const tObj = membersCache.find(t => t.usuario === newTutorUser);
+          await setDoc(doc(db, "miembros", m.usuario), { tutorUsuario: newTutorUser, tutorNombre: tObj ? tObj.nombre : "" }, { merge: true });
+          await loadMembersAndSessions();
+          alert("Vínculo actualizado.");
+          openMemberProfileModal(m.usuario);
+        });
+      }
+
+      document.getElementById("member-modal").classList.add("open");
+    }
+
+    document.getElementById("close-member-modal").addEventListener("click", () => {
+      document.getElementById("member-modal").classList.remove("open");
+    });
+
+    // ================= IMÁGENES Y BLOG (EXISTENTES) =================
     async function loadImagesFromFirestore() {
       currentImages = {};
       try {
         const snap = await getDoc(doc(db, "sitio", "imagenes"));
-        if (snap.exists()) {
-          currentImages = snap.data() || {};
-        }
-      } catch (err) {
-        console.error(err);
-      }
+        if (snap.exists()) currentImages = snap.data() || {};
+      } catch (err) { console.error(err); }
       renderImageSlots();
     }
 
@@ -573,14 +610,9 @@
         return `
           <div class="img-slot">
             <div class="img-slot-title">${slot.label}</div>
-            <div class="img-preview-box ${slot.isLogo ? "is-logo" : ""}" id="preview-${slot.key}">
-              ${val ? `<img src="${val}" alt="${slot.label}">` : "Sin imagen asignada"}
-            </div>
+            <div class="img-preview-box ${slot.isLogo ? "is-logo" : ""}" id="preview-${slot.key}">${val ? `<img src="${val}" alt="${slot.label}">` : "Sin imagen asignada"}</div>
             <div class="img-slot-actions">
-              <label class="btn outline small" style="cursor:pointer;">
-                Subir foto
-                <input type="file" accept="image/*" data-slot="${slot.key}" data-logo="${slot.isLogo}" class="slot-file-input" style="display:none;" />
-              </label>
+              <label class="btn outline small" style="cursor:pointer;">Subir foto<input type="file" accept="image/*" data-slot="${slot.key}" data-logo="${slot.isLogo}" class="slot-file-input" style="display:none;" /></label>
               <button type="button" class="btn danger small slot-clear-btn" data-slot="${slot.key}">Quitar</button>
             </div>
             <input type="url" class="slot-url-input" data-slot="${slot.key}" placeholder="O pega URL directa (https://...)" value="${val.startsWith("http") ? val : ""}" style="width:100%; padding:0.5rem 0.7rem; border:1px solid var(--musa-lilac); border-radius:8px; font-size:0.82rem; background:#fff;" />
@@ -590,143 +622,82 @@
 
       grid.querySelectorAll(".slot-file-input").forEach((input) => {
         input.addEventListener("change", async (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-          const key = input.dataset.slot;
-          const isLogo = input.dataset.logo === "true";
+          const file = e.target.files[0]; if (!file) return;
+          const key = input.dataset.slot, isLogo = input.dataset.logo === "true";
           try {
             const compressed = await compressImage(file, isLogo ? 420 : 820, isLogo);
             currentImages[key] = compressed;
             document.getElementById(`preview-${key}`).innerHTML = `<img src="${compressed}" alt="${key}">`;
-            const urlInput = grid.querySelector(`.slot-url-input[data-slot="${key}"]`);
-            if (urlInput) urlInput.value = "";
-            setStatus("images-status", "Imagen cargada. Presiona 'Guardar imágenes' para aplicar los cambios.");
-          } catch (err) {
-            setStatus("images-status", err.message, "error");
-          }
+            setStatus("images-status", "Imagen cargada. Presiona 'Guardar imágenes'.");
+          } catch (err) { setStatus("images-status", err.message, "error"); }
         });
       });
-
       grid.querySelectorAll(".slot-url-input").forEach((input) => {
         input.addEventListener("input", () => {
-          const key = input.dataset.slot;
-          const url = input.value.trim();
+          const key = input.dataset.slot, url = input.value.trim();
           currentImages[key] = url;
-          document.getElementById(`preview-${key}`).innerHTML = url
-            ? `<img src="${url}" alt="${key}">`
-            : "Sin imagen asignada";
+          document.getElementById(`preview-${key}`).innerHTML = url ? `<img src="${url}" alt="${key}">` : "Sin imagen asignada";
         });
       });
-
       grid.querySelectorAll(".slot-clear-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const key = btn.dataset.slot;
-          currentImages[key] = "";
+          const key = btn.dataset.slot; currentImages[key] = "";
           document.getElementById(`preview-${key}`).innerHTML = "Sin imagen asignada";
-          const urlInput = grid.querySelector(`.slot-url-input[data-slot="${key}"]`);
-          if (urlInput) urlInput.value = "";
         });
       });
     }
 
     document.getElementById("save-images-btn").addEventListener("click", async () => {
-      const btn = document.getElementById("save-images-btn");
-      btn.disabled = true;
+      const btn = document.getElementById("save-images-btn"); btn.disabled = true;
       setStatus("images-status", "Guardando imágenes...");
       try {
-        await setDoc(doc(db, "sitio", "imagenes"), {
-          ...currentImages,
-          actualizadoEn: Date.now()
-        });
-        setStatus("images-status", "Imágenes guardadas y publicadas correctamente en el sitio.", "success");
-      } catch (err) {
-        console.error(err);
-        setStatus("images-status", "Error al guardar. Verifica que tu correo esté autorizado en las reglas de Firestore.", "error");
-      } finally {
-        btn.disabled = false;
-      }
+        await setDoc(doc(db, "sitio", "imagenes"), { ...currentImages, actualizadoEn: Date.now() });
+        setStatus("images-status", "Imágenes guardadas correctamente.", "success");
+      } catch (err) { setStatus("images-status", "Error al guardar.", "error"); }
+      finally { btn.disabled = false; }
     });
 
     function updatePostImagePreview(src) {
       currentPostImage = src || "";
-      const box = document.getElementById("post-img-preview");
-      box.innerHTML = currentPostImage
-        ? `<img src="${currentPostImage}" alt="Portada de publicación">`
-        : "Sin imagen seleccionada";
+      document.getElementById("post-img-preview").innerHTML = currentPostImage ? `<img src="${currentPostImage}" alt="Portada">` : "Sin imagen seleccionada";
     }
-
     document.getElementById("post-img-file").addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      try {
-        const compressed = await compressImage(file, 900, false);
-        updatePostImagePreview(compressed);
-        document.getElementById("post-img-url").value = "";
-      } catch (err) {
-        setStatus("post-status", err.message, "error");
-      }
+      const file = e.target.files[0]; if (!file) return;
+      try { updatePostImagePreview(await compressImage(file, 900, false)); document.getElementById("post-img-url").value = ""; }
+      catch (err) { setStatus("post-status", err.message, "error"); }
     });
-
-    document.getElementById("post-img-url").addEventListener("input", (e) => {
-      updatePostImagePreview(e.target.value.trim());
-    });
-
-    document.getElementById("post-img-clear").addEventListener("click", () => {
-      updatePostImagePreview("");
-      document.getElementById("post-img-url").value = "";
-      document.getElementById("post-img-file").value = "";
-    });
+    document.getElementById("post-img-url").addEventListener("input", (e) => updatePostImagePreview(e.target.value.trim()));
+    document.getElementById("post-img-clear").addEventListener("click", () => { updatePostImagePreview(""); document.getElementById("post-img-url").value = ""; });
 
     function resetPostForm() {
-      document.getElementById("post-form").reset();
-      document.getElementById("post-id").value = "";
+      document.getElementById("post-form").reset(); document.getElementById("post-id").value = "";
       document.getElementById("post-tags").value = "MUSA, La Salle Bajío";
       document.getElementById("post-form-heading").textContent = "NUEVA PUBLICACIÓN";
       document.getElementById("post-submit-btn").textContent = "Publicar entrada";
       document.getElementById("post-cancel-btn").style.display = "none";
       updatePostImagePreview("");
     }
-
-    document.getElementById("post-cancel-btn").addEventListener("click", () => {
-      resetPostForm();
-      setStatus("post-status", "");
-    });
+    document.getElementById("post-cancel-btn").addEventListener("click", () => { resetPostForm(); setStatus("post-status", ""); });
 
     document.getElementById("post-form").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const btn = document.getElementById("post-submit-btn");
-      btn.disabled = true;
-      setStatus("post-status", "Guardando publicación...");
-
+      const btn = document.getElementById("post-submit-btn"); btn.disabled = true;
       const existingId = document.getElementById("post-id").value;
       const docId = existingId || `post_${Date.now()}`;
-      const tagsRaw = document.getElementById("post-tags").value;
-      const tags = tagsRaw.split(",").map((t) => t.trim()).filter(Boolean);
-
+      const tags = document.getElementById("post-tags").value.split(",").map(t => t.trim()).filter(Boolean);
       const postData = {
-        tipo: "post",
-        titulo: document.getElementById("post-titulo").value.trim(),
-        fecha: document.getElementById("post-fecha").value.trim(),
-        tags: tags.length ? tags : ["MUSA"],
-        imagen: currentPostImage,
-        resumen: document.getElementById("post-resumen").value.trim(),
+        tipo: "post", titulo: document.getElementById("post-titulo").value.trim(),
+        fecha: document.getElementById("post-fecha").value.trim(), tags: tags.length ? tags : ["MUSA"],
+        imagen: currentPostImage, resumen: document.getElementById("post-resumen").value.trim(),
         contenido: document.getElementById("post-contenido").value.trim(),
-        creadoEn: existingId
-          ? (postsCache.find((p) => p.id === existingId)?.creadoEn || Date.now())
-          : Date.now()
+        creadoEn: existingId ? (postsCache.find(p => p.id === existingId)?.creadoEn || Date.now()) : Date.now()
       };
-
       try {
         await setDoc(doc(db, "sitio", docId), postData);
-        resetPostForm();
-        await loadPostsFromFirestore();
+        resetPostForm(); await loadPostsFromFirestore();
         setStatus("post-status", "Publicación guardada correctamente.", "success");
-      } catch (err) {
-        console.error(err);
-        setStatus("post-status", "No se pudo guardar la publicación. Verifica los permisos de tu cuenta.", "error");
-      } finally {
-        btn.disabled = false;
-      }
+      } catch (err) { setStatus("post-status", "Error al guardar publicación.", "error"); }
+      finally { btn.disabled = false; }
     });
 
     async function loadPostsFromFirestore() {
@@ -734,69 +705,35 @@
       try {
         const snapshot = await getDocs(collection(db, "sitio"));
         postsCache = [];
-        snapshot.forEach((docSnap) => {
-          const d = docSnap.data();
-          if (docSnap.id.startsWith("post_") || d.tipo === "post") {
-            postsCache.push({ id: docSnap.id, ...d });
-          }
-        });
+        snapshot.forEach(d => { const data = d.data(); if (d.id.startsWith("post_") || data.tipo === "post") postsCache.push({ id: d.id, ...data }); });
         postsCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
-
-        if (postsCache.length === 0) {
-          container.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Aún no hay publicaciones creadas desde el panel.</p>`;
-          return;
-        }
-
-        container.innerHTML = postsCache.map((p) => `
+        if (!postsCache.length) { container.innerHTML = `<p style="color:var(--text-muted);">Aún no hay publicaciones.</p>`; return; }
+        container.innerHTML = postsCache.map(p => `
           <div class="post-item">
-            <div class="post-item-info">
-              <div class="post-meta">${p.fecha || ""} · ${(p.tags || []).join(", ")}</div>
-              <h3>${p.titulo || "Sin título"}</h3>
-              <p style="font-size:0.88rem; color:var(--text-muted);">${p.resumen || ""}</p>
-            </div>
-            <div class="post-item-actions">
-              <button type="button" class="btn outline small edit-post-btn" data-id="${p.id}">Editar</button>
-              <button type="button" class="btn danger small delete-post-btn" data-id="${p.id}">Eliminar</button>
-            </div>
+            <div class="post-item-info"><div class="post-meta">${p.fecha || ""} · ${(p.tags || []).join(", ")}</div><h3>${p.titulo}</h3><p style="font-size:0.88rem; color:var(--text-muted);">${p.resumen}</p></div>
+            <div class="post-item-actions"><button type="button" class="btn outline small edit-post-btn" data-id="${p.id}">Editar</button><button type="button" class="btn danger small delete-post-btn" data-id="${p.id}">Eliminar</button></div>
           </div>
         `).join("");
-
-        container.querySelectorAll(".edit-post-btn").forEach((btn) => {
+        container.querySelectorAll(".edit-post-btn").forEach(btn => {
           btn.addEventListener("click", () => {
-            const p = postsCache.find((item) => item.id === btn.dataset.id);
-            if (!p) return;
-            document.getElementById("post-id").value = p.id;
-            document.getElementById("post-titulo").value = p.titulo || "";
-            document.getElementById("post-fecha").value = p.fecha || "";
-            document.getElementById("post-tags").value = (p.tags || []).join(", ");
-            document.getElementById("post-resumen").value = p.resumen || "";
-            document.getElementById("post-contenido").value = p.contenido || "";
+            const p = postsCache.find(i => i.id === btn.dataset.id); if (!p) return;
+            document.getElementById("post-id").value = p.id; document.getElementById("post-titulo").value = p.titulo || "";
+            document.getElementById("post-fecha").value = p.fecha || ""; document.getElementById("post-tags").value = (p.tags || []).join(", ");
+            document.getElementById("post-resumen").value = p.resumen || ""; document.getElementById("post-contenido").value = p.contenido || "";
             updatePostImagePreview(p.imagen || "");
-            document.getElementById("post-img-url").value = (p.imagen || "").startsWith("http") ? p.imagen : "";
             document.getElementById("post-form-heading").textContent = "EDITAR PUBLICACIÓN";
             document.getElementById("post-submit-btn").textContent = "Guardar cambios";
             document.getElementById("post-cancel-btn").style.display = "inline-flex";
-            setStatus("post-status", "");
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
         });
-
-        container.querySelectorAll(".delete-post-btn").forEach((btn) => {
+        container.querySelectorAll(".delete-post-btn").forEach(btn => {
           btn.addEventListener("click", async () => {
-            if (!confirm("¿Seguro que deseas eliminar esta publicación del blog?")) return;
-            try {
-              await deleteDoc(doc(db, "sitio", btn.dataset.id));
-              await loadPostsFromFirestore();
-              setStatus("post-status", "Publicación eliminada.", "success");
-            } catch (err) {
-              setStatus("post-status", "Error al eliminar la publicación.", "error");
-            }
+            if (!confirm("¿Eliminar publicación?")) return;
+            await deleteDoc(doc(db, "sitio", btn.dataset.id)); await loadPostsFromFirestore();
           });
         });
-      } catch (err) {
-        console.error(err);
-        container.innerHTML = `<p style="color:var(--danger);">Error al cargar publicaciones.</p>`;
-      }
+      } catch (err) { container.innerHTML = `<p style="color:var(--danger);">Error al cargar.</p>`; }
     }
   </script>
 </body>
