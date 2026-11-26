@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Miembros | MUSA La Salle Bajío</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --musa-deep-purple: #4a145c;
+      --musa-lilac: #c59cd9;
+      --musa-lilac-soft: #efe5f5;
+      --musa-blue: #7d93c8;
+      --musa-cream: #fcfbf5;
+      --text-dark: #1f1627;
+      --text-muted: #4b3f54;
+      --danger: #b42318;
+      --success: #067647;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--musa-cream); color: var(--text-dark); line-height: 1.55; min-height: 100vh; }
+    .display-title { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+
+    /* LOGIN */
+    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+    .login-card { background: #fff; border: 2px solid var(--musa-lilac); border-radius: 22px; padding: 2.25rem; width: 100%; max-width: 420px; box-shadow: 0 12px 30px rgba(74, 20, 92, 0.08); }
+    .login-card h1 { font-size: 1.9rem; color: var(--musa-deep-purple); margin-bottom: 0.3rem; }
+
+    /* TOPBAR */
+    .topbar { background: #fff; border-bottom: 2px solid var(--musa-lilac); padding: 0.85rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; position: sticky; top: 0; z-index: 30; }
+    .user-chip { display: flex; align-items: center; gap: 0.65rem; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--musa-lilac-soft); color: var(--musa-deep-purple); border: 2px solid var(--musa-lilac); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; overflow: hidden; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* LAYOUT */
+    .main-wrap { max-width: 980px; margin: 1.75rem auto 4rem; padding: 0 1.25rem; }
+    .tabs { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab-btn { background: #fff; color: var(--musa-deep-purple); border: 2px solid var(--musa-lilac); padding: 0.6rem 1.2rem; border-radius: 999px; font-weight: 700; font-size: 0.86rem; cursor: pointer; }
+    .tab-btn.is-active { background: var(--musa-deep-purple); color: #fff; border-color: var(--musa-deep-purple); }
+    .panel { display: none; }
+    .panel.is-active { display: block; }
+
+    .card { background: #fff; border: 2px solid var(--musa-lilac); border-radius: 18px; padding: 1.5rem; margin-bottom: 1.25rem; }
+    .card h2 { font-size: 1.45rem; color: var(--musa-deep-purple); margin-bottom: 0.35rem; }
+    .form-group { margin-bottom: 0.9rem; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--musa-deep-purple); margin-bottom: 0.3rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.68rem 0.85rem; border: 1.5px solid var(--musa-lilac); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.92rem; background: var(--musa-cream); }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.9rem; }
+
+    .btn { background: var(--musa-deep-purple); color: #fff; border: 2px solid var(--musa-deep-purple); padding: 0.6rem 1.25rem; border-radius: 999px; font-weight: 700; font-size: 0.84rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .btn.outline { background: transparent; color: var(--musa-deep-purple); }
+    .btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+    .btn.small { padding: 0.38rem 0.85rem; font-size: 0.78rem; }
+
+    .item-box { background: var(--musa-cream); border: 1.5px solid var(--musa-lilac); border-radius: 14px; padding: 1.1rem; margin-bottom: 0.85rem; }
+    .pill { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.74rem; font-weight: 700; background: var(--musa-lilac-soft); color: var(--musa-deep-purple); }
+    .pill-ok { background: #dcfce7; color: #166534; }
+    .pill-warn { background: #fef3c7; color: #92400e; }
+
+    .reply-item { background: #fff; border-left: 3px solid var(--musa-blue); padding: 0.55rem 0.85rem; border-radius: 8px; margin-top: 0.5rem; font-size: 0.86rem; }
+    .notif-banner { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 14px; padding: 0.9rem 1.15rem; margin-bottom: 1.25rem; font-size: 0.9rem; display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="login-view" class="login-wrap">
+    <div class="login-card">
+      <h1 class="display-title">PORTAL MIEMBROS MUSA</h1>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.35rem;">Ingresa con el usuario y contraseña asignados por la coordinación de MUSA La Salle Bajío.</p>
+      <form id="login-form">
+        <div class="form-group"><label>Usuario</label><input type="text" id="l-user" required placeholder="Ej. MUSA..." /></div>
+        <div class="form-group"><label>Contraseña</label><input type="password" id="l-pass" required placeholder="••••••••" /></div>
+        <button type="submit" class="btn" id="l-btn" style="width:100%; justify-content:center;">Ingresar</button>
+        <p id="l-err" style="color:var(--danger); font-size:0.84rem; font-weight:700; margin-top:0.75rem;"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- PORTAL -->
+  <div id="portal-view" style="display:none;">
+    <header class="topbar">
+      <div class="user-chip">
+        <div class="avatar" id="top-avatar"></div>
+        <div>
+          <strong id="top-name" style="display:block; font-size:0.9rem; color:var(--musa-deep-purple);"></strong>
+          <small id="top-meta" style="color:var(--text-muted); font-weight:600;"></small>
+        </div>
+      </div>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <button type="button" class="btn danger small" id="logout-btn">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <main class="main-wrap">
+      <div id="pending-sessions-banner" class="notif-banner"></div>
+
+      <div class="tabs">
+        <button type="button" class="tab-btn is-active" data-tab="recursos">Recursos y Archivos</button>
+        <button type="button" class="tab-btn" data-tab="dudas">Foro de Dudas</button>
+        <button type="button" class="tab-btn" data-tab="pares" id="tab-btn-pares" style="display:none;">PARES MUSA</button>
+        <button type="button" class="tab-btn" data-tab="perfil">Mi Perfil</button>
+      </div>
+
+      <!-- 1. RECURSOS -->
+      <section id="panel-recursos" class="panel is-active">
+        <div class="card">
+          <h2 class="display-title">COMPARTIR RECURSO DE LA CARRERA</h2>
+          <form id="resource-form">
+            <div class="form-row">
+              <div class="form-group"><label>Título del material</label><input type="text" id="r-titulo" required placeholder="Ej. Guía de NANDA / NIC / NOC" /></div>
+              <div class="form-group"><label>Materia o área</label><input type="text" id="r-materia" required placeholder="Ej. Enfermería Quirúrgica" /></div>
+            </div>
+            <div class="form-group"><label>Enlace al archivo (Google Drive, PDF, Canva, etc.)</label><input type="url" id="r-url" required placeholder="https://..." /></div>
+            <div class="form-group"><label>Descripción breve</label><textarea id="r-desc" rows="2" placeholder="¿Qué incluye este archivo?"></textarea></div>
+            <button type="submit" class="btn">Publicar recurso</button>
+          </form>
+        </div>
+        <div class="card">
+          <h2 class="display-title">BIBLIOTECA COMPARTIDA</h2>
+          <div id="resources-list">Cargando recursos...</div>
+        </div>
+      </section>
+
+      <!-- 2. FORO DE DUDAS -->
+      <section id="panel-dudas" class="panel">
+        <div class="card">
+          <h2 class="display-title">PUBLICAR UNA DUDA</h2>
+          <form id="doubt-form">
+            <div class="form-group"><label>Tema o materia</label><input type="text" id="d-tema" required placeholder="Ej. Farmacología / Prácticas clínicas" /></div>
+            <div class="form-group"><label>Tu pregunta</label><textarea id="d-texto" rows="3" required placeholder="Describe tu duda para que otros miembros puedan ayudarte..."></textarea></div>
+            <button type="submit" class="btn">Publicar duda</button>
+          </form>
+        </div>
+        <div class="card">
+          <h2 class="display-title">DUDAS RECIENTES</h2>
+          <div id="doubts-list">Cargando foro...</div>
+        </div>
+      </section>
+
+      <!-- 3. PARES MUSA -->
+      <section id="panel-pares" class="panel">
+        <div class="card">
+          <h2 class="display-title">PROGRAMAR CITA (TUTOR / TUTORADO)</h2>
+          <p id="pares-partner-info" style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;"></p>
+          <form id="cita-form">
+            <div class="form-row">
+              <div class="form-group" id="cita-target-wrap" style="display:none;"><label>Tutorado</label><select id="c-target"></select></div>
+              <div class="form-group"><label>Fecha</label><input type="date" id="c-fecha" required /></div>
+              <div class="form-group"><label>Hora</label><input type="time" id="c-hora" required /></div>
+              <div class="form-group"><label>Modalidad</label><select id="c-mod"><option value="Presencial">Presencial</option><option value="Virtual">Virtual</option></select></div>
+            </div>
+            <div class="form-group"><label>Lugar o enlace de reunión / Notas</label><input type="text" id="c-nota" required placeholder="Ej. Biblioteca / Enlace de Meet" /></div>
+            <button type="submit" class="btn">Agendar cita</button>
+          </form>
+          <div id="citas-list" style="margin-top:1.15rem;"></div>
+        </div>
+
+        <div class="card" id="tutor-log-card" style="display:none;">
+          <h2 class="display-title">REGISTRAR SESIÓN EN BITÁCORA</h2>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">Al registrar la sesión, tu tutorado recibirá un aviso en su portal para confirmar su asistencia.</p>
+          <form id="session-form">
+            <div class="form-row">
+              <div class="form-group"><label>Tutorado</label><select id="s-tutorado" required></select></div>
+              <div class="form-group"><label>Día</label><input type="date" id="s-fecha" required /></div>
+              <div class="form-group"><label>Hora</label><input type="time" id="s-hora" required /></div>
+              <div class="form-group"><label>Modalidad</label><select id="s-mod"><option value="Presencial">Presencial</option><option value="Virtual">Virtual</option></select></div>
+            </div>
+            <div class="form-group"><label>¿Qué hablaron en la sesión?</label><textarea id="s-temas" rows="2" required></textarea></div>
+            <div class="form-group"><label>Acuerdos establecidos</label><textarea id="s-acuerdos" rows="2" required></textarea></div>
+            <button type="submit" class="btn">Guardar en bitácora</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="display-title">HISTORIAL DE SESIONES PARES MUSA</h2>
+          <div id="sessions-list">Cargando sesiones...</div>
+        </div>
+      </section>
+
+      <!-- 4. MI PERFIL -->
+      <section id="panel-perfil" class="panel">
+        <div class="card" style="max-width:540px;">
+          <h2 class="display-title">MI PERFIL</h2>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:1.1rem;">Tus datos institucionales son de solo lectura. Puedes actualizar tu fotografía de perfil.</p>
+          <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem; flex-wrap:wrap;">
+            <div class="avatar" id="prof-avatar" style="width:84px; height:84px; font-size:1.6rem;"></div>
+            <div>
+              <label class="btn small" style="cursor:pointer;">Cambiar foto de perfil<input type="file" id="prof-photo-input" accept="image/*" style="display:none;" /></label>
+              <p id="prof-photo-status" style="font-size:0.78rem; color:var(--text-muted); margin-top:0.35rem;"></p>
+            </div>
+          </div>
+          <div id="prof-fields"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwvRexIpb_5vCZ-72Hh4qWG-wwPlShY3k",
+      authDomain: "musa-lasallebjx.firebaseapp.com",
+      projectId: "musa-lasallebjx",
+      storageBucket: "musa-lasallebjx.firebasestorage.app",
+      messagingSenderId: "987361839924",
+      appId: "1:987361839924:web:7611bcd62db66df4217361",
+      measurementId: "G-C342LRNRCD"
+    };
+
+    const db = getFirestore(initializeApp(firebaseConfig));
+    let currentUser = null;
+    let myTutorados = [];
+
+    function initials(name) { return (name || "M").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase(); }
+    function setAvatar(el, foto, name) { el.innerHTML = foto ? `<img src="${foto}" alt="${name}">` : initials(name); }
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("is-active", b === btn));
+        document.querySelectorAll(".panel").forEach(p => p.classList.toggle("is-active", p.id === `panel-${btn.dataset.tab}`));
+      });
+    });
+
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const u = document.getElementById("l-user").value.trim().toUpperCase();
+      const p = document.getElementById("l-pass").value.trim();
+      const err = document.getElementById("l-err");
+      err.textContent = "";
+      try {
+        const snap = await getDoc(doc(db, "miembros", u));
+        if (!snap.exists() || snap.data().password !== p) {
+          err.textContent = "Usuario o contraseña incorrectos.";
+          return;
+        }
+        currentUser = snap.data();
+        document.getElementById("login-view").style.display = "none";
+        document.getElementById("portal-view").style.display = "block";
+        initPortal();
+      } catch (ex) { err.textContent = "Error de conexión."; }
+    });
+
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      currentUser = null;
+      document.getElementById("portal-view").style.display = "none";
+      document.getElementById("login-view").style.display = "flex";
+      document.getElementById("l-pass").value = "";
+    });
+
+    async function initPortal() {
+      document.getElementById("top-name").textContent = currentUser.nombre;
+      document.getElementById("top-meta").textContent = `${currentUser.afiliacion} · ${currentUser.rolPares}`;
+      setAvatar(document.getElementById("top-avatar"), currentUser.foto, currentUser.nombre);
+      renderProfile();
+
+      const isPares = currentUser.rolPares === "Tutor" || currentUser.rolPares === "Tutorado";
+      document.getElementById("tab-btn-pares").style.display = isPares ? "inline-block" : "none";
+      if (isPares) await initParesModule();
+
+      await Promise.all([loadResources(), loadDoubts()]);
+    }
+
+    // ================= PERFIL Y FOTO =================
+    function renderProfile() {
+      setAvatar(document.getElementById("prof-avatar"), currentUser.foto, currentUser.nombre);
+      const rows = [
+        ["Nombre completo", currentUser.nombre],
+        ["Usuario", currentUser.usuario],
+        ["Correo", currentUser.correo],
+        ["Afiliación", currentUser.afiliacion],
+        ["PARES MUSA", currentUser.rolPares]
+      ];
+      if (currentUser.rolPares === "Tutorado" && currentUser.tutorNombre) rows.push(["Tutor asignado", currentUser.tutorNombre]);
+      document.getElementById("prof-fields").innerHTML = rows.map(([k, v]) => `
+        <div class="item-box" style="padding:0.65rem 0.9rem; margin-bottom:0.55rem;">
+          <small style="display:block; font-size:0.72rem; font-weight:700; color:var(--musa-blue); text-transform:uppercase;">${k}</small>
+          <strong>${v}</strong>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("prof-photo-input").addEventListener("change", (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const st = document.getElementById("prof-photo-status");
+      st.textContent = "Guardando foto...";
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = async () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = 180; canvas.height = 180;
+          const min = Math.min(img.width, img.height);
+          canvas.getContext("2d").drawImage(img, (img.width - min) / 2, (img.height - min) / 2, min, min, 0, 0, 180, 180);
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.72);
+          await setDoc(doc(db, "miembros", currentUser.usuario), { foto: dataUrl }, { merge: true });
+          currentUser.foto = dataUrl;
+          setAvatar(document.getElementById("top-avatar"), dataUrl, currentUser.nombre);
+          setAvatar(document.getElementById("prof-avatar"), dataUrl, currentUser.nombre);
+          st.textContent = "Foto actualizada.";
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // ================= RECURSOS =================
+    document.getElementById("resource-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = "rec_" + Date.now();
+      await setDoc(doc(db, "recursos", id), {
+        titulo: document.getElementById("r-titulo").value.trim(),
+        materia: document.getElementById("r-materia").value.trim(),
+        url: document.getElementById("r-url").value.trim(),
+        desc: document.getElementById("r-desc").value.trim(),
+        autor: currentUser.nombre,
+        creadoEn: Date.now()
+      });
+      document.getElementById("resource-form").reset();
+      await loadResources();
+    });
+
+    async function loadResources() {
+      const snap = await getDocs(collection(db, "recursos"));
+      const list = []; snap.forEach(d => list.push(d.data()));
+      list.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+      document.getElementById("resources-list").innerHTML = list.length ? list.map(r => `
+        <div class="item-box">
+          <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+            <strong style="color:var(--musa-deep-purple);">${r.titulo}</strong>
+            <span class="pill">${r.materia}</span>
+          </div>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0.35rem 0 0.65rem;">${r.desc || ""} · Compartido por ${r.autor}</p>
+          <a href="${r.url}" target="_blank" rel="noopener" class="btn small">Abrir recurso ↗</a>
+        </div>
+      `).join("") : `<p style="color:var(--text-muted);">Aún no hay recursos compartidos.</p>`;
+    }
+
+    // ================= FORO DE DUDAS =================
+    document.getElementById("doubt-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = "duda_" + Date.now();
+      await setDoc(doc(db, "dudas", id), {
+        id, tema: document.getElementById("d-tema").value.trim(),
+        texto: document.getElementById("d-texto").value.trim(),
+        autor: currentUser.nombre, respuestas: [], creadoEn: Date.now()
+      });
+      document.getElementById("doubt-form").reset();
+      await loadDoubts();
+    });
+
+    async function loadDoubts() {
+      const snap = await getDocs(collection(db, "dudas"));
+      const list = []; snap.forEach(d => list.push({ id: d.id, ...d.data() }));
+      list.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+      const box = document.getElementById("doubts-list");
+      if (!list.length) { box.innerHTML = `<p style="color:var(--text-muted);">Aún no hay dudas publicadas.</p>`; return; }
+      box.innerHTML = list.map(d => `
+        <div class="item-box">
+          <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.4rem;">
+            <span class="pill">${d.tema}</span>
+            <small style="color:var(--text-muted);">Por ${d.autor}</small>
+          </div>
+          <p style="margin:0.5rem 0; font-weight:600;">${d.texto}</p>
+          <div>${(d.respuestas || []).map(r => `<div class="reply-item"><strong>${r.autor}:</strong> ${r.texto}</div>`).join("")}</div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.7rem;">
+            <input type="text" id="rep-${d.id}" placeholder="Escribe una respuesta..." style="flex:1; padding:0.45rem 0.7rem; border:1px solid var(--musa-lilac); border-radius:8px;" />
+            <button type="button" class="btn small reply-btn" data-id="${d.id}">Responder</button>
+          </div>
+        </div>
+      `).join("");
+
+      box.querySelectorAll(".reply-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const d = list.find(x => x.id === btn.dataset.id);
+          const txt = document.getElementById(`rep-${d.id}`).value.trim();
+          if (!txt) return;
+          const updated = [...(d.respuestas || []), { autor: currentUser.nombre, texto: txt }];
+          await setDoc(doc(db, "dudas", d.id), { respuestas: updated }, { merge: true });
+          await loadDoubts();
+        });
+      });
+    }
+
+    // ================= PARES MUSA (CITAS Y BITÁCORA) =================
+    async function initParesModule() {
+      const mSnap = await getDocs(collection(db, "miembros"));
+      const allMembers = []; mSnap.forEach(d => allMembers.push(d.data()));
+
+      if (currentUser.rolPares === "Tutor") {
+        myTutorados = allMembers.filter(m => m.rolPares === "Tutorado" && m.tutorUsuario === currentUser.usuario);
+        document.getElementById("tutor-log-card").style.display = "block";
+        document.getElementById("cita-target-wrap").style.display = "block";
+        const opts = myTutorados.length
+          ? myTutorados.map(t => `<option value="${t.usuario}">${t.nombre}</option>`).join("")
+          : `<option value="">(Sin tutorados asignados)</option>`;
+        document.getElementById("s-tutorado").innerHTML = opts;
+        document.getElementById("c-target").innerHTML = opts;
+        document.getElementById("pares-partner-info").textContent = `Tutorados vinculados: ${myTutorados.map(t => t.nombre).join(", ") || "Ninguno asignado todavía"}`;
+      } else {
+        document.getElementById("tutor-log-card").style.display = "none";
+        document.getElementById("cita-target-wrap").style.display = "none";
+        document.getElementById("pares-partner-info").textContent = `Tu Tutor asignado: ${currentUser.tutorNombre || "Pendiente de asignación"}`;
+      }
+      await Promise.all([loadCitas(), loadSessions()]);
+    }
+
+    document.getElementById("cita-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const isTutor = currentUser.rolPares === "Tutor";
+      const targetUser = isTutor ? document.getElementById("c-target").value : currentUser.tutorUsuario;
+      if (!targetUser) { alert("No hay un vínculo asignado para agendar cita."); return; }
+      const id = "cita_" + Date.now();
+      await setDoc(doc(db, "citas", id), {
+        tutorUsuario: isTutor ? currentUser.usuario : currentUser.tutorUsuario,
+        tutoradoUsuario: isTutor ? targetUser : currentUser.usuario,
+        creadoPor: currentUser.nombre,
+        fecha: document.getElementById("c-fecha").value,
+        hora: document.getElementById("c-hora").value,
+        modalidad: document.getElementById("c-mod").value,
+        nota: document.getElementById("c-nota").value.trim(),
+        creadoEn: Date.now()
+      });
+      document.getElementById("cita-form").reset();
+      await loadCitas();
+    });
+
+    async function loadCitas() {
+      const snap = await getDocs(collection(db, "citas"));
+      const list = []; snap.forEach(d => list.push(d.data()));
+      const mine = list.filter(c => c.tutorUsuario === currentUser.usuario || c.tutoradoUsuario === currentUser.usuario);
+      mine.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+      document.getElementById("citas-list").innerHTML = mine.length ? mine.map(c => `
+        <div class="item-box" style="padding:0.85rem;">
+          <strong>${c.fecha} · ${c.hora}</strong> <span class="pill">${c.modalidad}</span><br>
+          <small style="color:var(--text-muted);">${c.nota} · Agendada por ${c.creadoPor}</small>
+        </div>
+      `).join("") : `<p style="font-size:0.86rem; color:var(--text-muted);">No hay citas programadas.</p>`;
+    }
+
+    document.getElementById("session-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const tutUser = document.getElementById("s-tutorado").value;
+      const tutObj = myTutorados.find(t => t.usuario === tutUser);
+      if (!tutObj) { alert("Selecciona un tutorado válido."); return; }
+      const id = "ses_" + Date.now();
+      await setDoc(doc(db, "sesiones", id), {
+        id,
+        tutorUsuario: currentUser.usuario,
+        tutorNombre: currentUser.nombre,
+        tutoradoUsuario: tutObj.usuario,
+        tutoradoNombre: tutObj.nombre,
+        fecha: document.getElementById("s-fecha").value,
+        hora: document.getElementById("s-hora").value,
+        modalidad: document.getElementById("s-mod").value,
+        temas: document.getElementById("s-temas").value.trim(),
+        acuerdos: document.getElementById("s-acuerdos").value.trim(),
+        confirmado: false,
+        creadoEn: Date.now()
+      });
+      document.getElementById("session-form").reset();
+      await loadSessions();
+    });
+
+    async function loadSessions() {
+      const snap = await getDocs(collection(db, "sesiones"));
+      const list = []; snap.forEach(d => list.push({ id: d.id, ...d.data() }));
+      const mine = list.filter(s => s.tutorUsuario === currentUser.usuario || s.tutoradoUsuario === currentUser.usuario);
+      mine.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+
+      const pendingForMe = currentUser.rolPares === "Tutorado" ? mine.filter(s => !s.confirmado) : [];
+      const banner = document.getElementById("pending-sessions-banner");
+      if (pendingForMe.length) {
+        banner.style.display = "block";
+        banner.innerHTML = `<strong>Aviso PARES MUSA:</strong> Tienes <strong>${pendingForMe.length}</strong> sesión(es) registrada(s) por tu tutor pendiente(s) de confirmar asistencia en la pestaña <strong>PARES MUSA</strong>.`;
+      } else { banner.style.display = "none"; }
+
+      const box = document.getElementById("sessions-list");
+      if (!mine.length) { box.innerHTML = `<p style="color:var(--text-muted);">Aún no hay sesiones registradas.</p>`; return; }
+      box.innerHTML = mine.map(s => `
+        <div class="item-box">
+          <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.35rem;">
+            <strong>${s.fecha} · ${s.hora} (${s.modalidad})</strong>
+            <span class="pill ${s.confirmado ? "pill-ok" : "pill-warn"}">${s.confirmado ? "✓ Asistencia confirmada" : "Pendiente de confirmación"}</span>
+          </div>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:0.4rem;">Tutor: ${s.tutorNombre} · Tutorado: ${s.tutoradoNombre}</p>
+          <p style="font-size:0.9rem;"><strong>Temas:</strong> ${s.temas}</p>
+          <p style="font-size:0.9rem; margin-top:0.25rem;"><strong>Acuerdos:</strong> ${s.acuerdos}</p>
+          ${currentUser.rolPares === "Tutorado" && !s.confirmado ? `<button type="button" class="btn small confirm-ses-btn" data-id="${s.id}" style="margin-top:0.65rem;">Confirmar que asistí a esta sesión</button>` : ""}
+        </div>
+      `).join("");
+
+      box.querySelectorAll(".confirm-ses-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          await setDoc(doc(db, "sesiones", btn.dataset.id), { confirmado: true }, { merge: true });
+          await loadSessions();
+        });
+      });
+    }
+  </script>
+</body>
+</html>
