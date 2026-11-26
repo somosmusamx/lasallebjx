@@ -1,0 +1,24 @@
+{
+  "name": "Portal de Miembros | MUSA La Salle Bajío",
+  "short_name": "Portal MUSA",
+  "description": "Portal de recursos, foro de dudas y programa PARES MUSA.",
+  "start_url": "./portal.html",
+  "display": "standalone",
+  "background_color": "#fcfbf5",
+  "theme_color": "#4a145c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
