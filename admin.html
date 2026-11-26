@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MUSA | Capítulo Estudiantil La Salle Bajío</title>
+  <title>Panel Editorial | MUSA La Salle Bajío</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
       --musa-deep-purple: #4a145c;
       --musa-lilac: #c59cd9;
       --musa-lilac-soft: #efe5f5;
       --musa-blue: #7d93c8;
-      --musa-sky: #ebf3ff;
       --musa-cream: #fcfbf5;
       --text-dark: #1f1627;
       --text-muted: #4b3f54;
+      --danger: #b42318;
+      --success: #067647;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,462 +25,421 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--musa-cream);
       color: var(--text-dark);
-      line-height: 1.6;
+      line-height: 1.5;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     .display-title {
       font-family: 'Anton', Impact, sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.02em;
-      line-height: 1.05;
     }
 
-    /* Portada */
-    .musa-hero {
-      background-color: var(--musa-cream);
-      border-bottom: 4px solid var(--musa-lilac);
-    }
-    .musa-hero-grid {
-      max-width: 1040px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: stretch;
-    }
-    @media (max-width: 780px) {
-      .musa-hero-grid { grid-template-columns: 1fr; }
-    }
-    .musa-hero-left {
-      padding: 3.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .musa-logo-box img {
-      max-width: 240px;
-      width: 100%;
-      height: auto;
-      margin-bottom: 1rem;
-    }
-    .musa-wordmark {
-      font-family: 'Anton', sans-serif;
-      font-size: clamp(2.6rem, 6vw, 3.8rem);
-      color: var(--musa-deep-purple);
-      letter-spacing: 0.04em;
-      line-height: 1;
-      margin-bottom: 0.75rem;
-    }
-    .musa-motto {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.35rem;
-      color: var(--musa-lilac);
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-    .musa-motto span { color: var(--musa-blue); }
-    .musa-official-sub {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.1rem;
-      color: var(--musa-deep-purple);
-      max-width: 440px;
-      line-height: 1.25;
-    }
-
-    .musa-hero-right {
-      background-color: var(--musa-lilac);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .musa-hero-photo {
-      width: 100%;
-      height: 100%;
-      min-height: 320px;
-      object-fit: cover;
-      display: block;
-    }
-    .musa-hero-photo-placeholder {
-      flex: 1;
-      min-height: 280px;
+    /* LOGIN */
+    .login-wrap {
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-      text-align: center;
-      color: var(--musa-deep-purple);
-      font-weight: 700;
+      padding: 1.5rem;
     }
-    .musa-hero-banner-bottom {
-      background-color: var(--musa-lilac);
-      padding: 1.5rem 1.25rem;
-      text-align: center;
-    }
-    .musa-hero-banner-bottom span {
-      display: block;
-      font-family: 'Anton', sans-serif;
-      font-size: 1.15rem;
-      color: #ffffff;
-      letter-spacing: 0.04em;
-    }
-
-    /* Identidad */
-    .split-identity {
-      max-width: 1040px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.75rem;
-    }
-    @media (max-width: 780px) {
-      .split-identity { grid-template-columns: 1fr; }
-    }
-    .panel-lilac {
-      background-color: var(--musa-lilac);
-      color: var(--text-dark);
-      border-radius: 20px;
-      padding: 2.25rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .panel-lilac h2 {
-      font-size: 2.2rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 1rem;
-    }
-    .panel-lilac p { font-size: 1rem; margin-bottom: 1.25rem; }
-    .framed-photo {
-      width: 100%;
-      border-radius: 12px;
-      border: 6px solid var(--musa-deep-purple);
-      object-fit: cover;
-      max-height: 240px;
-    }
-
-    .panel-cream {
-      background-color: #ffffff;
-      border: 2px solid var(--musa-blue);
-      border-radius: 20px;
-      padding: 2.25rem;
-    }
-    .panel-cream h2 {
-      font-size: 2.1rem;
-      color: var(--musa-blue);
-      margin-bottom: 0.25rem;
-    }
-    .panel-cream .kicker {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.15rem;
-      color: var(--musa-blue);
-      margin-bottom: 1rem;
-    }
-    .panel-cream ul {
-      margin-top: 0.85rem;
-      padding-left: 1.25rem;
-      font-weight: 600;
-    }
-    .panel-cream li { margin-bottom: 0.45rem; }
-
-    /* Ejes */
-    .axes-section {
-      max-width: 1040px;
-      margin: 3rem auto;
-      padding: 0 1.25rem;
-    }
-    .axes-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .axes-header h2 {
-      font-size: 2.5rem;
-      color: var(--musa-lilac);
-    }
-    .axes-header .sub {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.35rem;
-      color: var(--musa-lilac);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-    .dots-three span {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-    }
-    .axes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 1.5rem;
-    }
-    .axis-card {
+    .login-card {
       background: #ffffff;
-      border-radius: 20px;
-      padding: 1.75rem;
-      border-top: 6px solid var(--musa-deep-purple);
-      box-shadow: 0 6px 18px rgba(74, 20, 92, 0.06);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .axis-card.blue { border-top-color: var(--musa-blue); }
-    .axis-card.lilac { border-top-color: var(--musa-lilac); }
-    .axis-card h3 {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.4rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 0.25rem;
-    }
-    .axis-card.blue h3 { color: var(--musa-blue); }
-    .axis-card.lilac h3 { color: #9c6ade; }
-    .axis-card .axis-sub {
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-    }
-    .axis-card img {
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-top: 1rem;
-    }
-
-    /* Convicción y Pilares */
-    .collab-section {
-      background-color: #ffffff;
-      border-top: 3px solid var(--musa-lilac);
-      border-bottom: 3px solid var(--musa-lilac);
-      padding: 3rem 1.25rem;
-      margin-top: 1rem;
-    }
-    .collab-container {
-      max-width: 960px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .collab-container h2 {
-      font-size: 2.3rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 0.5rem;
-    }
-    .conviction {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.25rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 2rem;
-    }
-    .collab-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .pill-header {
-      background-color: var(--musa-deep-purple);
-      color: #ffffff;
-      font-family: 'Anton', sans-serif;
-      font-size: 1.15rem;
-      letter-spacing: 0.04em;
-      padding: 0.65rem 1.25rem;
-      border-radius: 999px;
-      margin-bottom: 0.85rem;
-    }
-    .bridge-banner {
-      font-family: 'Anton', sans-serif;
-      font-size: 1.65rem;
-      color: var(--musa-deep-purple);
-      margin-top: 1.5rem;
-    }
-    .bridge-banner span { color: var(--musa-blue); }
-
-    /* Blog */
-    .musa-blog-wrap {
-      max-width: 920px;
-      margin: 3rem auto;
-      padding: 0 1.25rem 2rem;
-      width: 100%;
-    }
-    .musa-blog-wrap h2 {
-      font-size: 2.2rem;
-      color: var(--musa-deep-purple);
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    .musa-post-card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 1.75rem;
-      margin-bottom: 1.25rem;
       border: 2px solid var(--musa-lilac);
-    }
-    .musa-post-cover {
+      border-radius: 22px;
+      padding: 2.25rem;
       width: 100%;
-      max-height: 280px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 1rem;
+      max-width: 420px;
+      box-shadow: 0 12px 30px rgba(74, 20, 92, 0.08);
     }
-    .musa-tag {
-      display: inline-block;
+    .login-card h1 {
+      font-size: 2rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.25rem;
+    }
+    .login-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: #ffffff;
+      border-bottom: 2px solid var(--musa-lilac);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .topbar-brand {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.35rem;
+      color: var(--musa-deep-purple);
+    }
+    .user-badge {
       background: var(--musa-lilac-soft);
       color: var(--musa-deep-purple);
-      font-size: 0.75rem;
-      font-weight: 800;
+      font-size: 0.78rem;
+      font-weight: 700;
       padding: 0.25rem 0.7rem;
       border-radius: 999px;
-      margin-right: 0.35rem;
-      margin-bottom: 0.25rem;
-      text-transform: uppercase;
     }
-    .musa-btn {
-      background-color: var(--musa-deep-purple);
-      color: #ffffff;
-      border: 2px solid var(--musa-deep-purple);
-      padding: 0.65rem 1.4rem;
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .admin-main {
+      max-width: 1020px;
+      margin: 2rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.65rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #ffffff;
+      color: var(--musa-deep-purple);
+      border: 2px solid var(--musa-lilac);
+      padding: 0.65rem 1.3rem;
       border-radius: 999px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .tab-btn.is-active {
+      background: var(--musa-deep-purple);
+      color: #ffffff;
+      border-color: var(--musa-deep-purple);
+    }
+
+    .panel-section { display: none; }
+    .panel-section.is-active { display: block; }
+
+    .card {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 18px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.55rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.35rem;
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.35rem;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="url"],
+    .form-group textarea {
+      width: 100%;
+      padding: 0.72rem 0.9rem;
+      border: 1.5px solid var(--musa-lilac);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.93rem;
+      background: var(--musa-cream);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 680px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .btn {
+      background: var(--musa-deep-purple);
+      color: #ffffff;
+      border: 2px solid var(--musa-deep-purple);
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.86rem;
       cursor: pointer;
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
     }
-    .musa-btn:hover { opacity: 0.92; }
-
-    #msp-body h1, #msp-body h2, #msp-body h3 { color: var(--musa-deep-purple); margin: 1.1rem 0 0.5rem; }
-    #msp-body p { margin-bottom: 0.9rem; }
-    #msp-body ul, #msp-body ol { margin: 0.5rem 0 1rem 1.4rem; }
-
-    /* Pie de página con botón a MUSA Nacional */
-    footer {
-      background-color: var(--musa-deep-purple);
-      color: #ffffff;
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      margin-top: auto;
+    .btn.outline {
+      background: transparent;
+      color: var(--musa-deep-purple);
     }
-    footer a { color: var(--musa-lilac); font-weight: 700; text-decoration: none; }
-    .footer-musa-btn {
-      display: inline-block;
-      background-color: #ffffff;
-      color: var(--musa-deep-purple) !important;
-      padding: 0.25rem 0.9rem;
-      border-radius: 999px;
+    .btn.danger {
+      background: transparent;
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+    .btn.small {
+      padding: 0.42rem 0.9rem;
+      font-size: 0.8rem;
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .status-msg {
+      margin-top: 0.85rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .status-msg.error { color: var(--danger); }
+    .status-msg.success { color: var(--success); }
+
+    /* GRID DE IMÁGENES */
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .img-slot {
+      border: 1.5px solid var(--musa-lilac);
+      border-radius: 14px;
+      padding: 1rem;
+      background: var(--musa-cream);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .img-slot-title {
       font-weight: 800;
-      text-decoration: none;
-      margin-right: 0.35rem;
-      transition: background-color 0.15s ease, transform 0.15s ease;
+      font-size: 0.9rem;
+      color: var(--musa-deep-purple);
     }
-    .footer-musa-btn:hover {
-      background-color: var(--musa-lilac-soft);
-      transform: translateY(-1px);
+    .img-preview-box {
+      width: 100%;
+      height: 150px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px dashed var(--musa-lilac);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 0.5rem;
+    }
+    .img-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .img-preview-box.is-logo img {
+      object-fit: contain;
+      padding: 0.5rem;
+    }
+    .img-slot-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* LISTA DE POSTS */
+    .post-item {
+      border: 1.5px solid var(--musa-lilac);
+      border-radius: 14px;
+      padding: 1.15rem;
+      background: var(--musa-cream);
+      margin-bottom: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .post-item-info { flex: 1; min-width: 220px; }
+    .post-item h3 {
+      font-size: 1.05rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.25rem;
+    }
+    .post-meta {
+      font-size: 0.8rem;
+      color: var(--musa-blue);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .post-item-actions {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
     }
   </style>
 </head>
 <body>
 
-  <main>
-    <section class="musa-hero">
-      <div class="musa-hero-grid">
-        <div class="musa-hero-left">
-          <div class="musa-logo-box" id="musa-logo-container"></div>
-          <div class="musa-wordmark" id="hero-nombre">Bienvenidos</div>
-          <p class="musa-motto" id="hero-lema">VIVIR LA FRATERNIDAD<br><span>A TRAVÉS DEL ARTE</span></p>
-          <p class="musa-official-sub" id="hero-subtitulo">Capítulo Estudiantil La Salle Bajío</p>
+  <!-- PANTALLA DE INICIO DE SESIÓN -->
+  <div id="login-view" class="login-wrap">
+    <div class="login-card">
+      <h1 class="display-title">MUSA LA SALLE BAJÍO</h1>
+      <p class="login-sub">Acceso exclusivo para edición de imágenes y publicaciones del blog.</p>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email">Correo institucional</label>
+          <input type="email" id="login-email" required placeholder="lasallebjx@somosmusa.com.mx" autocomplete="username" />
         </div>
-        <div class="musa-hero-right">
-          <div id="musa-cover-container" style="flex:1; display:flex;">
-            <div class="musa-hero-photo-placeholder">Espacio para fotografía principal</div>
-          </div>
-          <div class="musa-hero-banner-bottom">
-            <span id="hero-banner">CONOCE A MUSA · UNIVERSIDAD LA SALLE BAJÍO</span>
-          </div>
+        <div class="form-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password" />
         </div>
-      </div>
-    </section>
+        <button type="submit" class="btn" id="login-btn" style="width:100%; justify-content:center;">Iniciar sesión</button>
+        <p id="login-status" class="status-msg"></p>
+      </form>
+    </div>
+  </div>
 
-    <section class="split-identity" id="identidad">
-      <div class="panel-lilac">
-        <div>
-          <h2 class="display-title" id="quienes-titulo">¿QUIÉNES SOMOS?</h2>
-          <div id="quienes-texto"></div>
+  <!-- PANEL EDITORIAL -->
+  <div id="admin-view" style="display:none;">
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-brand">PANEL MUSA</span>
+        <span class="user-badge" id="current-user-email"></span>
+      </div>
+      <div class="topbar-actions">
+        <a href="index.html" target="_blank" rel="noopener" class="btn outline small">Ver sitio ↗</a>
+        <button type="button" class="btn danger small" id="logout-btn">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="tabs">
+        <button type="button" class="tab-btn is-active" data-tab="imagenes">Imágenes del sitio</button>
+        <button type="button" class="tab-btn" data-tab="blog">Publicaciones del Blog</button>
+      </div>
+
+      <!-- PESTAÑA 1: IMÁGENES -->
+      <section id="tab-imagenes" class="panel-section is-active">
+        <div class="card">
+          <h2 class="display-title">IMÁGENES DEL MICROSITIO</h2>
+          <p class="card-desc">Sube una imagen desde tu dispositivo o pega un enlace directo. Al finalizar, presiona <strong>Guardar imágenes</strong>.</p>
+
+          <div class="images-grid" id="images-grid"></div>
+
+          <button type="button" class="btn" id="save-images-btn">Guardar imágenes</button>
+          <p id="images-status" class="status-msg"></p>
         </div>
-        <div id="musa-quienes-img"></div>
-      </div>
+      </section>
 
-      <div class="panel-cream">
-        <h2 class="display-title" id="enfermeria-titulo">LIDERAZGO DESDE EL CUIDADO</h2>
-        <div class="kicker" id="enfermeria-subtitulo">EL NÚCLEO DE ENFERMERÍA</div>
-        <div id="enfermeria-texto-1"></div>
-        <div id="musa-enfermeria-img" style="margin: 1rem 0;"></div>
-        <div id="enfermeria-texto-2"></div>
-        <ul id="enfermeria-lista"></ul>
-      </div>
-    </section>
+      <!-- PESTAÑA 2: BLOG -->
+      <section id="tab-blog" class="panel-section">
+        <div class="card">
+          <h2 class="display-title" id="post-form-heading">NUEVA PUBLICACIÓN</h2>
+          <p class="card-desc">Redacta una crónica, aviso o artículo para el blog del capítulo. Puedes usar <code>**negritas**</code> y saltos de línea.</p>
 
-    <section class="axes-section" id="ejes">
-      <div class="axes-header">
-        <h2 class="display-title">¿QUÉ HACEMOS?</h2>
-        <div class="sub">
-          NUESTROS 3 EJES
-          <div class="dots-three">
-            <span style="background:var(--musa-deep-purple);"></span>
-            <span style="background:var(--musa-blue);"></span>
-            <span style="background:var(--musa-lilac);"></span>
-          </div>
+          <form id="post-form">
+            <input type="hidden" id="post-id" />
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="post-titulo">Título de la publicación</label>
+                <input type="text" id="post-titulo" required placeholder="Ej. Crónica de nuestra brigada Jardín MUSA" />
+              </div>
+              <div class="form-group">
+                <label for="post-fecha">Fecha visible</label>
+                <input type="text" id="post-fecha" required placeholder="Ej. Noviembre 2026" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="post-tags">Etiquetas (separadas por coma)</label>
+              <input type="text" id="post-tags" placeholder="Ej. MUSA, La Salle Bajío, Brigadas" value="MUSA, La Salle Bajío" />
+            </div>
+
+            <div class="form-group">
+              <label>Imagen de portada (opcional)</label>
+              <div class="img-preview-box" id="post-img-preview" style="max-width:340px; margin-bottom:0.65rem;">Sin imagen seleccionada</div>
+              <div class="img-slot-actions" style="margin-bottom:0.5rem;">
+                <label class="btn outline small" style="cursor:pointer;">
+                  Subir imagen
+                  <input type="file" id="post-img-file" accept="image/*" style="display:none;" />
+                </label>
+                <button type="button" class="btn danger small" id="post-img-clear">Quitar imagen</button>
+              </div>
+              <input type="url" id="post-img-url" placeholder="O pega un enlace directo a la imagen (https://...)" />
+            </div>
+
+            <div class="form-group">
+              <label for="post-resumen">Resumen breve (aparece en la tarjeta del blog)</label>
+              <textarea id="post-resumen" rows="2" required placeholder="Describe en 1 o 2 líneas de qué trata la publicación..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="post-contenido">Contenido completo</label>
+              <textarea id="post-contenido" rows="7" required placeholder="Escribe aquí el texto completo de la publicación..."></textarea>
+            </div>
+
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+              <button type="submit" class="btn" id="post-submit-btn">Publicar entrada</button>
+              <button type="button" class="btn outline" id="post-cancel-btn" style="display:none;">Cancelar edición</button>
+            </div>
+            <p id="post-status" class="status-msg"></p>
+          </form>
         </div>
-        <p id="ejes-intro" style="max-width:620px; margin:0.5rem auto 0; color:var(--text-muted);"></p>
-      </div>
-      <div class="axes-grid" id="ejes-container"></div>
-    </section>
 
-    <section class="collab-section" id="conviccion">
-      <div class="collab-container">
-        <h2 class="display-title">NUESTRA CONVICCIÓN</h2>
-        <p class="conviction" id="conviccion-frase"></p>
-
-        <div class="collab-grid" id="pilares-container"></div>
-
-        <div class="bridge-banner" id="cierre-frase"></div>
-      </div>
-    </section>
-
-    <section class="musa-blog-wrap" id="blog">
-      <h2 class="display-title">PUBLICACIONES Y CRÓNICAS MUSA</h2>
-      <div id="musa-posts-list"></div>
-
-      <div id="musa-single-post" class="musa-post-card" style="display:none;">
-        <button type="button" class="musa-btn" id="close-post-btn" style="margin-bottom:1.25rem;">← Volver a publicaciones</button>
-        <div id="msp-tags" style="margin-bottom:0.5rem;"></div>
-        <div id="msp-date" style="font-size:0.85rem; font-weight:700; color:var(--musa-blue); margin-bottom:0.4rem;"></div>
-        <h3 id="msp-title" style="font-size:1.5rem; margin-bottom:1rem; color:var(--musa-deep-purple);"></h3>
-        <img id="msp-img" class="musa-post-cover" style="display:none; max-height:380px;" alt="" />
-        <div id="msp-body" style="line-height:1.8;"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p id="footer-texto"></p>
-  </footer>
+        <div class="card">
+          <h2 class="display-title">PUBLICACIONES ACTIVAS</h2>
+          <p class="card-desc">Aquí puedes editar o eliminar las entradas publicadas en el blog.</p>
+          <div id="posts-admin-list">Cargando publicaciones...</div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
+      getAuth,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
       getFirestore,
       doc,
       getDoc,
+      setDoc,
+      deleteDoc,
       collection,
       getDocs
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -496,165 +455,349 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
     const db = getFirestore(app);
 
-    let musaPosts = [];
+    const IMAGE_SLOTS = [
+      { key: "logo", label: "Logotipo MUSA (PNG transparente recomendado)", isLogo: true },
+      { key: "fotoPortada", label: "Fotografía principal de portada", isLogo: false },
+      { key: "fotoQuienes", label: "Foto sección ¿Quiénes somos?", isLogo: false },
+      { key: "fotoEnfermeria", label: "Foto sección Liderazgo desde el Cuidado", isLogo: false },
+      { key: "fotoEje1", label: "Foto Eje 1: Intervenciones Creativas", isLogo: false },
+      { key: "fotoEje2", label: "Foto Eje 2: Educación para la Salud", isLogo: false },
+      { key: "fotoEje3", label: "Foto Eje 3: Brigadas de Arteterapia", isLogo: false }
+    ];
 
-    function renderizarListaBlog() {
-      const container = document.getElementById('musa-posts-list');
-      if (!musaPosts || musaPosts.length === 0) {
-        container.innerHTML = `<div class="musa-post-card"><p style="color:var(--text-muted);">Próximamente compartiremos nuestras crónicas y actividades.</p></div>`;
-        return;
-      }
+    let currentImages = {};
+    let currentPostImage = "";
+    let postsCache = [];
 
-      container.innerHTML = musaPosts.map((p, idx) => `
-        <article class="musa-post-card">
-          ${p.imagen ? `<img src="${p.imagen}" class="musa-post-cover" alt="${p.titulo || ''}">` : ''}
-          <div style="margin-bottom:0.5rem;">${(p.tags || []).map(t => `<span class="musa-tag">${t}</span>`).join('')}</div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--musa-blue); margin-bottom:0.3rem;">${p.fecha || ''}</div>
-          <h3 style="font-size:1.25rem; margin-bottom:0.5rem; color:var(--musa-deep-purple);">${p.titulo || ''}</h3>
-          <p style="color:var(--text-muted); font-size:0.95rem;">${p.resumen || ''}</p>
-          <button type="button" class="musa-btn read-post-btn" data-index="${idx}" style="margin-top:0.9rem;">Leer publicación</button>
-        </article>
-      `).join('');
+    function compressImage(file, maxWidth, isLogo = false) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error("No se pudo leer el archivo."));
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onerror = () => reject(new Error("El archivo no es una imagen válida."));
+          img.onload = () => {
+            let { width, height } = img;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
 
-      container.querySelectorAll('.read-post-btn').forEach(btn => {
-        btn.addEventListener('click', () => openMusaPost(Number(btn.dataset.index)));
+            const dataUrl = isLogo
+              ? canvas.toDataURL("image/png")
+              : canvas.toDataURL("image/jpeg", 0.72);
+            resolve(dataUrl);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
       });
     }
 
-    function openMusaPost(i) {
-      const p = musaPosts[i];
-      if (!p) return;
-      document.getElementById('musa-posts-list').style.display = 'none';
-      document.getElementById('msp-tags').innerHTML = (p.tags || []).map(t => `<span class="musa-tag">${t}</span>`).join('');
-      document.getElementById('msp-date').textContent = p.fecha || '';
-      document.getElementById('msp-title').textContent = p.titulo || '';
-      const img = document.getElementById('msp-img');
-      if (p.imagen) { img.src = p.imagen; img.style.display = 'block'; } else { img.style.display = 'none'; }
-      document.getElementById('msp-body').innerHTML = marked.parse(p.contenido || '');
-      document.getElementById('musa-single-post').style.display = 'block';
-      document.getElementById('blog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function setStatus(elId, text, type = "") {
+      const el = document.getElementById(elId);
+      el.textContent = text;
+      el.className = "status-msg" + (type ? " " + type : "");
     }
 
-    function closeMusaPost() {
-      document.getElementById('musa-single-post').style.display = 'none';
-      document.getElementById('musa-posts-list').style.display = 'block';
-    }
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("is-active", b === btn));
+        document.querySelectorAll(".panel-section").forEach((s) => s.classList.toggle("is-active", s.id === `tab-${target}`));
+      });
+    });
 
-    document.getElementById('close-post-btn').addEventListener('click', closeMusaPost);
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value;
+      const btn = document.getElementById("login-btn");
 
-    async function loadCapituloSite() {
+      btn.disabled = true;
+      setStatus("login-status", "Verificando credenciales...");
+
       try {
-        const res = await fetch('datos.json?v=' + Date.now());
-        const data = await res.json();
-        const colors = ['', 'blue', 'lilac'];
+        await signInWithEmailAndPassword(auth, email, password);
+        document.getElementById("login-form").reset();
+        setStatus("login-status", "");
+      } catch (err) {
+        setStatus("login-status", "Correo o contraseña incorrectos. Solicita acceso al administrador de MUSA.", "error");
+      } finally {
+        btn.disabled = false;
+      }
+    });
 
-        let fbImages = {};
-        let fbPosts = [];
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await signOut(auth);
+    });
 
-        try {
-          const imgSnap = await getDoc(doc(db, 'sitio', 'imagenes'));
-          if (imgSnap.exists()) {
-            fbImages = imgSnap.data() || {};
-          }
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        document.getElementById("login-view").style.display = "none";
+        document.getElementById("admin-view").style.display = "block";
+        document.getElementById("current-user-email").textContent = user.email;
+        await loadImagesFromFirestore();
+        await loadPostsFromFirestore();
+      } else {
+        document.getElementById("admin-view").style.display = "none";
+        document.getElementById("login-view").style.display = "flex";
+      }
+    });
 
-          const allDocs = await getDocs(collection(db, 'sitio'));
-          allDocs.forEach((docSnap) => {
-            const d = docSnap.data();
-            if (docSnap.id.startsWith('post_') || d.tipo === 'post') {
-              fbPosts.push(d);
-            }
-          });
-          fbPosts.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
-        } catch (fbErr) {
-          console.warn('Usando contenido base de datos.json:', fbErr);
-        }
-
-        const logoSrc = fbImages.logo || data.portada?.logo || '';
-        const portadaSrc = fbImages.fotoPortada || data.portada?.fotoPortada || '';
-        const quienesSrc = fbImages.fotoQuienes || data.identidad?.fotoQuienes || '';
-        const enfermeriaSrc = fbImages.fotoEnfermeria || data.identidad?.fotoEnfermeria || '';
-
-        if (data.portada) {
-          document.getElementById('hero-nombre').textContent = data.portada.nombre || '';
-          document.getElementById('hero-lema').innerHTML = `${data.portada.lemaParte1 || ''}<br><span>${data.portada.lemaParte2 || ''}</span>`;
-          document.getElementById('hero-subtitulo').textContent = data.portada.subtitulo || '';
-          document.getElementById('hero-banner').textContent = data.portada.bannerDerecho || '';
-
-          if (logoSrc) {
-            document.getElementById('musa-logo-container').innerHTML = `<img src="${logoSrc}" alt="Logotipo MUSA">`;
-          }
-          if (portadaSrc) {
-            document.getElementById('musa-cover-container').innerHTML = `<img src="${portadaSrc}" class="musa-hero-photo" alt="MUSA La Salle Bajío">`;
-          }
-        }
-
-        if (data.identidad) {
-          document.getElementById('quienes-titulo').textContent = data.identidad.quienesTitulo || '¿QUIÉNES SOMOS?';
-          document.getElementById('quienes-texto').innerHTML = marked.parse(data.identidad.quienesTexto || '');
-          if (quienesSrc) {
-            document.getElementById('musa-quienes-img').innerHTML = `<img src="${quienesSrc}" class="framed-photo" alt="Actividad MUSA">`;
-          }
-
-          document.getElementById('enfermeria-titulo').textContent = data.identidad.enfermeriaTitulo || 'LIDERAZGO DESDE EL CUIDADO';
-          document.getElementById('enfermeria-subtitulo').textContent = data.identidad.enfermeriaSubtitulo || '';
-          document.getElementById('enfermeria-texto-1').innerHTML = marked.parse(data.identidad.enfermeriaTexto1 || '');
-          if (enfermeriaSrc) {
-            document.getElementById('musa-enfermeria-img').innerHTML = `<img src="${enfermeriaSrc}" class="framed-photo" alt="Equipo Enfermería MUSA">`;
-          }
-          document.getElementById('enfermeria-texto-2').innerHTML = marked.parse(data.identidad.enfermeriaTexto2 || '');
-          document.getElementById('enfermeria-lista').innerHTML = (data.identidad.enfermeriaPuntos || [])
-            .map(item => `<li>${item}</li>`).join('');
-        }
-
-        if (data.ejes) {
-          document.getElementById('ejes-intro').textContent = data.ejes.intro || '';
-          const ejeKeys = ['fotoEje1', 'fotoEje2', 'fotoEje3'];
-          document.getElementById('ejes-container').innerHTML = (data.ejes.lista || []).map((eje, idx) => {
-            const imgSrc = fbImages[ejeKeys[idx]] || eje.imagen || '';
-            return `
-              <div class="axis-card ${colors[idx % 3]}">
-                <div>
-                  <h3>${eje.titulo}</h3>
-                  <div class="axis-sub">${eje.subtitulo || ''}</div>
-                  <div style="font-size:0.94rem; color:var(--text-muted);">${marked.parse(eje.descripcion || '')}</div>
-                </div>
-                ${imgSrc ? `<img src="${imgSrc}" alt="${eje.titulo}">` : ''}
-              </div>
-            `;
-          }).join('');
-        }
-
-        if (data.conviccion) {
-          document.getElementById('conviccion-frase').textContent = data.conviccion.frasePrincipal || '';
-          document.getElementById('pilares-container').innerHTML = (data.conviccion.pilares || []).map(p => `
-            <div>
-              <div class="pill-header">${p.titulo}</div>
-              <p style="font-size:0.94rem; color:var(--text-muted);">${p.descripcion}</p>
-            </div>
-          `).join('');
-          document.getElementById('cierre-frase').innerHTML = data.conviccion.fraseCierreHtml || '';
-        }
-
-        musaPosts = fbPosts.length > 0 ? fbPosts : (data.blog || []);
-        renderizarListaBlog();
-
-        if (data.contacto) {
-          const textoLimpio = (data.contacto.textoFooter || '').replace(/^MUSA\s*·?\s*/i, '');
-          const instagramHtml = data.contacto.instagramHandle
-            ? ` · Instagram: <a href="${data.contacto.instagramUrl || '#'}" target="_blank" rel="noopener">${data.contacto.instagramHandle}</a>`
-            : '';
-
-          document.getElementById('footer-texto').innerHTML =
-            `<a href="https://somosmusa.com.mx" class="footer-musa-btn">MUSA</a> ${textoLimpio ? '· ' + textoLimpio : ''}${instagramHtml}`;
+    async function loadImagesFromFirestore() {
+      currentImages = {};
+      try {
+        const snap = await getDoc(doc(db, "sitio", "imagenes"));
+        if (snap.exists()) {
+          currentImages = snap.data() || {};
         }
       } catch (err) {
-        console.error('Error cargando datos:', err);
+        console.error(err);
       }
+      renderImageSlots();
     }
 
-    loadCapituloSite();
+    function renderImageSlots() {
+      const grid = document.getElementById("images-grid");
+      grid.innerHTML = IMAGE_SLOTS.map((slot) => {
+        const val = currentImages[slot.key] || "";
+        return `
+          <div class="img-slot">
+            <div class="img-slot-title">${slot.label}</div>
+            <div class="img-preview-box ${slot.isLogo ? "is-logo" : ""}" id="preview-${slot.key}">
+              ${val ? `<img src="${val}" alt="${slot.label}">` : "Sin imagen asignada"}
+            </div>
+            <div class="img-slot-actions">
+              <label class="btn outline small" style="cursor:pointer;">
+                Subir foto
+                <input type="file" accept="image/*" data-slot="${slot.key}" data-logo="${slot.isLogo}" class="slot-file-input" style="display:none;" />
+              </label>
+              <button type="button" class="btn danger small slot-clear-btn" data-slot="${slot.key}">Quitar</button>
+            </div>
+            <input type="url" class="slot-url-input" data-slot="${slot.key}" placeholder="O pega URL directa (https://...)" value="${val.startsWith("http") ? val : ""}" style="width:100%; padding:0.5rem 0.7rem; border:1px solid var(--musa-lilac); border-radius:8px; font-size:0.82rem; background:#fff;" />
+          </div>
+        `;
+      }).join("");
+
+      grid.querySelectorAll(".slot-file-input").forEach((input) => {
+        input.addEventListener("change", async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const key = input.dataset.slot;
+          const isLogo = input.dataset.logo === "true";
+          try {
+            const compressed = await compressImage(file, isLogo ? 420 : 820, isLogo);
+            currentImages[key] = compressed;
+            document.getElementById(`preview-${key}`).innerHTML = `<img src="${compressed}" alt="${key}">`;
+            const urlInput = grid.querySelector(`.slot-url-input[data-slot="${key}"]`);
+            if (urlInput) urlInput.value = "";
+            setStatus("images-status", "Imagen cargada. Presiona 'Guardar imágenes' para aplicar los cambios.");
+          } catch (err) {
+            setStatus("images-status", err.message, "error");
+          }
+        });
+      });
+
+      grid.querySelectorAll(".slot-url-input").forEach((input) => {
+        input.addEventListener("input", () => {
+          const key = input.dataset.slot;
+          const url = input.value.trim();
+          currentImages[key] = url;
+          document.getElementById(`preview-${key}`).innerHTML = url
+            ? `<img src="${url}" alt="${key}">`
+            : "Sin imagen asignada";
+        });
+      });
+
+      grid.querySelectorAll(".slot-clear-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.slot;
+          currentImages[key] = "";
+          document.getElementById(`preview-${key}`).innerHTML = "Sin imagen asignada";
+          const urlInput = grid.querySelector(`.slot-url-input[data-slot="${key}"]`);
+          if (urlInput) urlInput.value = "";
+        });
+      });
+    }
+
+    document.getElementById("save-images-btn").addEventListener("click", async () => {
+      const btn = document.getElementById("save-images-btn");
+      btn.disabled = true;
+      setStatus("images-status", "Guardando imágenes...");
+      try {
+        await setDoc(doc(db, "sitio", "imagenes"), {
+          ...currentImages,
+          actualizadoEn: Date.now()
+        });
+        setStatus("images-status", "Imágenes guardadas y publicadas correctamente en el sitio.", "success");
+      } catch (err) {
+        console.error(err);
+        setStatus("images-status", "Error al guardar. Verifica que tu correo esté autorizado en las reglas de Firestore.", "error");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    function updatePostImagePreview(src) {
+      currentPostImage = src || "";
+      const box = document.getElementById("post-img-preview");
+      box.innerHTML = currentPostImage
+        ? `<img src="${currentPostImage}" alt="Portada de publicación">`
+        : "Sin imagen seleccionada";
+    }
+
+    document.getElementById("post-img-file").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const compressed = await compressImage(file, 900, false);
+        updatePostImagePreview(compressed);
+        document.getElementById("post-img-url").value = "";
+      } catch (err) {
+        setStatus("post-status", err.message, "error");
+      }
+    });
+
+    document.getElementById("post-img-url").addEventListener("input", (e) => {
+      updatePostImagePreview(e.target.value.trim());
+    });
+
+    document.getElementById("post-img-clear").addEventListener("click", () => {
+      updatePostImagePreview("");
+      document.getElementById("post-img-url").value = "";
+      document.getElementById("post-img-file").value = "";
+    });
+
+    function resetPostForm() {
+      document.getElementById("post-form").reset();
+      document.getElementById("post-id").value = "";
+      document.getElementById("post-tags").value = "MUSA, La Salle Bajío";
+      document.getElementById("post-form-heading").textContent = "NUEVA PUBLICACIÓN";
+      document.getElementById("post-submit-btn").textContent = "Publicar entrada";
+      document.getElementById("post-cancel-btn").style.display = "none";
+      updatePostImagePreview("");
+    }
+
+    document.getElementById("post-cancel-btn").addEventListener("click", () => {
+      resetPostForm();
+      setStatus("post-status", "");
+    });
+
+    document.getElementById("post-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("post-submit-btn");
+      btn.disabled = true;
+      setStatus("post-status", "Guardando publicación...");
+
+      const existingId = document.getElementById("post-id").value;
+      const docId = existingId || `post_${Date.now()}`;
+      const tagsRaw = document.getElementById("post-tags").value;
+      const tags = tagsRaw.split(",").map((t) => t.trim()).filter(Boolean);
+
+      const postData = {
+        tipo: "post",
+        titulo: document.getElementById("post-titulo").value.trim(),
+        fecha: document.getElementById("post-fecha").value.trim(),
+        tags: tags.length ? tags : ["MUSA"],
+        imagen: currentPostImage,
+        resumen: document.getElementById("post-resumen").value.trim(),
+        contenido: document.getElementById("post-contenido").value.trim(),
+        creadoEn: existingId
+          ? (postsCache.find((p) => p.id === existingId)?.creadoEn || Date.now())
+          : Date.now()
+      };
+
+      try {
+        await setDoc(doc(db, "sitio", docId), postData);
+        resetPostForm();
+        await loadPostsFromFirestore();
+        setStatus("post-status", "Publicación guardada correctamente.", "success");
+      } catch (err) {
+        console.error(err);
+        setStatus("post-status", "No se pudo guardar la publicación. Verifica los permisos de tu cuenta.", "error");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    async function loadPostsFromFirestore() {
+      const container = document.getElementById("posts-admin-list");
+      try {
+        const snapshot = await getDocs(collection(db, "sitio"));
+        postsCache = [];
+        snapshot.forEach((docSnap) => {
+          const d = docSnap.data();
+          if (docSnap.id.startsWith("post_") || d.tipo === "post") {
+            postsCache.push({ id: docSnap.id, ...d });
+          }
+        });
+        postsCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+
+        if (postsCache.length === 0) {
+          container.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Aún no hay publicaciones creadas desde el panel.</p>`;
+          return;
+        }
+
+        container.innerHTML = postsCache.map((p) => `
+          <div class="post-item">
+            <div class="post-item-info">
+              <div class="post-meta">${p.fecha || ""} · ${(p.tags || []).join(", ")}</div>
+              <h3>${p.titulo || "Sin título"}</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted);">${p.resumen || ""}</p>
+            </div>
+            <div class="post-item-actions">
+              <button type="button" class="btn outline small edit-post-btn" data-id="${p.id}">Editar</button>
+              <button type="button" class="btn danger small delete-post-btn" data-id="${p.id}">Eliminar</button>
+            </div>
+          </div>
+        `).join("");
+
+        container.querySelectorAll(".edit-post-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const p = postsCache.find((item) => item.id === btn.dataset.id);
+            if (!p) return;
+            document.getElementById("post-id").value = p.id;
+            document.getElementById("post-titulo").value = p.titulo || "";
+            document.getElementById("post-fecha").value = p.fecha || "";
+            document.getElementById("post-tags").value = (p.tags || []).join(", ");
+            document.getElementById("post-resumen").value = p.resumen || "";
+            document.getElementById("post-contenido").value = p.contenido || "";
+            updatePostImagePreview(p.imagen || "");
+            document.getElementById("post-img-url").value = (p.imagen || "").startsWith("http") ? p.imagen : "";
+            document.getElementById("post-form-heading").textContent = "EDITAR PUBLICACIÓN";
+            document.getElementById("post-submit-btn").textContent = "Guardar cambios";
+            document.getElementById("post-cancel-btn").style.display = "inline-flex";
+            setStatus("post-status", "");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        });
+
+        container.querySelectorAll(".delete-post-btn").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            if (!confirm("¿Seguro que deseas eliminar esta publicación del blog?")) return;
+            try {
+              await deleteDoc(doc(db, "sitio", btn.dataset.id));
+              await loadPostsFromFirestore();
+              setStatus("post-status", "Publicación eliminada.", "success");
+            } catch (err) {
+              setStatus("post-status", "Error al eliminar la publicación.", "error");
+            }
+          });
+        });
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style="color:var(--danger);">Error al cargar publicaciones.</p>`;
+      }
+    }
   </script>
 </body>
 </html>
