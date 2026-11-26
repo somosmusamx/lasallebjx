@@ -29,94 +29,397 @@
       min-height: 100vh;
     }
 
-    .display-title { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+    .display-title {
+      font-family: 'Anton', Impact, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
 
     /* LOGIN */
-    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
-    .login-card { background: #ffffff; border: 2px solid var(--musa-lilac); border-radius: 22px; padding: 2.25rem; width: 100%; max-width: 420px; box-shadow: 0 12px 30px rgba(74, 20, 92, 0.08); }
-    .login-card h1 { font-size: 2rem; color: var(--musa-deep-purple); margin-bottom: 0.25rem; }
-    .login-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .login-card {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 22px;
+      padding: 2.25rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 12px 30px rgba(74, 20, 92, 0.08);
+    }
+    .login-card h1 {
+      font-size: 2rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.25rem;
+    }
+    .login-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
 
     /* TOPBAR */
-    .topbar { background: #ffffff; border-bottom: 2px solid var(--musa-lilac); padding: 0.85rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; position: sticky; top: 0; z-index: 30; }
-    .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
-    .topbar-brand { font-family: 'Anton', sans-serif; font-size: 1.35rem; color: var(--musa-deep-purple); }
-    .user-badge { background: var(--musa-lilac-soft); color: var(--musa-deep-purple); font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 999px; }
-    .topbar-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .topbar {
+      background: #ffffff;
+      border-bottom: 2px solid var(--musa-lilac);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .topbar-brand {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.35rem;
+      color: var(--musa-deep-purple);
+    }
+    .user-badge {
+      background: var(--musa-lilac-soft);
+      color: var(--musa-deep-purple);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+    }
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
 
-    /* CONTENEDOR */
-    .admin-main { max-width: 1040px; margin: 2rem auto 4rem; padding: 0 1.25rem; }
-    .tabs { display: flex; gap: 0.65rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
-    .tab-btn { background: #ffffff; color: var(--musa-deep-purple); border: 2px solid var(--musa-lilac); padding: 0.65rem 1.3rem; border-radius: 999px; font-weight: 700; font-size: 0.9rem; cursor: pointer; }
-    .tab-btn.is-active { background: var(--musa-deep-purple); color: #ffffff; border-color: var(--musa-deep-purple); }
+    /* CONTENEDOR PRINCIPAL */
+    .admin-main {
+      max-width: 1040px;
+      margin: 2rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.65rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #ffffff;
+      color: var(--musa-deep-purple);
+      border: 2px solid var(--musa-lilac);
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .tab-btn.is-active {
+      background: var(--musa-deep-purple);
+      color: #ffffff;
+      border-color: var(--musa-deep-purple);
+    }
     .panel-section { display: none; }
     .panel-section.is-active { display: block; }
 
-    .card { background: #ffffff; border: 2px solid var(--musa-lilac); border-radius: 18px; padding: 1.75rem; margin-bottom: 1.5rem; }
-    .card h2 { font-size: 1.55rem; color: var(--musa-deep-purple); margin-bottom: 0.35rem; }
-    .card-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .card {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 18px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.55rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.35rem;
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
 
     .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.84rem; font-weight: 700; color: var(--musa-deep-purple); margin-bottom: 0.35rem; }
-    .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"],
-    .form-group input[type="url"], .form-group select, .form-group textarea {
-      width: 100%; padding: 0.72rem 0.9rem; border: 1.5px solid var(--musa-lilac); border-radius: 10px;
-      font-family: 'Inter', sans-serif; font-size: 0.93rem; background: var(--musa-cream);
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.35rem;
     }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-row-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-    @media (max-width: 680px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="url"],
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.72rem 0.9rem;
+      border: 1.5px solid var(--musa-lilac);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.93rem;
+      background: var(--musa-cream);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-row-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 680px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
 
-    .btn { background: var(--musa-deep-purple); color: #ffffff; border: 2px solid var(--musa-deep-purple); padding: 0.65rem 1.3rem; border-radius: 999px; font-weight: 700; font-size: 0.86rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
-    .btn.outline { background: transparent; color: var(--musa-deep-purple); }
-    .btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
-    .btn.small { padding: 0.42rem 0.9rem; font-size: 0.8rem; }
-    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn {
+      background: var(--musa-deep-purple);
+      color: #ffffff;
+      border: 2px solid var(--musa-deep-purple);
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .btn.outline {
+      background: transparent;
+      color: var(--musa-deep-purple);
+    }
+    .btn.danger {
+      background: transparent;
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+    .btn.small {
+      padding: 0.42rem 0.9rem;
+      font-size: 0.8rem;
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
 
-    .status-msg { margin-top: 0.85rem; font-size: 0.88rem; font-weight: 700; }
+    .status-msg {
+      margin-top: 0.85rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
     .status-msg.error { color: var(--danger); }
     .status-msg.success { color: var(--success); }
 
     /* IMÁGENES */
-    .images-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
-    .img-slot { border: 1.5px solid var(--musa-lilac); border-radius: 14px; padding: 1rem; background: var(--musa-cream); display: flex; flex-direction: column; gap: 0.65rem; }
-    .img-slot-title { font-weight: 800; font-size: 0.9rem; color: var(--musa-deep-purple); }
-    .img-preview-box { width: 100%; height: 150px; border-radius: 10px; background: #ffffff; border: 1px dashed var(--musa-lilac); display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 0.5rem; }
-    .img-preview-box img { width: 100%; height: 100%; object-fit: cover; }
-    .img-preview-box.is-logo img { object-fit: contain; padding: 0.5rem; }
-    .img-slot-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .img-slot {
+      border: 1.5px solid var(--musa-lilac);
+      border-radius: 14px;
+      padding: 1rem;
+      background: var(--musa-cream);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .img-slot-title {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--musa-deep-purple);
+    }
+    .img-preview-box {
+      width: 100%;
+      height: 150px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px dashed var(--musa-lilac);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 0.5rem;
+    }
+    .img-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .img-preview-box.is-logo img {
+      object-fit: contain;
+      padding: 0.5rem;
+    }
+    .img-slot-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
     /* POSTS & MIEMBROS */
-    .post-item { border: 1.5px solid var(--musa-lilac); border-radius: 14px; padding: 1.15rem; background: var(--musa-cream); margin-bottom: 0.9rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+    .post-item {
+      border: 1.5px solid var(--musa-lilac);
+      border-radius: 14px;
+      padding: 1.15rem;
+      background: var(--musa-cream);
+      margin-bottom: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
     .post-item-info { flex: 1; min-width: 220px; }
-    .post-item h3 { font-size: 1.05rem; color: var(--musa-deep-purple); margin-bottom: 0.25rem; }
-    .post-meta { font-size: 0.8rem; color: var(--musa-blue); font-weight: 700; margin-bottom: 0.35rem; }
-    .post-item-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+    .post-item h3 {
+      font-size: 1.05rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.25rem;
+    }
+    .post-meta {
+      font-size: 0.8rem;
+      color: var(--musa-blue);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .post-item-actions {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
 
-    .cred-box { display: none; background: #f0fdf4; border: 2px solid var(--success); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.9rem; }
+    .cred-box {
+      display: none;
+      background: #f0fdf4;
+      border: 2px solid var(--success);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
     .table-wrap { overflow-x: auto; }
-    table.musa-table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
-    table.musa-table th, table.musa-table td { padding: 0.75rem 0.65rem; border-bottom: 1px solid var(--musa-lilac-soft); text-align: left; vertical-align: middle; }
-    table.musa-table th { font-size: 0.74rem; text-transform: uppercase; color: var(--musa-deep-purple); background: var(--musa-lilac-soft); }
-    .pill-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.74rem; font-weight: 700; background: var(--musa-lilac-soft); color: var(--musa-deep-purple); }
+    table.musa-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+    table.musa-table th,
+    table.musa-table td {
+      padding: 0.75rem 0.65rem;
+      border-bottom: 1px solid var(--musa-lilac-soft);
+      text-align: left;
+      vertical-align: middle;
+    }
+    table.musa-table th {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      color: var(--musa-deep-purple);
+      background: var(--musa-lilac-soft);
+    }
+    .pill-tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: var(--musa-lilac-soft);
+      color: var(--musa-deep-purple);
+    }
     .pill-ok { background: #dcfce7; color: #166534; }
     .pill-warn { background: #fef3c7; color: #92400e; }
 
     /* MODAL PERFIL Y BITÁCORA */
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(31, 22, 39, 0.72); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(31, 22, 39, 0.72);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
     .modal-backdrop.open { display: flex; }
-    .modal-box { background: #ffffff; border: 2px solid var(--musa-lilac); border-radius: 20px; max-width: 680px; width: 100%; padding: 1.75rem; max-height: 90vh; overflow-y: auto; }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .modal-close { background: var(--musa-lilac-soft); color: var(--musa-deep-purple); border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: 800; cursor: pointer; }
-    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
-    .profile-field { background: var(--musa-cream); border: 1px solid var(--musa-lilac); border-radius: 10px; padding: 0.6rem 0.85rem; }
-    .profile-field small { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--musa-blue); }
-    .session-log-card { background: var(--musa-cream); border: 1.5px solid var(--musa-lilac); border-left: 5px solid var(--musa-deep-purple); border-radius: 12px; padding: 0.95rem 1.1rem; margin-bottom: 0.75rem; font-size: 0.88rem; }
+    .modal-box {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      padding: 1.75rem;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .modal-close {
+      background: var(--musa-lilac-soft);
+      color: var(--musa-deep-purple);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+    .profile-field {
+      background: var(--musa-cream);
+      border: 1px solid var(--musa-lilac);
+      border-radius: 10px;
+      padding: 0.6rem 0.85rem;
+    }
+    .profile-field small {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--musa-blue);
+    }
+    .session-log-card {
+      background: var(--musa-cream);
+      border: 1.5px solid var(--musa-lilac);
+      border-left: 5px solid var(--musa-deep-purple);
+      border-radius: 12px;
+      padding: 0.95rem 1.1rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.88rem;
+    }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
+  <!-- PANTALLA DE INICIO DE SESIÓN -->
   <div id="login-view" class="login-wrap">
     <div class="login-card">
       <h1 class="display-title">MUSA LA SALLE BAJÍO</h1>
@@ -136,7 +439,7 @@
     </div>
   </div>
 
-  <!-- PANEL -->
+  <!-- PANEL DE ADMINISTRACIÓN -->
   <div id="admin-view" style="display:none;">
     <header class="topbar">
       <div class="topbar-left">
@@ -161,7 +464,7 @@
       <section id="tab-miembros" class="panel-section is-active">
         <div class="card">
           <h2 class="display-title">REGISTRAR INTEGRANTE</h2>
-          <p class="card-desc">Da de alta a miembros de MUSA o de la Escuela de Medicina del Bajío (EMB) y asígnalos al programa PARES MUSA.</p>
+          <p class="card-desc">Da de alta a miembros de MUSA, de la Escuela de Medicina del Bajío (EMB) o Docentes/Maestros y asígnalos al programa PARES MUSA.</p>
 
           <form id="member-form">
             <div class="form-row-3">
@@ -178,6 +481,7 @@
                 <select id="m-afiliacion">
                   <option value="Miembro MUSA">Miembro MUSA</option>
                   <option value="Miembro EMB">Miembro EMB (Escuela de Medicina del Bajío)</option>
+                  <option value="Docente / Maestro">Docente / Maestro</option>
                 </select>
               </div>
               <div class="form-group">
@@ -186,6 +490,7 @@
                   <option value="No pertenece">No pertenece a PARES MUSA</option>
                   <option value="Tutor">Tutor</option>
                   <option value="Tutorado">Tutorado</option>
+                  <option value="Maestro / Mentor">Maestro / Mentor (Gestión PARES MUSA)</option>
                 </select>
               </div>
               <div class="form-group" id="m-tutor-wrap" style="display:none;">
@@ -242,21 +547,39 @@
           <form id="post-form">
             <input type="hidden" id="post-id" />
             <div class="form-row">
-              <div class="form-group"><label for="post-titulo">Título de la publicación</label><input type="text" id="post-titulo" required /></div>
-              <div class="form-group"><label for="post-fecha">Fecha visible</label><input type="text" id="post-fecha" required placeholder="Ej. Noviembre 2026" /></div>
+              <div class="form-group">
+                <label for="post-titulo">Título de la publicación</label>
+                <input type="text" id="post-titulo" required placeholder="Ej. Crónica de nuestra brigada Jardín MUSA" />
+              </div>
+              <div class="form-group">
+                <label for="post-fecha">Fecha visible</label>
+                <input type="text" id="post-fecha" required placeholder="Ej. Noviembre 2026" />
+              </div>
             </div>
-            <div class="form-group"><label for="post-tags">Etiquetas (separadas por coma)</label><input type="text" id="post-tags" value="MUSA, La Salle Bajío" /></div>
+            <div class="form-group">
+              <label for="post-tags">Etiquetas (separadas por coma)</label>
+              <input type="text" id="post-tags" placeholder="Ej. MUSA, La Salle Bajío, Brigadas" value="MUSA, La Salle Bajío" />
+            </div>
             <div class="form-group">
               <label>Imagen de portada (opcional)</label>
               <div class="img-preview-box" id="post-img-preview" style="max-width:340px; margin-bottom:0.65rem;">Sin imagen seleccionada</div>
               <div class="img-slot-actions" style="margin-bottom:0.5rem;">
-                <label class="btn outline small" style="cursor:pointer;">Subir imagen<input type="file" id="post-img-file" accept="image/*" style="display:none;" /></label>
+                <label class="btn outline small" style="cursor:pointer;">
+                  Subir imagen
+                  <input type="file" id="post-img-file" accept="image/*" style="display:none;" />
+                </label>
                 <button type="button" class="btn danger small" id="post-img-clear">Quitar imagen</button>
               </div>
               <input type="url" id="post-img-url" placeholder="O pega un enlace directo a la imagen (https://...)" />
             </div>
-            <div class="form-group"><label for="post-resumen">Resumen breve</label><textarea id="post-resumen" rows="2" required></textarea></div>
-            <div class="form-group"><label for="post-contenido">Contenido completo</label><textarea id="post-contenido" rows="7" required></textarea></div>
+            <div class="form-group">
+              <label for="post-resumen">Resumen breve (aparece en la tarjeta del blog)</label>
+              <textarea id="post-resumen" rows="2" required placeholder="Describe en 1 o 2 líneas de qué trata la publicación..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="post-contenido">Contenido completo</label>
+              <textarea id="post-contenido" rows="7" required placeholder="Escribe aquí el texto completo de la publicación..."></textarea>
+            </div>
             <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
               <button type="submit" class="btn" id="post-submit-btn">Publicar entrada</button>
               <button type="button" class="btn outline" id="post-cancel-btn" style="display:none;">Cancelar edición</button>
@@ -267,6 +590,7 @@
 
         <div class="card">
           <h2 class="display-title">PUBLICACIONES ACTIVAS</h2>
+          <p class="card-desc">Aquí puedes editar o eliminar las entradas publicadas en el blog.</p>
           <div id="posts-admin-list">Cargando publicaciones...</div>
         </div>
       </section>
@@ -334,9 +658,13 @@
           img.onerror = () => reject(new Error("El archivo no es una imagen válida."));
           img.onload = () => {
             let { width, height } = img;
-            if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
             const canvas = document.createElement("canvas");
-            canvas.width = width; canvas.height = height;
+            canvas.width = width;
+            canvas.height = height;
             canvas.getContext("2d").drawImage(img, 0, 0, width, height);
             resolve(isLogo ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 0.72));
           };
@@ -347,7 +675,13 @@
     }
 
     function generateUsername(nombre) {
-      const clean = nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z\s]/g, "").trim().toUpperCase().split(/\s+/);
+      const clean = nombre
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z\s]/g, "")
+        .trim()
+        .toUpperCase()
+        .split(/\s+/);
       const base = (clean[0] || "USR").substring(0, 4) + (clean[1] ? clean[1].substring(0, 2) : "");
       return "MUSA" + base + Math.floor(100 + Math.random() * 900);
     }
@@ -379,11 +713,15 @@
         document.getElementById("login-form").reset();
         setStatus("login-status", "");
       } catch (err) {
-        setStatus("login-status", "Correo o contraseña incorrectos.", "error");
-      } finally { btn.disabled = false; }
+        setStatus("login-status", "Correo o contraseña incorrectos. Solicita acceso al administrador de MUSA.", "error");
+      } finally {
+        btn.disabled = false;
+      }
     });
 
-    document.getElementById("logout-btn").addEventListener("click", async () => { await signOut(auth); });
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await signOut(auth);
+    });
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -444,7 +782,12 @@
       const password = generatePassword(9);
 
       const memberData = {
-        usuario, password, nombre, correo, afiliacion, rolPares,
+        usuario,
+        password,
+        nombre,
+        correo,
+        afiliacion,
+        rolPares,
         tutorUsuario: tutorUsuario || "",
         tutorNombre: tutorObj ? tutorObj.nombre : "",
         foto: "",
@@ -473,7 +816,9 @@
         box.style.display = "block";
       } catch (err) {
         setStatus("m-status", "Error al registrar: " + err.message, "error");
-      } finally { btn.disabled = false; }
+      } finally {
+        btn.disabled = false;
+      }
     });
 
     document.getElementById("search-member").addEventListener("input", renderMembersTable);
@@ -593,13 +938,15 @@
       document.getElementById("member-modal").classList.remove("open");
     });
 
-    // ================= IMÁGENES Y BLOG (EXISTENTES) =================
+    // ================= IMÁGENES =================
     async function loadImagesFromFirestore() {
       currentImages = {};
       try {
         const snap = await getDoc(doc(db, "sitio", "imagenes"));
         if (snap.exists()) currentImages = snap.data() || {};
-      } catch (err) { console.error(err); }
+      } catch (err) {
+        console.error(err);
+      }
       renderImageSlots();
     }
 
@@ -610,9 +957,14 @@
         return `
           <div class="img-slot">
             <div class="img-slot-title">${slot.label}</div>
-            <div class="img-preview-box ${slot.isLogo ? "is-logo" : ""}" id="preview-${slot.key}">${val ? `<img src="${val}" alt="${slot.label}">` : "Sin imagen asignada"}</div>
+            <div class="img-preview-box ${slot.isLogo ? "is-logo" : ""}" id="preview-${slot.key}">
+              ${val ? `<img src="${val}" alt="${slot.label}">` : "Sin imagen asignada"}
+            </div>
             <div class="img-slot-actions">
-              <label class="btn outline small" style="cursor:pointer;">Subir foto<input type="file" accept="image/*" data-slot="${slot.key}" data-logo="${slot.isLogo}" class="slot-file-input" style="display:none;" /></label>
+              <label class="btn outline small" style="cursor:pointer;">
+                Subir foto
+                <input type="file" accept="image/*" data-slot="${slot.key}" data-logo="${slot.isLogo}" class="slot-file-input" style="display:none;" />
+              </label>
               <button type="button" class="btn danger small slot-clear-btn" data-slot="${slot.key}">Quitar</button>
             </div>
             <input type="url" class="slot-url-input" data-slot="${slot.key}" placeholder="O pega URL directa (https://...)" value="${val.startsWith("http") ? val : ""}" style="width:100%; padding:0.5rem 0.7rem; border:1px solid var(--musa-lilac); border-radius:8px; font-size:0.82rem; background:#fff;" />
@@ -622,82 +974,144 @@
 
       grid.querySelectorAll(".slot-file-input").forEach((input) => {
         input.addEventListener("change", async (e) => {
-          const file = e.target.files[0]; if (!file) return;
-          const key = input.dataset.slot, isLogo = input.dataset.logo === "true";
+          const file = e.target.files[0];
+          if (!file) return;
+          const key = input.dataset.slot;
+          const isLogo = input.dataset.logo === "true";
           try {
             const compressed = await compressImage(file, isLogo ? 420 : 820, isLogo);
             currentImages[key] = compressed;
             document.getElementById(`preview-${key}`).innerHTML = `<img src="${compressed}" alt="${key}">`;
-            setStatus("images-status", "Imagen cargada. Presiona 'Guardar imágenes'.");
-          } catch (err) { setStatus("images-status", err.message, "error"); }
+            const urlInput = grid.querySelector(`.slot-url-input[data-slot="${key}"]`);
+            if (urlInput) urlInput.value = "";
+            setStatus("images-status", "Imagen cargada. Presiona 'Guardar imágenes' para aplicar los cambios.");
+          } catch (err) {
+            setStatus("images-status", err.message, "error");
+          }
         });
       });
+
       grid.querySelectorAll(".slot-url-input").forEach((input) => {
         input.addEventListener("input", () => {
-          const key = input.dataset.slot, url = input.value.trim();
+          const key = input.dataset.slot;
+          const url = input.value.trim();
           currentImages[key] = url;
-          document.getElementById(`preview-${key}`).innerHTML = url ? `<img src="${url}" alt="${key}">` : "Sin imagen asignada";
+          document.getElementById(`preview-${key}`).innerHTML = url
+            ? `<img src="${url}" alt="${key}">`
+            : "Sin imagen asignada";
         });
       });
+
       grid.querySelectorAll(".slot-clear-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const key = btn.dataset.slot; currentImages[key] = "";
+          const key = btn.dataset.slot;
+          currentImages[key] = "";
           document.getElementById(`preview-${key}`).innerHTML = "Sin imagen asignada";
+          const urlInput = grid.querySelector(`.slot-url-input[data-slot="${key}"]`);
+          if (urlInput) urlInput.value = "";
         });
       });
     }
 
     document.getElementById("save-images-btn").addEventListener("click", async () => {
-      const btn = document.getElementById("save-images-btn"); btn.disabled = true;
+      const btn = document.getElementById("save-images-btn");
+      btn.disabled = true;
       setStatus("images-status", "Guardando imágenes...");
       try {
-        await setDoc(doc(db, "sitio", "imagenes"), { ...currentImages, actualizadoEn: Date.now() });
-        setStatus("images-status", "Imágenes guardadas correctamente.", "success");
-      } catch (err) { setStatus("images-status", "Error al guardar.", "error"); }
-      finally { btn.disabled = false; }
+        await setDoc(doc(db, "sitio", "imagenes"), {
+          ...currentImages,
+          actualizadoEn: Date.now()
+        });
+        setStatus("images-status", "Imágenes guardadas y publicadas correctamente en el sitio.", "success");
+      } catch (err) {
+        console.error(err);
+        setStatus("images-status", "Error al guardar. Verifica que tu correo esté autorizado en las reglas de Firestore.", "error");
+      } finally {
+        btn.disabled = false;
+      }
     });
 
+    // ================= BLOG =================
     function updatePostImagePreview(src) {
       currentPostImage = src || "";
-      document.getElementById("post-img-preview").innerHTML = currentPostImage ? `<img src="${currentPostImage}" alt="Portada">` : "Sin imagen seleccionada";
+      const box = document.getElementById("post-img-preview");
+      box.innerHTML = currentPostImage
+        ? `<img src="${currentPostImage}" alt="Portada de publicación">`
+        : "Sin imagen seleccionada";
     }
+
     document.getElementById("post-img-file").addEventListener("change", async (e) => {
-      const file = e.target.files[0]; if (!file) return;
-      try { updatePostImagePreview(await compressImage(file, 900, false)); document.getElementById("post-img-url").value = ""; }
-      catch (err) { setStatus("post-status", err.message, "error"); }
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const compressed = await compressImage(file, 900, false);
+        updatePostImagePreview(compressed);
+        document.getElementById("post-img-url").value = "";
+      } catch (err) {
+        setStatus("post-status", err.message, "error");
+      }
     });
-    document.getElementById("post-img-url").addEventListener("input", (e) => updatePostImagePreview(e.target.value.trim()));
-    document.getElementById("post-img-clear").addEventListener("click", () => { updatePostImagePreview(""); document.getElementById("post-img-url").value = ""; });
+
+    document.getElementById("post-img-url").addEventListener("input", (e) => {
+      updatePostImagePreview(e.target.value.trim());
+    });
+
+    document.getElementById("post-img-clear").addEventListener("click", () => {
+      updatePostImagePreview("");
+      document.getElementById("post-img-url").value = "";
+      document.getElementById("post-img-file").value = "";
+    });
 
     function resetPostForm() {
-      document.getElementById("post-form").reset(); document.getElementById("post-id").value = "";
+      document.getElementById("post-form").reset();
+      document.getElementById("post-id").value = "";
       document.getElementById("post-tags").value = "MUSA, La Salle Bajío";
       document.getElementById("post-form-heading").textContent = "NUEVA PUBLICACIÓN";
       document.getElementById("post-submit-btn").textContent = "Publicar entrada";
       document.getElementById("post-cancel-btn").style.display = "none";
       updatePostImagePreview("");
     }
-    document.getElementById("post-cancel-btn").addEventListener("click", () => { resetPostForm(); setStatus("post-status", ""); });
+
+    document.getElementById("post-cancel-btn").addEventListener("click", () => {
+      resetPostForm();
+      setStatus("post-status", "");
+    });
 
     document.getElementById("post-form").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const btn = document.getElementById("post-submit-btn"); btn.disabled = true;
+      const btn = document.getElementById("post-submit-btn");
+      btn.disabled = true;
+      setStatus("post-status", "Guardando publicación...");
+
       const existingId = document.getElementById("post-id").value;
       const docId = existingId || `post_${Date.now()}`;
-      const tags = document.getElementById("post-tags").value.split(",").map(t => t.trim()).filter(Boolean);
+      const tagsRaw = document.getElementById("post-tags").value;
+      const tags = tagsRaw.split(",").map((t) => t.trim()).filter(Boolean);
+
       const postData = {
-        tipo: "post", titulo: document.getElementById("post-titulo").value.trim(),
-        fecha: document.getElementById("post-fecha").value.trim(), tags: tags.length ? tags : ["MUSA"],
-        imagen: currentPostImage, resumen: document.getElementById("post-resumen").value.trim(),
+        tipo: "post",
+        titulo: document.getElementById("post-titulo").value.trim(),
+        fecha: document.getElementById("post-fecha").value.trim(),
+        tags: tags.length ? tags : ["MUSA"],
+        imagen: currentPostImage,
+        resumen: document.getElementById("post-resumen").value.trim(),
         contenido: document.getElementById("post-contenido").value.trim(),
-        creadoEn: existingId ? (postsCache.find(p => p.id === existingId)?.creadoEn || Date.now()) : Date.now()
+        creadoEn: existingId
+          ? (postsCache.find((p) => p.id === existingId)?.creadoEn || Date.now())
+          : Date.now()
       };
+
       try {
         await setDoc(doc(db, "sitio", docId), postData);
-        resetPostForm(); await loadPostsFromFirestore();
+        resetPostForm();
+        await loadPostsFromFirestore();
         setStatus("post-status", "Publicación guardada correctamente.", "success");
-      } catch (err) { setStatus("post-status", "Error al guardar publicación.", "error"); }
-      finally { btn.disabled = false; }
+      } catch (err) {
+        console.error(err);
+        setStatus("post-status", "No se pudo guardar la publicación. Verifica los permisos de tu cuenta.", "error");
+      } finally {
+        btn.disabled = false;
+      }
     });
 
     async function loadPostsFromFirestore() {
@@ -705,35 +1119,69 @@
       try {
         const snapshot = await getDocs(collection(db, "sitio"));
         postsCache = [];
-        snapshot.forEach(d => { const data = d.data(); if (d.id.startsWith("post_") || data.tipo === "post") postsCache.push({ id: d.id, ...data }); });
+        snapshot.forEach((docSnap) => {
+          const d = docSnap.data();
+          if (docSnap.id.startsWith("post_") || d.tipo === "post") {
+            postsCache.push({ id: docSnap.id, ...d });
+          }
+        });
         postsCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
-        if (!postsCache.length) { container.innerHTML = `<p style="color:var(--text-muted);">Aún no hay publicaciones.</p>`; return; }
-        container.innerHTML = postsCache.map(p => `
+
+        if (postsCache.length === 0) {
+          container.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Aún no hay publicaciones creadas desde el panel.</p>`;
+          return;
+        }
+
+        container.innerHTML = postsCache.map((p) => `
           <div class="post-item">
-            <div class="post-item-info"><div class="post-meta">${p.fecha || ""} · ${(p.tags || []).join(", ")}</div><h3>${p.titulo}</h3><p style="font-size:0.88rem; color:var(--text-muted);">${p.resumen}</p></div>
-            <div class="post-item-actions"><button type="button" class="btn outline small edit-post-btn" data-id="${p.id}">Editar</button><button type="button" class="btn danger small delete-post-btn" data-id="${p.id}">Eliminar</button></div>
+            <div class="post-item-info">
+              <div class="post-meta">${p.fecha || ""} · ${(p.tags || []).join(", ")}</div>
+              <h3>${p.titulo || "Sin título"}</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted);">${p.resumen || ""}</p>
+            </div>
+            <div class="post-item-actions">
+              <button type="button" class="btn outline small edit-post-btn" data-id="${p.id}">Editar</button>
+              <button type="button" class="btn danger small delete-post-btn" data-id="${p.id}">Eliminar</button>
+            </div>
           </div>
         `).join("");
-        container.querySelectorAll(".edit-post-btn").forEach(btn => {
+
+        container.querySelectorAll(".edit-post-btn").forEach((btn) => {
           btn.addEventListener("click", () => {
-            const p = postsCache.find(i => i.id === btn.dataset.id); if (!p) return;
-            document.getElementById("post-id").value = p.id; document.getElementById("post-titulo").value = p.titulo || "";
-            document.getElementById("post-fecha").value = p.fecha || ""; document.getElementById("post-tags").value = (p.tags || []).join(", ");
-            document.getElementById("post-resumen").value = p.resumen || ""; document.getElementById("post-contenido").value = p.contenido || "";
+            const p = postsCache.find((item) => item.id === btn.dataset.id);
+            if (!p) return;
+            document.getElementById("post-id").value = p.id;
+            document.getElementById("post-titulo").value = p.titulo || "";
+            document.getElementById("post-fecha").value = p.fecha || "";
+            document.getElementById("post-tags").value = (p.tags || []).join(", ");
+            document.getElementById("post-resumen").value = p.resumen || "";
+            document.getElementById("post-contenido").value = p.contenido || "";
             updatePostImagePreview(p.imagen || "");
+            document.getElementById("post-img-url").value = (p.imagen || "").startsWith("http") ? p.imagen : "";
             document.getElementById("post-form-heading").textContent = "EDITAR PUBLICACIÓN";
             document.getElementById("post-submit-btn").textContent = "Guardar cambios";
             document.getElementById("post-cancel-btn").style.display = "inline-flex";
+            setStatus("post-status", "");
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
         });
-        container.querySelectorAll(".delete-post-btn").forEach(btn => {
+
+        container.querySelectorAll(".delete-post-btn").forEach((btn) => {
           btn.addEventListener("click", async () => {
-            if (!confirm("¿Eliminar publicación?")) return;
-            await deleteDoc(doc(db, "sitio", btn.dataset.id)); await loadPostsFromFirestore();
+            if (!confirm("¿Seguro que deseas eliminar esta publicación del blog?")) return;
+            try {
+              await deleteDoc(doc(db, "sitio", btn.dataset.id));
+              await loadPostsFromFirestore();
+              setStatus("post-status", "Publicación eliminada.", "success");
+            } catch (err) {
+              setStatus("post-status", "Error al eliminar la publicación.", "error");
+            }
           });
         });
-      } catch (err) { container.innerHTML = `<p style="color:var(--danger);">Error al cargar.</p>`; }
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style="color:var(--danger);">Error al cargar publicaciones.</p>`;
+      }
     }
   </script>
 </body>
