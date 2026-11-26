@@ -43,14 +43,16 @@
     .panel { display: none; }
     .panel.is-active { display: block; }
 
+    .section-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.15rem; }
+    .section-header h2 { font-size: 1.5rem; color: var(--musa-deep-purple); }
+
     .card { background: #fff; border: 2px solid var(--musa-lilac); border-radius: 18px; padding: 1.5rem; margin-bottom: 1.25rem; }
-    .card h2 { font-size: 1.45rem; color: var(--musa-deep-purple); margin-bottom: 0.35rem; }
     .form-group { margin-bottom: 0.9rem; }
     .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--musa-deep-purple); margin-bottom: 0.3rem; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.68rem 0.85rem; border: 1.5px solid var(--musa-lilac); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.92rem; background: var(--musa-cream); }
-    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.9rem; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.85rem; }
 
-    .btn { background: var(--musa-deep-purple); color: #fff; border: 2px solid var(--musa-deep-purple); padding: 0.6rem 1.25rem; border-radius: 999px; font-weight: 700; font-size: 0.84rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
+    .btn { background: var(--musa-deep-purple); color: #fff; border: 2px solid var(--musa-deep-purple); padding: 0.58rem 1.2rem; border-radius: 999px; font-weight: 700; font-size: 0.84rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; }
     .btn.outline { background: transparent; color: var(--musa-deep-purple); }
     .btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
     .btn.small { padding: 0.38rem 0.85rem; font-size: 0.78rem; }
@@ -62,6 +64,20 @@
 
     .reply-item { background: #fff; border-left: 3px solid var(--musa-blue); padding: 0.55rem 0.85rem; border-radius: 8px; margin-top: 0.5rem; font-size: 0.86rem; }
     .notif-banner { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 14px; padding: 0.9rem 1.15rem; margin-bottom: 1.25rem; font-size: 0.9rem; display: none; }
+
+    /* TABLA MENTOR */
+    .table-wrap { overflow-x: auto; }
+    table.musa-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    table.musa-table th, table.musa-table td { padding: 0.7rem 0.6rem; border-bottom: 1px solid var(--musa-lilac-soft); text-align: left; vertical-align: middle; }
+    table.musa-table th { font-size: 0.73rem; text-transform: uppercase; color: var(--musa-deep-purple); background: var(--musa-lilac-soft); }
+
+    /* MODALES */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(31, 22, 39, 0.72); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-backdrop.open { display: flex; }
+    .modal-box { background: #fff; border: 2px solid var(--musa-lilac); border-radius: 20px; max-width: 580px; width: 100%; padding: 1.65rem; max-height: 90vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .modal-header h3 { font-size: 1.35rem; color: var(--musa-deep-purple); }
+    .modal-close { background: var(--musa-lilac-soft); color: var(--musa-deep-purple); border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: 800; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -90,9 +106,7 @@
           <small id="top-meta" style="color:var(--text-muted); font-weight:600;"></small>
         </div>
       </div>
-      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-        <button type="button" class="btn danger small" id="logout-btn">Cerrar sesión</button>
-      </div>
+      <button type="button" class="btn danger small" id="logout-btn">Cerrar sesión</button>
     </header>
 
     <main class="main-wrap">
@@ -105,86 +119,78 @@
         <button type="button" class="tab-btn" data-tab="perfil">Mi Perfil</button>
       </div>
 
-      <!-- 1. RECURSOS -->
+      <!-- 1. RECURSOS (SOLO LECTURA + BOTÓN MODAL) -->
       <section id="panel-recursos" class="panel is-active">
         <div class="card">
-          <h2 class="display-title">COMPARTIR RECURSO DE LA CARRERA</h2>
-          <form id="resource-form">
-            <div class="form-row">
-              <div class="form-group"><label>Título del material</label><input type="text" id="r-titulo" required placeholder="Ej. Guía de NANDA / NIC / NOC" /></div>
-              <div class="form-group"><label>Materia o área</label><input type="text" id="r-materia" required placeholder="Ej. Enfermería Quirúrgica" /></div>
-            </div>
-            <div class="form-group"><label>Enlace al archivo (Google Drive, PDF, Canva, etc.)</label><input type="url" id="r-url" required placeholder="https://..." /></div>
-            <div class="form-group"><label>Descripción breve</label><textarea id="r-desc" rows="2" placeholder="¿Qué incluye este archivo?"></textarea></div>
-            <button type="submit" class="btn">Publicar recurso</button>
-          </form>
-        </div>
-        <div class="card">
-          <h2 class="display-title">BIBLIOTECA COMPARTIDA</h2>
+          <div class="section-header">
+            <h2 class="display-title">BIBLIOTECA DE RECURSOS</h2>
+            <button type="button" class="btn" onclick="openModal('modal-resource')">+ Subir recurso</button>
+          </div>
           <div id="resources-list">Cargando recursos...</div>
         </div>
       </section>
 
-      <!-- 2. FORO DE DUDAS -->
+      <!-- 2. FORO DE DUDAS (SOLO LECTURA + BOTÓN MODAL) -->
       <section id="panel-dudas" class="panel">
         <div class="card">
-          <h2 class="display-title">PUBLICAR UNA DUDA</h2>
-          <form id="doubt-form">
-            <div class="form-group"><label>Tema o materia</label><input type="text" id="d-tema" required placeholder="Ej. Farmacología / Prácticas clínicas" /></div>
-            <div class="form-group"><label>Tu pregunta</label><textarea id="d-texto" rows="3" required placeholder="Describe tu duda para que otros miembros puedan ayudarte..."></textarea></div>
-            <button type="submit" class="btn">Publicar duda</button>
-          </form>
-        </div>
-        <div class="card">
-          <h2 class="display-title">DUDAS RECIENTES</h2>
+          <div class="section-header">
+            <h2 class="display-title">FORO DE DUDAS</h2>
+            <button type="button" class="btn" onclick="openModal('modal-doubt')">+ Publicar duda</button>
+          </div>
           <div id="doubts-list">Cargando foro...</div>
         </div>
       </section>
 
       <!-- 3. PARES MUSA -->
       <section id="panel-pares" class="panel">
-        <div class="card">
-          <h2 class="display-title">PROGRAMAR CITA (TUTOR / TUTORADO)</h2>
-          <p id="pares-partner-info" style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;"></p>
-          <form id="cita-form">
-            <div class="form-row">
-              <div class="form-group" id="cita-target-wrap" style="display:none;"><label>Tutorado</label><select id="c-target"></select></div>
-              <div class="form-group"><label>Fecha</label><input type="date" id="c-fecha" required /></div>
-              <div class="form-group"><label>Hora</label><input type="time" id="c-hora" required /></div>
-              <div class="form-group"><label>Modalidad</label><select id="c-mod"><option value="Presencial">Presencial</option><option value="Virtual">Virtual</option></select></div>
+        <!-- VISTA TUTOR / TUTORADO -->
+        <div id="pares-student-view" style="display:none;">
+          <div class="card">
+            <div class="section-header">
+              <div>
+                <h2 class="display-title">PRÓXIMAS CITAS</h2>
+                <p id="pares-partner-info" style="font-size:0.88rem; color:var(--text-muted);"></p>
+              </div>
+              <button type="button" class="btn" onclick="openModal('modal-cita')">+ Programar cita</button>
             </div>
-            <div class="form-group"><label>Lugar o enlace de reunión / Notas</label><input type="text" id="c-nota" required placeholder="Ej. Biblioteca / Enlace de Meet" /></div>
-            <button type="submit" class="btn">Agendar cita</button>
-          </form>
-          <div id="citas-list" style="margin-top:1.15rem;"></div>
+            <div id="citas-list">Cargando citas...</div>
+          </div>
+
+          <div class="card">
+            <div class="section-header">
+              <h2 class="display-title">BITÁCORA DE SESIONES</h2>
+              <button type="button" class="btn" id="btn-open-session-modal" style="display:none;" onclick="openModal('modal-session')">+ Registrar sesión</button>
+            </div>
+            <div id="sessions-list">Cargando sesiones...</div>
+          </div>
         </div>
 
-        <div class="card" id="tutor-log-card" style="display:none;">
-          <h2 class="display-title">REGISTRAR SESIÓN EN BITÁCORA</h2>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">Al registrar la sesión, tu tutorado recibirá un aviso en su portal para confirmar su asistencia.</p>
-          <form id="session-form">
-            <div class="form-row">
-              <div class="form-group"><label>Tutorado</label><select id="s-tutorado" required></select></div>
-              <div class="form-group"><label>Día</label><input type="date" id="s-fecha" required /></div>
-              <div class="form-group"><label>Hora</label><input type="time" id="s-hora" required /></div>
-              <div class="form-group"><label>Modalidad</label><select id="s-mod"><option value="Presencial">Presencial</option><option value="Virtual">Virtual</option></select></div>
+        <!-- VISTA MAESTRO / MENTOR (GESTIÓN EXCLUSIVA PARES MUSA) -->
+        <div id="pares-mentor-view" style="display:none;">
+          <div class="card">
+            <h2 class="display-title" style="color:var(--musa-deep-purple); margin-bottom:0.3rem;">GESTIÓN PARES MUSA (MAESTRO / MENTOR)</h2>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.15rem;">Vincula o desvincula tutores con tutorados y revisa las bitácoras de sesiones registradas.</p>
+            <div class="table-wrap">
+              <table class="musa-table">
+                <thead>
+                  <tr>
+                    <th>Integrante</th>
+                    <th>Rol</th>
+                    <th>Vínculo Tutor / Tutorado</th>
+                    <th>Bitácora</th>
+                  </tr>
+                </thead>
+                <tbody id="mentor-pares-tbody"></tbody>
+              </table>
             </div>
-            <div class="form-group"><label>¿Qué hablaron en la sesión?</label><textarea id="s-temas" rows="2" required></textarea></div>
-            <div class="form-group"><label>Acuerdos establecidos</label><textarea id="s-acuerdos" rows="2" required></textarea></div>
-            <button type="submit" class="btn">Guardar en bitácora</button>
-          </form>
-        </div>
-
-        <div class="card">
-          <h2 class="display-title">HISTORIAL DE SESIONES PARES MUSA</h2>
-          <div id="sessions-list">Cargando sesiones...</div>
+          </div>
         </div>
       </section>
 
       <!-- 4. MI PERFIL -->
       <section id="panel-perfil" class="panel">
         <div class="card" style="max-width:540px;">
-          <h2 class="display-title">MI PERFIL</h2>
+          <h2 class="display-title" style="color:var(--musa-deep-purple); margin-bottom:0.3rem;">MI PERFIL</h2>
           <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:1.1rem;">Tus datos institucionales son de solo lectura. Puedes actualizar tu fotografía de perfil.</p>
           <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem; flex-wrap:wrap;">
             <div class="avatar" id="prof-avatar" style="width:84px; height:84px; font-size:1.6rem;"></div>
@@ -197,6 +203,90 @@
         </div>
       </section>
     </main>
+  </div>
+
+  <!-- MODAL: SUBIR RECURSO -->
+  <div id="modal-resource" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="display-title">COMPARTIR RECURSO</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modal-resource')">✕</button>
+      </div>
+      <form id="resource-form">
+        <div class="form-group"><label>Título del material</label><input type="text" id="r-titulo" required placeholder="Ej. Guía de NANDA / NIC / NOC" /></div>
+        <div class="form-group"><label>Materia o área</label><input type="text" id="r-materia" required placeholder="Ej. Enfermería Quirúrgica" /></div>
+        <div class="form-group"><label>Enlace al archivo (Drive, PDF, Canva, etc.)</label><input type="url" id="r-url" required placeholder="https://..." /></div>
+        <div class="form-group"><label>Descripción breve</label><textarea id="r-desc" rows="2" placeholder="¿Qué incluye este archivo?"></textarea></div>
+        <button type="submit" class="btn">Publicar recurso</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: PUBLICAR DUDA -->
+  <div id="modal-doubt" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="display-title">PUBLICAR UNA DUDA</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modal-doubt')">✕</button>
+      </div>
+      <form id="doubt-form">
+        <div class="form-group"><label>Tema o materia</label><input type="text" id="d-tema" required placeholder="Ej. Farmacología / Prácticas clínicas" /></div>
+        <div class="form-group"><label>Tu pregunta</label><textarea id="d-texto" rows="3" required placeholder="Describe tu duda para que otros miembros puedan ayudarte..."></textarea></div>
+        <button type="submit" class="btn">Publicar duda</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: PROGRAMAR CITA -->
+  <div id="modal-cita" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="display-title">PROGRAMAR CITA</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modal-cita')">✕</button>
+      </div>
+      <form id="cita-form">
+        <div class="form-group" id="cita-target-wrap" style="display:none;"><label>Tutorado</label><select id="c-target"></select></div>
+        <div class="form-row">
+          <div class="form-group"><label>Fecha</label><input type="date" id="c-fecha" required /></div>
+          <div class="form-group"><label>Hora</label><input type="time" id="c-hora" required /></div>
+        </div>
+        <div class="form-group"><label>Modalidad</label><select id="c-mod"><option value="Presencial">Presencial</option><option value="Virtual">Virtual</option></select></div>
+        <div class="form-group"><label>Lugar o enlace de reunión / Notas</label><input type="text" id="c-nota" required placeholder="Ej. Biblioteca / Enlace de Meet" /></div>
+        <button type="submit" class="btn">Agendar cita</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTRAR SESIÓN (TUTOR) -->
+  <div id="modal-session" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="display-title">REGISTRAR SESIÓN EN BITÁCORA</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modal-session')">✕</button>
+      </div>
+      <form id="session-form">
+        <div class="form-group"><label>Tutorado</label><select id="s-tutorado" required></select></div>
+        <div class="form-row">
+          <div class="form-group"><label>Día</label><input type="date" id="s-fecha" required /></div>
+          <div class="form-group"><label>Hora</label><input type="time" id="s-hora" required /></div>
+        </div>
+        <div class="form-group"><label>Modalidad</label><select id="s-mod"><option value="Presencial">Presencial</option><option value="Virtual">Virtual</option></select></div>
+        <div class="form-group"><label>¿Qué hablaron en la sesión?</label><textarea id="s-temas" rows="2" required></textarea></div>
+        <div class="form-group"><label>Acuerdos establecidos</label><textarea id="s-acuerdos" rows="2" required></textarea></div>
+        <button type="submit" class="btn">Guardar en bitácora</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VER BITÁCORA (MAESTRO / MENTOR) -->
+  <div id="modal-mentor-bitacora" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="display-title" id="mentor-bit-title">BITÁCORA DE SESIONES</h3>
+        <button type="button" class="modal-close" onclick="closeModal('modal-mentor-bitacora')">✕</button>
+      </div>
+      <div id="mentor-bit-body"></div>
+    </div>
   </div>
 
   <script type="module">
@@ -216,6 +306,11 @@
     const db = getFirestore(initializeApp(firebaseConfig));
     let currentUser = null;
     let myTutorados = [];
+    let allMembersCache = [];
+    let allSessionsCache = [];
+
+    window.openModal = (id) => document.getElementById(id).classList.add("open");
+    window.closeModal = (id) => document.getElementById(id).classList.remove("open");
 
     function initials(name) { return (name || "M").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase(); }
     function setAvatar(el, foto, name) { el.innerHTML = foto ? `<img src="${foto}" alt="${name}">` : initials(name); }
@@ -259,9 +354,20 @@
       setAvatar(document.getElementById("top-avatar"), currentUser.foto, currentUser.nombre);
       renderProfile();
 
-      const isPares = currentUser.rolPares === "Tutor" || currentUser.rolPares === "Tutorado";
+      const isMentor = currentUser.rolPares === "Maestro / Mentor";
+      const isPares = currentUser.rolPares === "Tutor" || currentUser.rolPares === "Tutorado" || isMentor;
       document.getElementById("tab-btn-pares").style.display = isPares ? "inline-block" : "none";
-      if (isPares) await initParesModule();
+
+      if (isMentor) {
+        document.getElementById("pares-student-view").style.display = "none";
+        document.getElementById("pares-mentor-view").style.display = "block";
+        document.getElementById("pending-sessions-banner").style.display = "none";
+        await loadMentorDashboard();
+      } else if (isPares) {
+        document.getElementById("pares-mentor-view").style.display = "none";
+        document.getElementById("pares-student-view").style.display = "block";
+        await initParesModule();
+      }
 
       await Promise.all([loadResources(), loadDoubts()]);
     }
@@ -322,6 +428,7 @@
         creadoEn: Date.now()
       });
       document.getElementById("resource-form").reset();
+      closeModal("modal-resource");
       await loadResources();
     });
 
@@ -351,6 +458,7 @@
         autor: currentUser.nombre, respuestas: [], creadoEn: Date.now()
       });
       document.getElementById("doubt-form").reset();
+      closeModal("modal-doubt");
       await loadDoubts();
     });
 
@@ -387,14 +495,90 @@
       });
     }
 
-    // ================= PARES MUSA (CITAS Y BITÁCORA) =================
+    // ================= PARES MUSA (MAESTRO / MENTOR) =================
+    async function loadMentorDashboard() {
+      const [mSnap, sSnap] = await Promise.all([getDocs(collection(db, "miembros")), getDocs(collection(db, "sesiones"))]);
+      allMembersCache = []; mSnap.forEach(d => allMembersCache.push(d.data()));
+      allSessionsCache = []; sSnap.forEach(d => allSessionsCache.push(d.data()));
+      allSessionsCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+
+      const tutors = allMembersCache.filter(m => m.rolPares === "Tutor");
+      const paresMembers = allMembersCache.filter(m => m.rolPares === "Tutor" || m.rolPares === "Tutorado");
+
+      const tbody = document.getElementById("mentor-pares-tbody");
+      if (!paresMembers.length) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:1rem;">No hay tutores ni tutorados registrados.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = paresMembers.map(m => {
+        let linkCell = "";
+        if (m.rolPares === "Tutorado") {
+          linkCell = `
+            <div style="display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center;">
+              <select class="mentor-link-sel" data-user="${m.usuario}" style="padding:0.35rem; border-radius:8px; border:1px solid var(--musa-lilac); font-size:0.82rem;">
+                <option value="">-- Sin tutor (Desvinculado) --</option>
+                ${tutors.map(t => `<option value="${t.usuario}" ${t.usuario === m.tutorUsuario ? "selected" : ""}>${t.nombre}</option>`).join("")}
+              </select>
+              <button type="button" class="btn small save-mentor-link" data-user="${m.usuario}">Guardar</button>
+            </div>
+          `;
+        } else {
+          const assigned = allMembersCache.filter(x => x.rolPares === "Tutorado" && x.tutorUsuario === m.usuario).map(x => x.nombre);
+          linkCell = `<small style="color:var(--text-muted);">Tutorados: ${assigned.length ? assigned.join(", ") : "Ninguno"}</small>`;
+        }
+
+        const sesCount = allSessionsCache.filter(s => s.tutorUsuario === m.usuario || s.tutoradoUsuario === m.usuario).length;
+        return `
+          <tr>
+            <td><strong>${m.nombre}</strong><br><small style="color:var(--text-muted);">${m.usuario}</small></td>
+            <td><span class="pill">${m.rolPares}</span></td>
+            <td>${linkCell}</td>
+            <td><button type="button" class="btn outline small view-mentor-bit" data-user="${m.usuario}" data-name="${m.nombre}">Bitácora (${sesCount})</button></td>
+          </tr>
+        `;
+      }).join("");
+
+      tbody.querySelectorAll(".save-mentor-link").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const u = btn.dataset.user;
+          const sel = tbody.querySelector(`.mentor-link-sel[data-user="${u}"]`);
+          const newTutor = sel.value;
+          const tObj = tutors.find(t => t.usuario === newTutor);
+          await setDoc(doc(db, "miembros", u), { tutorUsuario: newTutor, tutorNombre: tObj ? tObj.nombre : "" }, { merge: true });
+          await loadMentorDashboard();
+        });
+      });
+
+      tbody.querySelectorAll(".view-mentor-bit").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const u = btn.dataset.user;
+          const rel = allSessionsCache.filter(s => s.tutorUsuario === u || s.tutoradoUsuario === u);
+          document.getElementById("mentor-bit-title").textContent = `BITÁCORA: ${btn.dataset.name}`;
+          document.getElementById("mentor-bit-body").innerHTML = rel.length ? rel.map(s => `
+            <div class="item-box">
+              <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.35rem;">
+                <strong>${s.fecha} · ${s.hora} (${s.modalidad})</strong>
+                <span class="pill ${s.confirmado ? "pill-ok" : "pill-warn"}">${s.confirmado ? "✓ Confirmada" : "Pendiente"}</span>
+              </div>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Tutor: ${s.tutorNombre} · Tutorado: ${s.tutoradoNombre}</p>
+              <p style="font-size:0.88rem;"><strong>Temas:</strong> ${s.temas}</p>
+              <p style="font-size:0.88rem; margin-top:0.2rem;"><strong>Acuerdos:</strong> ${s.acuerdos}</p>
+            </div>
+          `).join("") : `<p style="color:var(--text-muted);">Sin sesiones registradas todavía.</p>`;
+          openModal("modal-mentor-bitacora");
+        });
+      });
+    }
+
+    // ================= PARES MUSA (TUTOR / TUTORADO) =================
     async function initParesModule() {
       const mSnap = await getDocs(collection(db, "miembros"));
       const allMembers = []; mSnap.forEach(d => allMembers.push(d.data()));
 
       if (currentUser.rolPares === "Tutor") {
         myTutorados = allMembers.filter(m => m.rolPares === "Tutorado" && m.tutorUsuario === currentUser.usuario);
-        document.getElementById("tutor-log-card").style.display = "block";
+        document.getElementById("btn-open-session-modal").style.display = "inline-flex";
         document.getElementById("cita-target-wrap").style.display = "block";
         const opts = myTutorados.length
           ? myTutorados.map(t => `<option value="${t.usuario}">${t.nombre}</option>`).join("")
@@ -403,7 +587,7 @@
         document.getElementById("c-target").innerHTML = opts;
         document.getElementById("pares-partner-info").textContent = `Tutorados vinculados: ${myTutorados.map(t => t.nombre).join(", ") || "Ninguno asignado todavía"}`;
       } else {
-        document.getElementById("tutor-log-card").style.display = "none";
+        document.getElementById("btn-open-session-modal").style.display = "none";
         document.getElementById("cita-target-wrap").style.display = "none";
         document.getElementById("pares-partner-info").textContent = `Tu Tutor asignado: ${currentUser.tutorNombre || "Pendiente de asignación"}`;
       }
@@ -427,6 +611,7 @@
         creadoEn: Date.now()
       });
       document.getElementById("cita-form").reset();
+      closeModal("modal-cita");
       await loadCitas();
     });
 
@@ -464,6 +649,7 @@
         creadoEn: Date.now()
       });
       document.getElementById("session-form").reset();
+      closeModal("modal-session");
       await loadSessions();
     });
 
