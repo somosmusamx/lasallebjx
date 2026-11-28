@@ -608,12 +608,8 @@
           document.getElementById("cierre-frase").innerHTML = data.conviccion.fraseCierreHtml || "";
         }
 
-        const postsLocales = (Array.isArray(data.blog) ? data.blog : []).map((p, idx) => ({
-          ...p,
-          id: p.id || `local_${idx}`
-        }));
-
-        const todosLosPosts = ordenarPostsPorFecha([...postsFirestore, ...postsLocales]);
+        // Mostrar únicamente publicaciones administradas desde Firestore
+        const todosLosPosts = ordenarPostsPorFecha(postsFirestore);
         renderizarListaBlog(todosLosPosts);
 
         if (data.contacto) {
