@@ -216,12 +216,61 @@
             </div>
             <div class="form-group">
               <label for="reg-semestre">Semestre</label>
-              <input type="text" id="reg-semestre" required placeholder="Ej. 5° Semestre" />
+              <select id="reg-semestre" required>
+                <option value="" disabled selected>Selecciona tu semestre...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
             </div>
           </div>
           <div class="form-group">
             <label for="reg-programa">Programa académico</label>
-            <input type="text" id="reg-programa" required placeholder="Ej. Licenciatura en Enfermería" />
+            <select id="reg-programa" required>
+              <option value="" disabled selected>Selecciona tu carrera...</option>
+              <option value="Actuaría">Actuaría</option>
+              <option value="Administración de Negocios">Administración de Negocios</option>
+              <option value="Arquitectura">Arquitectura</option>
+              <option value="Ciencias de la Comunicación">Ciencias de la Comunicación</option>
+              <option value="Contaduría Pública">Contaduría Pública</option>
+              <option value="Criminología y Criminalística">Criminología y Criminalística</option>
+              <option value="Derecho">Derecho</option>
+              <option value="Diseño Ambiental y de Espacios">Diseño Ambiental y de Espacios</option>
+              <option value="Diseño de Modas e Imagen">Diseño de Modas e Imagen</option>
+              <option value="Enfermería">Enfermería</option>
+              <option value="Finanzas">Finanzas</option>
+              <option value="Gastronomía y Negocios">Gastronomía y Negocios</option>
+              <option value="Ingeniería Biomédica">Ingeniería Biomédica</option>
+              <option value="Ingeniería Civil">Ingeniería Civil</option>
+              <option value="Ingeniería de Software y Sistemas Computacionales">Ingeniería de Software y Sistemas Computacionales</option>
+              <option value="Ingeniería Electromecánica">Ingeniería Electromecánica</option>
+              <option value="Ingeniería en Alimentos">Ingeniería en Alimentos</option>
+              <option value="Ingeniería en Animación Digital">Ingeniería en Animación Digital</option>
+              <option value="Ingeniería en Inteligencia Artificial y Desarrollo de Software">Ingeniería en Inteligencia Artificial y Desarrollo de Software</option>
+              <option value="Ingeniería en Robótica">Ingeniería en Robótica</option>
+              <option value="Ingeniería en Tecnologías y Soluciones de Negocio">Ingeniería en Tecnologías y Soluciones de Negocio</option>
+              <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+              <option value="Ingeniero Agrónomo en Producción">Ingeniero Agrónomo en Producción</option>
+              <option value="Lenguas Modernas e Interculturalidad">Lenguas Modernas e Interculturalidad</option>
+              <option value="Medicina Veterinaria y Zootecnia">Medicina Veterinaria y Zootecnia</option>
+              <option value="Médico Cirujano">Médico Cirujano</option>
+              <option value="Mercadotecnia Estratégica">Mercadotecnia Estratégica</option>
+              <option value="Negocios Digitales">Negocios Digitales</option>
+              <option value="Negocios Internacionales">Negocios Internacionales</option>
+              <option value="Negocios Turísticos">Negocios Turísticos</option>
+              <option value="Odontología">Odontología</option>
+              <option value="Pedagogía">Pedagogía</option>
+              <option value="Políticas Públicas y Gobernanza">Políticas Públicas y Gobernanza</option>
+              <option value="Psicología">Psicología</option>
+              <option value="Recursos Humanos">Recursos Humanos</option>
+            </select>
           </div>
           <button type="submit" class="ev-btn" id="reg-submit-btn" style="width:100%;">Registrarme</button>
           <p id="reg-status" class="status-msg"></p>
