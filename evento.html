@@ -172,8 +172,25 @@
       font-weight: 700;
       font-size: 0.9rem;
     }
-    .status-msg.ok { color: #067647; }
     .status-msg.err { color: #b42318; }
+
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+    .success-box h3 {
+      font-family: 'Anton', sans-serif;
+      font-size: 2rem;
+      color: #067647;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .success-box p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 <body>
@@ -200,15 +217,25 @@
       </section>
 
       <section id="ev-form-section" class="ev-card">
-        <h2 class="form-title">REGISTRO AL EVENTO</h2>
-        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
-          Completa tus datos para confirmar tu asistencia.
-        </p>
+        <div id="ev-form-header">
+          <h2 class="form-title">REGISTRO AL EVENTO</h2>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            Completa tus datos para confirmar tu asistencia.
+          </p>
+        </div>
+
         <form id="ev-reg-form">
-          <div class="form-group">
-            <label for="reg-nombre">Nombre completo</label>
-            <input type="text" id="reg-nombre" required placeholder="Ej. Sofía Martínez López" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reg-nombre">Nombre completo</label>
+              <input type="text" id="reg-nombre" required placeholder="Ej. Sofía Martínez López" />
+            </div>
+            <div class="form-group">
+              <label for="reg-correo">Correo electrónico</label>
+              <input type="email" id="reg-correo" required placeholder="nombre@ejemplo.com" />
+            </div>
           </div>
+
           <div class="form-row">
             <div class="form-group">
               <label for="reg-matricula">Matrícula</label>
@@ -231,6 +258,7 @@
               </select>
             </div>
           </div>
+
           <div class="form-group">
             <label for="reg-programa">Programa académico</label>
             <select id="reg-programa" required>
@@ -270,11 +298,26 @@
               <option value="Políticas Públicas y Gobernanza">Políticas Públicas y Gobernanza</option>
               <option value="Psicología">Psicología</option>
               <option value="Recursos Humanos">Recursos Humanos</option>
+              <option value="__OTRO__">No Encuentro Mi Programa</option>
             </select>
           </div>
+
+          <div class="form-group" id="reg-programa-otro-wrap" style="display:none;">
+            <label for="reg-programa-otro">Escribe tu programa académico</label>
+            <input type="text" id="reg-programa-otro" placeholder="Ej. Posgrado, Maestría o Licenciatura..." />
+          </div>
+
+          <div id="ev-extra-questions"></div>
+
           <button type="submit" class="ev-btn" id="reg-submit-btn" style="width:100%;">Registrarme</button>
           <p id="reg-status" class="status-msg"></p>
         </form>
+
+        <div id="ev-success-box" class="success-box">
+          <h3>¡HAS SIDO REGISTRADO!</h3>
+          <p>Tu inscripción se ha guardado correctamente. Te esperamos en la actividad.</p>
+          <button type="button" id="ev-another-btn" class="ev-btn">Enviar otro registro</button>
+        </div>
       </section>
     </div>
   </main>
@@ -299,6 +342,17 @@
     let currentEvent = null;
     let currentEventId = "";
 
+    const progSelect = document.getElementById("reg-programa");
+    const progOtroWrap = document.getElementById("reg-programa-otro-wrap");
+    const progOtroInput = document.getElementById("reg-programa-otro");
+
+    progSelect.addEventListener("change", () => {
+      const esOtro = progSelect.value === "__OTRO__";
+      progOtroWrap.style.display = esOtro ? "block" : "none";
+      progOtroInput.required = esOtro;
+      if (!esOtro) progOtroInput.value = "";
+    });
+
     async function cargarEvento() {
       const params = new URLSearchParams(window.location.search);
       currentEventId = params.get("id") || "";
@@ -318,7 +372,6 @@
 
         currentEvent = snap.data();
 
-        // Aplicar colores personalizados del evento
         document.documentElement.style.setProperty("--ev-bg", currentEvent.colorFondo || "#fcfbf5");
         document.documentElement.style.setProperty("--ev-accent", currentEvent.colorAcento || "#4a145c");
 
@@ -340,6 +393,18 @@
           currentEvent.infoCompleta || currentEvent.descripcionRapida || ""
         );
 
+        // Renderizar preguntas adicionales si existen
+        const extraContainer = document.getElementById("ev-extra-questions");
+        const preguntas = Array.isArray(currentEvent.preguntasExtra) ? currentEvent.preguntasExtra : [];
+        if (preguntas.length) {
+          extraContainer.innerHTML = preguntas.map((preg, idx) => `
+            <div class="form-group">
+              <label for="extra-q-${idx}">${preg}</label>
+              <input type="text" id="extra-q-${idx}" class="extra-q-input" data-question="${preg.replace(/"/g, '&quot;')}" required placeholder="Tu respuesta..." />
+            </div>
+          `).join("");
+        }
+
         if (currentEvent.habilitarRegistro === false) {
           document.getElementById("ev-form-section").style.display = "none";
         }
@@ -360,19 +425,36 @@
       status.textContent = "Enviando registro...";
       status.className = "status-msg";
 
+      const programaFinal = progSelect.value === "__OTRO__"
+        ? progOtroInput.value.trim()
+        : progSelect.value;
+
+      const respuestasExtra = {};
+      document.querySelectorAll(".extra-q-input").forEach((inp) => {
+        respuestasExtra[inp.dataset.question] = inp.value.trim();
+      });
+
       try {
         await addDoc(collection(db, "registros_eventos"), {
           eventoId: currentEventId,
           eventoTitulo: currentEvent?.titulo || "",
           nombre: document.getElementById("reg-nombre").value.trim(),
+          correo: document.getElementById("reg-correo").value.trim(),
           matricula: document.getElementById("reg-matricula").value.trim(),
-          programa: document.getElementById("reg-programa").value.trim(),
-          semestre: document.getElementById("reg-semestre").value.trim(),
+          programa: programaFinal,
+          semestre: document.getElementById("reg-semestre").value,
+          respuestasExtra,
           registradoEn: Date.now()
         });
+
         document.getElementById("ev-reg-form").reset();
-        status.textContent = "¡Registro completado con éxito! Te esperamos en la actividad.";
-        status.className = "status-msg ok";
+        progOtroWrap.style.display = "none";
+        progOtroInput.required = false;
+        status.textContent = "";
+
+        document.getElementById("ev-form-header").style.display = "none";
+        document.getElementById("ev-reg-form").style.display = "none";
+        document.getElementById("ev-success-box").style.display = "block";
       } catch (err) {
         console.error(err);
         status.textContent = "No se pudo guardar tu registro. Intenta de nuevo.";
@@ -380,6 +462,12 @@
       } finally {
         btn.disabled = false;
       }
+    });
+
+    document.getElementById("ev-another-btn").addEventListener("click", () => {
+      document.getElementById("ev-success-box").style.display = "none";
+      document.getElementById("ev-form-header").style.display = "block";
+      document.getElementById("ev-reg-form").style.display = "block";
     });
 
     cargarEvento();
