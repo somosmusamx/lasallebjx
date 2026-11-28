@@ -330,6 +330,7 @@
       object-fit: cover;
       border-radius: 12px;
       margin-bottom: 1rem;
+      display: block;
     }
     .musa-tag {
       display: inline-block;
@@ -357,11 +358,7 @@
     }
     .musa-btn:hover { opacity: 0.92; }
 
-    #msp-body h1, #msp-body h2, #msp-body h3 { color: var(--musa-deep-purple); margin: 1.1rem 0 0.5rem; }
-    #msp-body p { margin-bottom: 0.9rem; }
-    #msp-body ul, #msp-body ol { margin: 0.5rem 0 1rem 1.4rem; }
-
-    /* Pie de página con botón a MUSA Nacional */
+    /* Pie de página */
     footer {
       background-color: var(--musa-deep-purple);
       color: #ffffff;
@@ -401,7 +398,7 @@
         </div>
         <div class="musa-hero-right">
           <div id="musa-cover-container" style="flex:1; display:flex;">
-            <div class="musa-hero-photo-placeholder">Espacio para fotografía principal (editable en Pages CMS)</div>
+            <div class="musa-hero-photo-placeholder">Espacio para fotografía principal</div>
           </div>
           <div class="musa-hero-banner-bottom">
             <span id="hero-banner">CONOCE A MUSA · UNIVERSIDAD LA SALLE BAJÍO</span>
@@ -459,15 +456,6 @@
     <section class="musa-blog-wrap" id="blog">
       <h2 class="display-title">PUBLICACIONES Y CRÓNICAS MUSA</h2>
       <div id="musa-posts-list"></div>
-
-      <div id="musa-single-post" class="musa-post-card" style="display:none;">
-        <button type="button" class="musa-btn" onclick="closeMusaPost()" style="margin-bottom:1.25rem;">← Volver a publicaciones</button>
-        <div id="msp-tags" style="margin-bottom:0.5rem;"></div>
-        <div id="msp-date" style="font-size:0.85rem; font-weight:700; color:var(--musa-blue); margin-bottom:0.4rem;"></div>
-        <h3 id="msp-title" style="font-size:1.5rem; margin-bottom:1rem; color:var(--musa-deep-purple);"></h3>
-        <img id="msp-img" class="musa-post-cover" style="display:none; max-height:380px;" alt="" />
-        <div id="msp-body" style="line-height:1.8;"></div>
-      </div>
     </section>
   </main>
 
@@ -475,124 +463,169 @@
     <p id="footer-texto"></p>
   </footer>
 
-  <script>
-    let musaPosts = [];
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    function renderizarListaBlog() {
-      const container = document.getElementById('musa-posts-list');
-      if (!musaPosts || musaPosts.length === 0) {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwvRexIpb_5vCZ-72Hh4qWG-wwPlShY3k",
+      authDomain: "musa-lasallebjx.firebaseapp.com",
+      projectId: "musa-lasallebjx",
+      storageBucket: "musa-lasallebjx.firebasestorage.app",
+      messagingSenderId: "987361839924",
+      appId: "1:987361839924:web:7611bcd62db66df4217361",
+      measurementId: "G-C342LRNRCD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function obtenerImagenesPost(p) {
+      if (Array.isArray(p.imagenes) && p.imagenes.length > 0) return p.imagenes;
+      if (p.imagen) return [p.imagen];
+      return [];
+    }
+
+    function ordenarPostsPorFecha(lista) {
+      return lista.sort((a, b) => {
+        const fa = a.fechaOrden || "";
+        const fb = b.fechaOrden || "";
+        if (fa !== fb) return fb.localeCompare(fa);
+        return (b.creadoEn || 0) - (a.creadoEn || 0);
+      });
+    }
+
+    function renderizarListaBlog(posts) {
+      const container = document.getElementById("musa-posts-list");
+      if (!posts || posts.length === 0) {
         container.innerHTML = `<div class="musa-post-card"><p style="color:var(--text-muted);">Próximamente compartiremos nuestras crónicas y actividades.</p></div>`;
         return;
       }
 
-      container.innerHTML = musaPosts.map((p, idx) => `
-        <article class="musa-post-card">
-          ${p.imagen ? `<img src="${p.imagen}" class="musa-post-cover" alt="${p.titulo || ''}">` : ''}
-          <div style="margin-bottom:0.5rem;">${(p.tags || []).map(t => `<span class="musa-tag">${t}</span>`).join('')}</div>
-          <div style="font-size:0.82rem; font-weight:700; color:var(--musa-blue); margin-bottom:0.3rem;">${p.fecha || ''}</div>
-          <h3 style="font-size:1.25rem; margin-bottom:0.5rem; color:var(--musa-deep-purple);">${p.titulo || ''}</h3>
-          <p style="color:var(--text-muted); font-size:0.95rem;">${p.resumen || ''}</p>
-          <button type="button" class="musa-btn" style="margin-top:0.9rem;" onclick="openMusaPost(${idx})">Leer publicación</button>
-        </article>
-      `).join('');
-    }
-
-    function openMusaPost(i) {
-      const p = musaPosts[i];
-      if (!p) return;
-      document.getElementById('musa-posts-list').style.display = 'none';
-      document.getElementById('msp-tags').innerHTML = (p.tags || []).map(t => `<span class="musa-tag">${t}</span>`).join('');
-      document.getElementById('msp-date').textContent = p.fecha || '';
-      document.getElementById('msp-title').textContent = p.titulo || '';
-      const img = document.getElementById('msp-img');
-      if (p.imagen) { img.src = p.imagen; img.style.display = 'block'; } else { img.style.display = 'none'; }
-      document.getElementById('msp-body').innerHTML = marked.parse(p.contenido || '');
-      document.getElementById('musa-single-post').style.display = 'block';
-      document.getElementById('blog').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function closeMusaPost() {
-      document.getElementById('musa-single-post').style.display = 'none';
-      document.getElementById('musa-posts-list').style.display = 'block';
+      container.innerHTML = posts.map((p) => {
+        const imgs = obtenerImagenesPost(p);
+        return `
+          <article class="musa-post-card">
+            ${imgs.length ? `<img src="${imgs[0]}" class="musa-post-cover" alt="${p.titulo || ""}">` : ""}
+            <div style="margin-bottom:0.5rem;">
+              ${(p.tags || []).map((t) => `<span class="musa-tag">${t}</span>`).join("")}
+              ${imgs.length > 1 ? `<span class="musa-tag">${imgs.length} fotos</span>` : ""}
+            </div>
+            <div style="font-size:0.82rem; font-weight:700; color:var(--musa-blue); margin-bottom:0.3rem;">${p.fecha || ""}</div>
+            <h3 style="font-size:1.25rem; margin-bottom:0.5rem; color:var(--musa-deep-purple);">${p.titulo || ""}</h3>
+            <p style="color:var(--text-muted); font-size:0.95rem;">${p.resumen || ""}</p>
+            <a href="post.html?id=${encodeURIComponent(p.id)}" class="musa-btn" style="margin-top:0.9rem;">Leer publicación</a>
+          </article>
+        `;
+      }).join("");
     }
 
     async function loadCapituloSite() {
       try {
-        const res = await fetch('datos.json?v=' + Date.now());
+        const res = await fetch("datos.json?v=" + Date.now());
         const data = await res.json();
-        const colors = ['', 'blue', 'lilac'];
+        const colors = ["", "blue", "lilac"];
+
+        // Cargar imágenes y publicaciones desde Firestore
+        let fsImages = {};
+        let postsFirestore = [];
+        try {
+          const snap = await getDocs(collection(db, "sitio"));
+          snap.forEach((docSnap) => {
+            const d = docSnap.data();
+            if (docSnap.id === "imagenes") {
+              fsImages = d || {};
+            } else if (docSnap.id.startsWith("post_") || d.tipo === "post") {
+              postsFirestore.push({ id: docSnap.id, ...d });
+            }
+          });
+        } catch (fsErr) {
+          console.warn("No se pudo leer Firestore:", fsErr);
+        }
 
         if (data.portada) {
-          document.getElementById('hero-nombre').textContent = data.portada.nombre || '';
-          document.getElementById('hero-lema').innerHTML = `${data.portada.lemaParte1 || ''}<br><span>${data.portada.lemaParte2 || ''}</span>`;
-          document.getElementById('hero-subtitulo').textContent = data.portada.subtitulo || '';
-          document.getElementById('hero-banner').textContent = data.portada.bannerDerecho || '';
+          document.getElementById("hero-nombre").textContent = data.portada.nombre || "";
+          document.getElementById("hero-lema").innerHTML = `${data.portada.lemaParte1 || ""}<br><span>${data.portada.lemaParte2 || ""}</span>`;
+          document.getElementById("hero-subtitulo").textContent = data.portada.subtitulo || "";
+          document.getElementById("hero-banner").textContent = data.portada.bannerDerecho || "";
 
-          if (data.portada.logo) {
-            document.getElementById('musa-logo-container').innerHTML = `<img src="${data.portada.logo}" alt="Logotipo MUSA">`;
+          const logoSrc = fsImages.logo || data.portada.logo;
+          if (logoSrc) {
+            document.getElementById("musa-logo-container").innerHTML = `<img src="${logoSrc}" alt="Logotipo MUSA">`;
           }
-          if (data.portada.fotoPortada) {
-            document.getElementById('musa-cover-container').innerHTML = `<img src="${data.portada.fotoPortada}" class="musa-hero-photo" alt="MUSA La Salle Bajío">`;
+          const portadaSrc = fsImages.fotoPortada || data.portada.fotoPortada;
+          if (portadaSrc) {
+            document.getElementById("musa-cover-container").innerHTML = `<img src="${portadaSrc}" class="musa-hero-photo" alt="MUSA La Salle Bajío">`;
           }
         }
 
         if (data.identidad) {
-          document.getElementById('quienes-titulo').textContent = data.identidad.quienesTitulo || '¿QUIÉNES SOMOS?';
-          document.getElementById('quienes-texto').innerHTML = marked.parse(data.identidad.quienesTexto || '');
-          if (data.identidad.fotoQuienes) {
-            document.getElementById('musa-quienes-img').innerHTML = `<img src="${data.identidad.fotoQuienes}" class="framed-photo" alt="Actividad MUSA">`;
+          document.getElementById("quienes-titulo").textContent = data.identidad.quienesTitulo || "¿QUIÉNES SOMOS?";
+          document.getElementById("quienes-texto").innerHTML = marked.parse(data.identidad.quienesTexto || "");
+          const quienesSrc = fsImages.fotoQuienes || data.identidad.fotoQuienes;
+          if (quienesSrc) {
+            document.getElementById("musa-quienes-img").innerHTML = `<img src="${quienesSrc}" class="framed-photo" alt="Actividad MUSA">`;
           }
 
-          document.getElementById('enfermeria-titulo').textContent = data.identidad.enfermeriaTitulo || 'LIDERAZGO DESDE EL CUIDADO';
-          document.getElementById('enfermeria-subtitulo').textContent = data.identidad.enfermeriaSubtitulo || '';
-          document.getElementById('enfermeria-texto-1').innerHTML = marked.parse(data.identidad.enfermeriaTexto1 || '');
-          if (data.identidad.fotoEnfermeria) {
-            document.getElementById('musa-enfermeria-img').innerHTML = `<img src="${data.identidad.fotoEnfermeria}" class="framed-photo" alt="Equipo Enfermería MUSA">`;
+          document.getElementById("enfermeria-titulo").textContent = data.identidad.enfermeriaTitulo || "LIDERAZGO DESDE EL CUIDADO";
+          document.getElementById("enfermeria-subtitulo").textContent = data.identidad.enfermeriaSubtitulo || "";
+          document.getElementById("enfermeria-texto-1").innerHTML = marked.parse(data.identidad.enfermeriaTexto1 || "");
+          const enfSrc = fsImages.fotoEnfermeria || data.identidad.fotoEnfermeria;
+          if (enfSrc) {
+            document.getElementById("musa-enfermeria-img").innerHTML = `<img src="${enfSrc}" class="framed-photo" alt="Equipo Enfermería MUSA">`;
           }
-          document.getElementById('enfermeria-texto-2').innerHTML = marked.parse(data.identidad.enfermeriaTexto2 || '');
-          document.getElementById('enfermeria-lista').innerHTML = (data.identidad.enfermeriaPuntos || [])
-            .map(item => `<li>${item}</li>`).join('');
+          document.getElementById("enfermeria-texto-2").innerHTML = marked.parse(data.identidad.enfermeriaTexto2 || "");
+          document.getElementById("enfermeria-lista").innerHTML = (data.identidad.enfermeriaPuntos || [])
+            .map((item) => `<li>${item}</li>`).join("");
         }
 
         if (data.ejes) {
-          document.getElementById('ejes-intro').textContent = data.ejes.intro || '';
-          document.getElementById('ejes-container').innerHTML = (data.ejes.lista || []).map((eje, idx) => `
-            <div class="axis-card ${colors[idx % 3]}">
-              <div>
-                <h3>${eje.titulo}</h3>
-                <div class="axis-sub">${eje.subtitulo || ''}</div>
-                <div style="font-size:0.94rem; color:var(--text-muted);">${marked.parse(eje.descripcion || '')}</div>
+          document.getElementById("ejes-intro").textContent = data.ejes.intro || "";
+          document.getElementById("ejes-container").innerHTML = (data.ejes.lista || []).map((eje, idx) => {
+            const ejeImg = fsImages[`fotoEje${idx + 1}`] || eje.imagen;
+            return `
+              <div class="axis-card ${colors[idx % 3]}">
+                <div>
+                  <h3>${eje.titulo}</h3>
+                  <div class="axis-sub">${eje.subtitulo || ""}</div>
+                  <div style="font-size:0.94rem; color:var(--text-muted);">${marked.parse(eje.descripcion || "")}</div>
+                </div>
+                ${ejeImg ? `<img src="${ejeImg}" alt="${eje.titulo}">` : ""}
               </div>
-              ${eje.imagen ? `<img src="${eje.imagen}" alt="${eje.titulo}">` : ''}
-            </div>
-          `).join('');
+            `;
+          }).join("");
         }
 
         if (data.conviccion) {
-          document.getElementById('conviccion-frase').textContent = data.conviccion.frasePrincipal || '';
-          document.getElementById('pilares-container').innerHTML = (data.conviccion.pilares || []).map(p => `
+          document.getElementById("conviccion-frase").textContent = data.conviccion.frasePrincipal || "";
+          document.getElementById("pilares-container").innerHTML = (data.conviccion.pilares || []).map((p) => `
             <div>
               <div class="pill-header">${p.titulo}</div>
               <p style="font-size:0.94rem; color:var(--text-muted);">${p.descripcion}</p>
             </div>
-          `).join('');
-          document.getElementById('cierre-frase').innerHTML = data.conviccion.fraseCierreHtml || '';
+          `).join("");
+          document.getElementById("cierre-frase").innerHTML = data.conviccion.fraseCierreHtml || "";
         }
 
-        musaPosts = data.blog || [];
-        renderizarListaBlog();
+        const postsLocales = (Array.isArray(data.blog) ? data.blog : []).map((p, idx) => ({
+          ...p,
+          id: p.id || `local_${idx}`
+        }));
+
+        const todosLosPosts = ordenarPostsPorFecha([...postsFirestore, ...postsLocales]);
+        renderizarListaBlog(todosLosPosts);
 
         if (data.contacto) {
-          const textoLimpio = (data.contacto.textoFooter || '').replace(/^MUSA\s*·?\s*/i, '');
+          const textoLimpio = (data.contacto.textoFooter || "").replace(/^MUSA\s*·?\s*/i, "");
           const instagramHtml = data.contacto.instagramHandle
-            ? ` · Instagram: <a href="${data.contacto.instagramUrl || '#'}" target="_blank" rel="noopener">${data.contacto.instagramHandle}</a>`
-            : '';
+            ? ` · Instagram: <a href="${data.contacto.instagramUrl || "#"}" target="_blank" rel="noopener">${data.contacto.instagramHandle}</a>`
+            : "";
 
-          document.getElementById('footer-texto').innerHTML =
-            `<a href="https://somosmusa.com.mx" class="footer-musa-btn">MUSA</a> ${textoLimpio ? '· ' + textoLimpio : ''}${instagramHtml}`;
+          document.getElementById("footer-texto").innerHTML =
+            `<a href="https://somosmusa.com.mx" class="footer-musa-btn">MUSA</a> ${textoLimpio ? "· " + textoLimpio : ""}${instagramHtml}`;
         }
       } catch (err) {
-        console.error('Error cargando datos.json:', err);
+        console.error("Error cargando datos.json:", err);
       }
     }
 
