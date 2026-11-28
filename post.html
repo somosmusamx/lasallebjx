@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publicación | MUSA La Salle Bajío</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --musa-deep-purple: #4a145c;
+      --musa-lilac: #c59cd9;
+      --musa-lilac-soft: #efe5f5;
+      --musa-blue: #7d93c8;
+      --musa-cream: #fcfbf5;
+      --text-dark: #1f1627;
+      --text-muted: #4b3f54;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--musa-cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-topbar {
+      background: #ffffff;
+      border-bottom: 3px solid var(--musa-lilac);
+      padding: 0.9rem 1.25rem;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .post-topbar-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .post-brand {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.35rem;
+      color: var(--musa-deep-purple);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .musa-btn {
+      background-color: var(--musa-deep-purple);
+      color: #ffffff;
+      border: 2px solid var(--musa-deep-purple);
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .musa-btn:hover { opacity: 0.92; }
+
+    .post-main {
+      max-width: 880px;
+      width: 100%;
+      margin: 2.25rem auto 3.5rem;
+      padding: 0 1.25rem;
+      flex: 1;
+    }
+    .post-article {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 10px 26px rgba(74, 20, 92, 0.06);
+    }
+
+    /* Carrusel de cabecera */
+    .musa-carousel {
+      position: relative;
+      background: var(--musa-lilac-soft);
+      width: 100%;
+    }
+    .musa-carousel img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+    .musa-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(74, 20, 92, 0.84);
+      color: #ffffff;
+      font-size: 1.55rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease;
+    }
+    .musa-carousel-btn:hover { background: var(--musa-deep-purple); }
+    .musa-carousel-btn.prev { left: 14px; }
+    .musa-carousel-btn.next { right: 14px; }
+    .musa-carousel-counter {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(31, 22, 39, 0.78);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    .post-content-wrap {
+      padding: 2rem 2.25rem 2.5rem;
+    }
+    @media (max-width: 640px) {
+      .post-content-wrap { padding: 1.5rem 1.25rem 2rem; }
+    }
+
+    .musa-tag {
+      display: inline-block;
+      background: var(--musa-lilac-soft);
+      color: var(--musa-deep-purple);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      margin-right: 0.35rem;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+    }
+    .post-date {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--musa-blue);
+      margin: 0.5rem 0 0.4rem;
+    }
+    .post-title {
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.45rem);
+      color: var(--musa-deep-purple);
+      line-height: 1.12;
+      margin-bottom: 1.35rem;
+      letter-spacing: 0.01em;
+    }
+
+    #post-body h1, #post-body h2, #post-body h3 {
+      color: var(--musa-deep-purple);
+      margin: 1.35rem 0 0.55rem;
+    }
+    #post-body p { margin-bottom: 1rem; font-size: 1rem; }
+    #post-body ul, #post-body ol { margin: 0.6rem 0 1.1rem 1.5rem; }
+    #post-body img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+
+    .post-status-card {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 18px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    footer {
+      background-color: var(--musa-deep-purple);
+      color: #ffffff;
+      text-align: center;
+      padding: 1.75rem 1rem;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+    footer a { color: var(--musa-lilac); font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="post-topbar">
+    <div class="post-topbar-inner">
+      <a href="index.html" class="post-brand">MUSA · LA SALLE BAJÍO</a>
+      <a href="index.html#blog" class="musa-btn">← Volver al blog</a>
+    </div>
+  </header>
+
+  <main class="post-main">
+    <div id="post-loading" class="post-status-card">Cargando publicación...</div>
+
+    <article id="post-article" class="post-article" style="display:none;">
+      <div id="post-carousel" class="musa-carousel" style="display:none;">
+        <img id="carousel-img" alt="" />
+        <button type="button" id="carousel-prev" class="musa-carousel-btn prev" aria-label="Imagen anterior">‹</button>
+        <button type="button" id="carousel-next" class="musa-carousel-btn next" aria-label="Siguiente imagen">›</button>
+        <div id="carousel-counter" class="musa-carousel-counter"></div>
+      </div>
+
+      <div class="post-content-wrap">
+        <div id="post-tags"></div>
+        <div id="post-date" class="post-date"></div>
+        <h1 id="post-title" class="post-title"></h1>
+        <div id="post-body"></div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>MUSA · Capítulo Estudiantil Universidad La Salle Bajío · <a href="index.html">Ir al inicio</a></p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwvRexIpb_5vCZ-72Hh4qWG-wwPlShY3k",
+      authDomain: "musa-lasallebjx.firebaseapp.com",
+      projectId: "musa-lasallebjx",
+      storageBucket: "musa-lasallebjx.firebasestorage.app",
+      messagingSenderId: "987361839924",
+      appId: "1:987361839924:web:7611bcd62db66df4217361",
+      measurementId: "G-C342LRNRCD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let carouselImgs = [];
+    let carouselIdx = 0;
+
+    function obtenerImagenesPost(p) {
+      if (Array.isArray(p.imagenes) && p.imagenes.length > 0) return p.imagenes;
+      if (p.imagen) return [p.imagen];
+      return [];
+    }
+
+    function actualizarCarrusel() {
+      const imgEl = document.getElementById("carousel-img");
+      const prevBtn = document.getElementById("carousel-prev");
+      const nextBtn = document.getElementById("carousel-next");
+      const counterEl = document.getElementById("carousel-counter");
+
+      imgEl.src = carouselImgs[carouselIdx];
+      const tieneVarias = carouselImgs.length > 1;
+      prevBtn.style.display = tieneVarias ? "flex" : "none";
+      nextBtn.style.display = tieneVarias ? "flex" : "none";
+      counterEl.style.display = tieneVarias ? "block" : "none";
+      if (tieneVarias) {
+        counterEl.textContent = `${carouselIdx + 1} / ${carouselImgs.length}`;
+      }
+    }
+
+    function moverCarrusel(delta) {
+      if (carouselImgs.length <= 1) return;
+      carouselIdx = (carouselIdx + delta + carouselImgs.length) % carouselImgs.length;
+      actualizarCarrusel();
+    }
+
+    document.getElementById("carousel-prev").addEventListener("click", () => moverCarrusel(-1));
+    document.getElementById("carousel-next").addEventListener("click", () => moverCarrusel(1));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") moverCarrusel(-1);
+      if (e.key === "ArrowRight") moverCarrusel(1);
+    });
+
+    function mostrarError(mensaje) {
+      const box = document.getElementById("post-loading");
+      box.innerHTML = `<p style="margin-bottom:1rem;">${mensaje}</p><a href="index.html#blog" class="musa-btn">Volver al blog</a>`;
+    }
+
+    async function cargarPublicacion() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (!id) {
+        mostrarError("No se especificó ninguna publicación.");
+        return;
+      }
+
+      let post = null;
+
+      try {
+        if (id.startsWith("local_")) {
+          const idx = Number(id.replace("local_", ""));
+          const res = await fetch("datos.json?v=" + Date.now());
+          const data = await res.json();
+          if (Array.isArray(data.blog) && data.blog[idx]) {
+            post = data.blog[idx];
+          }
+        } else {
+          const snap = await getDoc(doc(db, "sitio", id));
+          if (snap.exists()) {
+            post = snap.data();
+          } else {
+            const res = await fetch("datos.json?v=" + Date.now());
+            const data = await res.json();
+            if (Array.isArray(data.blog)) {
+              post = data.blog.find((item) => item.id === id) || null;
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Error cargando publicación:", err);
+      }
+
+      if (!post) {
+        mostrarError("No se encontró la publicación solicitada.");
+        return;
+      }
+
+      document.title = `${post.titulo || "Publicación"} | MUSA La Salle Bajío`;
+      document.getElementById("post-tags").innerHTML = (post.tags || []).map((t) => `<span class="musa-tag">${t}</span>`).join("");
+      document.getElementById("post-date").textContent = post.fecha || "";
+      document.getElementById("post-title").textContent = post.titulo || "";
+      document.getElementById("post-body").innerHTML = marked.parse(post.contenido || "");
+
+      carouselImgs = obtenerImagenesPost(post);
+      carouselIdx = 0;
+      const carousel = document.getElementById("post-carousel");
+      if (carouselImgs.length > 0) {
+        carousel.style.display = "block";
+        actualizarCarrusel();
+      } else {
+        carousel.style.display = "none";
+      }
+
+      document.getElementById("post-loading").style.display = "none";
+      document.getElementById("post-article").style.display = "block";
+    }
+
+    cargarPublicacion();
+  </script>
+</body>
+</html>
