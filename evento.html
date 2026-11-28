@@ -315,7 +315,7 @@
 
         <div id="ev-success-box" class="success-box">
           <h3>¡HAS SIDO REGISTRADO!</h3>
-          <p>Tu inscripción se ha guardado correctamente. Te esperamos en la actividad.</p>
+          <p>Tu inscripción se ha guardado correctamente y hemos enviado un correo de confirmación. Te esperamos en la actividad.</p>
           <button type="button" id="ev-another-btn" class="ev-btn">Enviar otro registro</button>
         </div>
       </section>
@@ -338,6 +338,9 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    // URL del script PHP en tu servidor Webuzo
+    const MAIL_API_URL = "https://api.somosmusa.com.mx/enviar_confirmacion.php";
 
     let currentEvent = null;
     let currentEventId = "";
@@ -393,7 +396,6 @@
           currentEvent.infoCompleta || currentEvent.descripcionRapida || ""
         );
 
-        // Renderizar preguntas adicionales si existen
         const extraContainer = document.getElementById("ev-extra-questions");
         const preguntas = Array.isArray(currentEvent.preguntasExtra) ? currentEvent.preguntasExtra : [];
         if (preguntas.length) {
@@ -425,6 +427,10 @@
       status.textContent = "Enviando registro...";
       status.className = "status-msg";
 
+      const nombre = document.getElementById("reg-nombre").value.trim();
+      const correo = document.getElementById("reg-correo").value.trim();
+      const matricula = document.getElementById("reg-matricula").value.trim();
+      const semestre = document.getElementById("reg-semestre").value;
       const programaFinal = progSelect.value === "__OTRO__"
         ? progOtroInput.value.trim()
         : progSelect.value;
@@ -438,14 +444,28 @@
         await addDoc(collection(db, "registros_eventos"), {
           eventoId: currentEventId,
           eventoTitulo: currentEvent?.titulo || "",
-          nombre: document.getElementById("reg-nombre").value.trim(),
-          correo: document.getElementById("reg-correo").value.trim(),
-          matricula: document.getElementById("reg-matricula").value.trim(),
+          nombre,
+          correo,
+          matricula,
           programa: programaFinal,
-          semestre: document.getElementById("reg-semestre").value,
+          semestre,
           respuestasExtra,
           registradoEn: Date.now()
         });
+
+        // Enviar correo automático de confirmación en segundo plano
+        fetch(MAIL_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre,
+            correo,
+            eventoTitulo: currentEvent?.titulo || "",
+            fecha: currentEvent?.fecha || "",
+            hora: currentEvent?.hora || "",
+            lugar: currentEvent?.lugar || ""
+          })
+        }).catch((mailErr) => console.warn("Registro guardado, pero falló el envío de correo:", mailErr));
 
         document.getElementById("ev-reg-form").reset();
         progOtroWrap.style.display = "none";
