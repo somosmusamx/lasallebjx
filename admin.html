@@ -398,7 +398,7 @@
     .pill-ok { background: #dcfce7; color: #166534; }
     .pill-warn { background: #fef3c7; color: #92400e; }
 
-    /* MODAL PERFIL Y BITÁCORA */
+    /* MODALES */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -732,6 +732,11 @@
               <textarea id="ev-info-completa" rows="5" required placeholder="Detalles, materiales incluidos, requisitos, etc. Puedes usar **negritas**."></textarea>
             </div>
 
+            <div class="form-group">
+              <label for="ev-preguntas-extra">Preguntas adicionales para el formulario (opcional, una por línea)</label>
+              <textarea id="ev-preguntas-extra" rows="3" placeholder="Ej. ¿Tienes alguna alergia alimentaria?&#10;¿Qué talla de playera eres?"></textarea>
+            </div>
+
             <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
               <button type="submit" class="btn" id="ev-submit-btn">Publicar actividad</button>
               <button type="button" class="btn outline" id="ev-cancel-btn" style="display:none;">Cancelar edición</button>
@@ -742,7 +747,7 @@
 
         <div class="card">
           <h2 class="display-title">ACTIVIDADES PUBLICADAS</h2>
-          <p class="card-desc">Descarga la lista de inscritos en formato Excel (.csv), edita el evento o abre su micrositio.</p>
+          <p class="card-desc">Consulta la lista de inscritos, envía correos de confirmación o descarga el archivo de Excel (.csv).</p>
           <div id="events-admin-list">Cargando actividades...</div>
         </div>
       </section>
@@ -757,6 +762,17 @@
         <button type="button" class="modal-close" id="close-member-modal">✕</button>
       </div>
       <div id="modal-m-body"></div>
+    </div>
+  </div>
+
+  <!-- MODAL VER INSCRITOS DE EVENTO -->
+  <div id="registrations-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width:780px;">
+      <div class="modal-header">
+        <h2 class="display-title" style="font-size:1.35rem; color:var(--musa-deep-purple);" id="reg-modal-title">INSCRITOS AL EVENTO</h2>
+        <button type="button" class="modal-close" id="close-reg-modal">✕</button>
+      </div>
+      <div id="reg-modal-body">Cargando inscritos...</div>
     </div>
   </div>
 
@@ -1449,6 +1465,7 @@
       document.getElementById("ev-id").value = "";
       document.getElementById("ev-color-fondo").value = "#fcfbf5";
       document.getElementById("ev-color-acento").value = "#4a145c";
+      document.getElementById("ev-preguntas-extra").value = "";
       document.getElementById("ev-form-heading").textContent = "NUEVA ACTIVIDAD / EVENTO";
       document.getElementById("ev-submit-btn").textContent = "Publicar actividad";
       document.getElementById("ev-cancel-btn").style.display = "none";
@@ -1469,6 +1486,8 @@
       const existingId = document.getElementById("ev-id").value;
       const docId = existingId || `ev_${Date.now()}`;
       const fechaOrden = document.getElementById("ev-fecha-orden").value;
+      const preguntasRaw = document.getElementById("ev-preguntas-extra").value || "";
+      const preguntasExtra = preguntasRaw.split("\n").map((q) => q.trim()).filter(Boolean);
 
       const eventData = {
         titulo: document.getElementById("ev-titulo").value.trim(),
@@ -1482,6 +1501,7 @@
         flyer: currentEventFlyer,
         descripcionRapida: document.getElementById("ev-desc-rapida").value.trim(),
         infoCompleta: document.getElementById("ev-info-completa").value.trim(),
+        preguntasExtra,
         creadoEn: existingId
           ? (eventsCache.find((x) => x.id === existingId)?.creadoEn || Date.now())
           : Date.now()
@@ -1500,42 +1520,110 @@
       }
     });
 
-    async function exportarRegistrosCSV(eventoId, titulo) {
+    function generarCSVDescarga(rows, ev) {
+      const preguntas = Array.isArray(ev?.preguntasExtra) ? ev.preguntasExtra : [];
+      const esc = (v) => `"${String(v || "").replace(/"/g, '""')}"`;
+      const headers = ["Nombre Completo", "Correo Electrónico", "Matrícula", "Programa Académico", "Semestre", ...preguntas, "Fecha de Registro"];
+      const lines = [headers.map(esc).join(",")];
+
+      rows.forEach((r) => {
+        const fechaReg = r.registradoEn ? new Date(r.registradoEn).toLocaleString("es-MX") : "";
+        const extraVals = preguntas.map((q) => (r.respuestasExtra && r.respuestasExtra[q]) || "");
+        lines.push([r.nombre, r.correo, r.matricula, r.programa, r.semestre, ...extraVals, fechaReg].map(esc).join(","));
+      });
+
+      const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const nombreArchivo = (ev?.titulo || "registros").toLowerCase().replace(/[^a-z0-9]+/g, "_");
+      a.download = `inscritos_${nombreArchivo}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function abrirModalInscritos(eventoId) {
+      const ev = eventsCache.find((x) => x.id === eventoId);
+      const modal = document.getElementById("registrations-modal");
+      const titleEl = document.getElementById("reg-modal-title");
+      const bodyEl = document.getElementById("reg-modal-body");
+
+      titleEl.textContent = `INSCRITOS: ${ev?.titulo || "EVENTO"}`;
+      bodyEl.innerHTML = `<p style="color:var(--text-muted);">Cargando lista de registros...</p>`;
+      modal.classList.add("open");
+
       try {
         const q = query(collection(db, "registros_eventos"), where("eventoId", "==", eventoId));
         const snap = await getDocs(q);
         const rows = [];
         snap.forEach((d) => rows.push(d.data()));
+        rows.sort((a, b) => (b.registradoEn || 0) - (a.registradoEn || 0));
 
         if (!rows.length) {
-          alert("Aún no hay personas registradas en esta actividad.");
+          bodyEl.innerHTML = `<p style="color:var(--text-muted);">Aún no hay personas registradas en esta actividad.</p>`;
           return;
         }
 
-        rows.sort((a, b) => (a.registradoEn || 0) - (b.registradoEn || 0));
+        const correos = rows.map((r) => r.correo).filter(Boolean);
+        const asunto = encodeURIComponent(`Confirmación de registro: ${ev?.titulo || "Actividad MUSA"}`);
+        const cuerpoGeneral = encodeURIComponent(
+          `Hola,\n\nTe confirmamos tu registro a la actividad "${ev?.titulo || ""}" organizada por MUSA La Salle Bajío.\n\nFecha: ${ev?.fecha || ""}\nHora: ${ev?.hora || ""}\nLugar: ${ev?.lugar || ""}\n\n¡Te esperamos!\nMUSA La Salle Bajío\nlasallebjx@somosmusa.com.mx`
+        );
 
-        const esc = (v) => `"${String(v || "").replace(/"/g, '""')}"`;
-        const headers = ["Nombre Completo", "Matrícula", "Programa Académico", "Semestre", "Fecha de Registro"];
-        const lines = [headers.map(esc).join(",")];
+        bodyEl.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.25rem; background:var(--musa-lilac-soft); padding:0.9rem 1.1rem; border-radius:12px;">
+            <div>
+              <strong style="color:var(--musa-deep-purple); font-size:1.05rem;">Total de registrados: ${rows.length}</strong>
+            </div>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              ${correos.length ? `<a href="mailto:lasallebjx@somosmusa.com.mx?bcc=${encodeURIComponent(correos.join(","))}&subject=${asunto}&body=${cuerpoGeneral}" class="btn outline small">Confirmar a todos (Correo)</a>` : ""}
+              <button type="button" class="btn small" id="modal-download-csv-btn">Descargar Excel (.csv)</button>
+            </div>
+          </div>
 
-        rows.forEach((r) => {
-          const fechaReg = r.registradoEn ? new Date(r.registradoEn).toLocaleString("es-MX") : "";
-          lines.push([r.nombre, r.matricula, r.programa, r.semestre, fechaReg].map(esc).join(","));
+          <div class="table-wrap">
+            <table class="musa-table">
+              <thead>
+                <tr>
+                  <th>Nombre y Correo</th>
+                  <th>Matrícula</th>
+                  <th>Programa / Semestre</th>
+                  <th>Confirmación</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map((r) => {
+                  const cuerpoInd = encodeURIComponent(
+                    `Hola ${r.nombre || ""},\n\nTe confirmamos tu registro a "${ev?.titulo || ""}" de MUSA La Salle Bajío.\n\nFecha: ${ev?.fecha || ""}\nHora: ${ev?.hora || ""}\nLugar: ${ev?.lugar || ""}\n\n¡Nos vemos pronto!\nMUSA La Salle Bajío`
+                  );
+                  return `
+                    <tr>
+                      <td><strong>${r.nombre || ""}</strong><br><small style="color:var(--text-muted);">${r.correo || "Sin correo"}</small></td>
+                      <td>${r.matricula || ""}</td>
+                      <td>${r.programa || ""}<br><small style="color:var(--text-muted);">Semestre ${r.semestre || ""}</small></td>
+                      <td>
+                        ${r.correo ? `<a href="mailto:${r.correo}?subject=${asunto}&body=${cuerpoInd}" class="btn outline small">Enviar correo</a>` : "-"}
+                      </td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+
+        document.getElementById("modal-download-csv-btn").addEventListener("click", () => {
+          generarCSVDescarga(rows, ev);
         });
-
-        const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        const nombreArchivo = (titulo || "registros").toLowerCase().replace(/[^a-z0-9]+/g, "_");
-        a.download = `inscritos_${nombreArchivo}.csv`;
-        a.click();
-        URL.revokeObjectURL(url);
       } catch (err) {
         console.error(err);
-        alert("Error al descargar los registros.");
+        bodyEl.innerHTML = `<p style="color:var(--danger);">Error al cargar los inscritos.</p>`;
       }
     }
+
+    document.getElementById("close-reg-modal").addEventListener("click", () => {
+      document.getElementById("registrations-modal").classList.remove("open");
+    });
 
     async function loadEventsFromFirestore() {
       const container = document.getElementById("events-admin-list");
@@ -1559,15 +1647,15 @@
             </div>
             <div class="post-item-actions">
               <a href="evento.html?id=${encodeURIComponent(ev.id)}" target="_blank" rel="noopener" class="btn outline small">Micrositio ↗</a>
-              <button type="button" class="btn small export-ev-btn" data-id="${ev.id}" data-title="${ev.titulo || ""}">Excel (.csv)</button>
+              <button type="button" class="btn small view-reg-btn" data-id="${ev.id}">Ver inscritos / Excel</button>
               <button type="button" class="btn outline small edit-ev-btn" data-id="${ev.id}">Editar</button>
               <button type="button" class="btn danger small del-ev-btn" data-id="${ev.id}">Eliminar</button>
             </div>
           </div>
         `).join("");
 
-        container.querySelectorAll(".export-ev-btn").forEach((btn) => {
-          btn.addEventListener("click", () => exportarRegistrosCSV(btn.dataset.id, btn.dataset.title));
+        container.querySelectorAll(".view-reg-btn").forEach((btn) => {
+          btn.addEventListener("click", () => abrirModalInscritos(btn.dataset.id));
         });
 
         container.querySelectorAll(".edit-ev-btn").forEach((btn) => {
@@ -1585,6 +1673,7 @@
             document.getElementById("ev-registro").value = ev.habilitarRegistro === false ? "false" : "true";
             document.getElementById("ev-desc-rapida").value = ev.descripcionRapida || "";
             document.getElementById("ev-info-completa").value = ev.infoCompleta || "";
+            document.getElementById("ev-preguntas-extra").value = Array.isArray(ev.preguntasExtra) ? ev.preguntasExtra.join("\n") : "";
             updateEventFlyerPreview(ev.flyer || "");
             document.getElementById("ev-flyer-url").value = (ev.flyer || "").startsWith("http") ? ev.flyer : "";
             document.getElementById("ev-form-heading").textContent = "EDITAR ACTIVIDAD";
