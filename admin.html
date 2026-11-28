@@ -162,6 +162,7 @@
     .form-group input[type="email"],
     .form-group input[type="password"],
     .form-group input[type="url"],
+    .form-group input[type="date"],
     .form-group select,
     .form-group textarea {
       width: 100%;
@@ -276,6 +277,42 @@
       gap: 0.5rem;
       flex-wrap: wrap;
       align-items: center;
+    }
+
+    /* GALERÍA MÚLTIPLE DEL BLOG */
+    .post-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+    .post-thumb {
+      position: relative;
+      height: 95px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid var(--musa-lilac);
+      background: #ffffff;
+    }
+    .post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .post-thumb-remove {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(31, 22, 39, 0.82);
+      color: #ffffff;
+      font-weight: 800;
+      cursor: pointer;
+      line-height: 1;
     }
 
     /* POSTS & MIEMBROS */
@@ -552,25 +589,37 @@
                 <input type="text" id="post-titulo" required placeholder="Ej. Crónica de nuestra brigada Jardín MUSA" />
               </div>
               <div class="form-group">
-                <label for="post-fecha">Fecha visible</label>
-                <input type="text" id="post-fecha" required placeholder="Ej. Noviembre 2026" />
+                <label for="post-fecha-orden">Fecha de la publicación (define el orden)</label>
+                <input type="date" id="post-fecha-orden" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="post-fecha">Fecha visible (se autocompleta, puedes editarla)</label>
+                <input type="text" id="post-fecha" required placeholder="Ej. 28 de noviembre de 2026" />
+              </div>
+              <div class="form-group">
+                <label for="post-tags">Etiquetas (separadas por coma)</label>
+                <input type="text" id="post-tags" placeholder="Ej. MUSA, La Salle Bajío, Brigadas" value="MUSA, La Salle Bajío" />
               </div>
             </div>
             <div class="form-group">
-              <label for="post-tags">Etiquetas (separadas por coma)</label>
-              <input type="text" id="post-tags" placeholder="Ej. MUSA, La Salle Bajío, Brigadas" value="MUSA, La Salle Bajío" />
-            </div>
-            <div class="form-group">
-              <label>Imagen de portada (opcional)</label>
-              <div class="img-preview-box" id="post-img-preview" style="max-width:340px; margin-bottom:0.65rem;">Sin imagen seleccionada</div>
+              <label>Imágenes de cabecera / carrusel (puedes subir varias)</label>
+              <div id="post-img-gallery" class="post-gallery-grid"></div>
+              <p id="post-img-empty" style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.6rem;">
+                Sin imágenes seleccionadas.
+              </p>
               <div class="img-slot-actions" style="margin-bottom:0.5rem;">
                 <label class="btn outline small" style="cursor:pointer;">
-                  Subir imagen
-                  <input type="file" id="post-img-file" accept="image/*" style="display:none;" />
+                  Subir imágenes
+                  <input type="file" id="post-img-file" accept="image/*" multiple style="display:none;" />
                 </label>
-                <button type="button" class="btn danger small" id="post-img-clear">Quitar imagen</button>
+                <button type="button" class="btn danger small" id="post-img-clear">Quitar todas</button>
               </div>
-              <input type="url" id="post-img-url" placeholder="O pega un enlace directo a la imagen (https://...)" />
+              <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <input type="url" id="post-img-url" placeholder="O pega un enlace directo (https://...)" style="flex:1;" />
+                <button type="button" class="btn outline small" id="post-img-add-url">Agregar enlace</button>
+              </div>
             </div>
             <div class="form-group">
               <label for="post-resumen">Resumen breve (aparece en la tarjeta del blog)</label>
@@ -590,7 +639,7 @@
 
         <div class="card">
           <h2 class="display-title">PUBLICACIONES ACTIVAS</h2>
-          <p class="card-desc">Aquí puedes editar o eliminar las entradas publicadas en el blog.</p>
+          <p class="card-desc">Ordenadas de la fecha más reciente a la más antigua. Aquí puedes editar o eliminar las entradas publicadas.</p>
           <div id="posts-admin-list">Cargando publicaciones...</div>
         </div>
       </section>
@@ -638,7 +687,7 @@
     ];
 
     let currentImages = {};
-    let currentPostImage = "";
+    let currentPostImages = [];
     let postsCache = [];
     let membersCache = [];
     let sessionsCache = [];
@@ -649,7 +698,7 @@
       el.className = "status-msg" + (type ? " " + type : "");
     }
 
-    function compressImage(file, maxWidth, isLogo = false) {
+    function compressImage(file, maxWidth, isLogo = false, quality = 0.72) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onerror = () => reject(new Error("No se pudo leer el archivo."));
@@ -666,7 +715,7 @@
             canvas.width = width;
             canvas.height = height;
             canvas.getContext("2d").drawImage(img, 0, 0, width, height);
-            resolve(isLogo ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 0.72));
+            resolve(isLogo ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", quality));
           };
           img.src = e.target.result;
         };
@@ -1032,34 +1081,88 @@
     });
 
     // ================= BLOG =================
-    function updatePostImagePreview(src) {
-      currentPostImage = src || "";
-      const box = document.getElementById("post-img-preview");
-      box.innerHTML = currentPostImage
-        ? `<img src="${currentPostImage}" alt="Portada de publicación">`
-        : "Sin imagen seleccionada";
+    function formatearFechaES(isoDate) {
+      if (!isoDate || !isoDate.includes("-")) return "";
+      const [y, m, d] = isoDate.split("-").map(Number);
+      const meses = [
+        "enero", "febrero", "marzo", "abril", "mayo", "junio",
+        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+      ];
+      return `${d} de ${meses[m - 1]} de ${y}`;
+    }
+
+    function ordenarPostsPorFecha(lista) {
+      return lista.sort((a, b) => {
+        const fa = a.fechaOrden || "";
+        const fb = b.fechaOrden || "";
+        if (fa !== fb) return fb.localeCompare(fa);
+        return (b.creadoEn || 0) - (a.creadoEn || 0);
+      });
+    }
+
+    document.getElementById("post-fecha-orden").addEventListener("change", (e) => {
+      const texto = formatearFechaES(e.target.value);
+      if (texto) document.getElementById("post-fecha").value = texto;
+    });
+
+    function renderPostImagesGallery() {
+      const grid = document.getElementById("post-img-gallery");
+      const emptyMsg = document.getElementById("post-img-empty");
+
+      if (!currentPostImages.length) {
+        grid.innerHTML = "";
+        emptyMsg.style.display = "block";
+        return;
+      }
+
+      emptyMsg.style.display = "none";
+      grid.innerHTML = currentPostImages.map((src, idx) => `
+        <div class="post-thumb">
+          <img src="${src}" alt="Imagen ${idx + 1}" />
+          <button type="button" class="post-thumb-remove" data-idx="${idx}" title="Quitar imagen">✕</button>
+        </div>
+      `).join("");
+
+      grid.querySelectorAll(".post-thumb-remove").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentPostImages.splice(Number(btn.dataset.idx), 1);
+          renderPostImagesGallery();
+        });
+      });
     }
 
     document.getElementById("post-img-file").addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+      const files = Array.from(e.target.files || []);
+      if (!files.length) return;
+      setStatus("post-status", "Procesando imágenes...");
       try {
-        const compressed = await compressImage(file, 900, false);
-        updatePostImagePreview(compressed);
-        document.getElementById("post-img-url").value = "";
+        for (const file of files) {
+          const compressed = await compressImage(file, 720, false, 0.62);
+          currentPostImages.push(compressed);
+        }
+        renderPostImagesGallery();
+        setStatus("post-status", `${files.length} imagen(es) agregada(s).`, "success");
       } catch (err) {
         setStatus("post-status", err.message, "error");
+      } finally {
+        e.target.value = "";
       }
     });
 
-    document.getElementById("post-img-url").addEventListener("input", (e) => {
-      updatePostImagePreview(e.target.value.trim());
+    document.getElementById("post-img-add-url").addEventListener("click", () => {
+      const urlInput = document.getElementById("post-img-url");
+      const url = urlInput.value.trim();
+      if (!url) return;
+      currentPostImages.push(url);
+      urlInput.value = "";
+      renderPostImagesGallery();
     });
 
     document.getElementById("post-img-clear").addEventListener("click", () => {
-      updatePostImagePreview("");
+      currentPostImages = [];
       document.getElementById("post-img-url").value = "";
       document.getElementById("post-img-file").value = "";
+      renderPostImagesGallery();
     });
 
     function resetPostForm() {
@@ -1069,7 +1172,8 @@
       document.getElementById("post-form-heading").textContent = "NUEVA PUBLICACIÓN";
       document.getElementById("post-submit-btn").textContent = "Publicar entrada";
       document.getElementById("post-cancel-btn").style.display = "none";
-      updatePostImagePreview("");
+      currentPostImages = [];
+      renderPostImagesGallery();
     }
 
     document.getElementById("post-cancel-btn").addEventListener("click", () => {
@@ -1087,13 +1191,16 @@
       const docId = existingId || `post_${Date.now()}`;
       const tagsRaw = document.getElementById("post-tags").value;
       const tags = tagsRaw.split(",").map((t) => t.trim()).filter(Boolean);
+      const fechaOrden = document.getElementById("post-fecha-orden").value;
 
       const postData = {
         tipo: "post",
         titulo: document.getElementById("post-titulo").value.trim(),
-        fecha: document.getElementById("post-fecha").value.trim(),
+        fechaOrden,
+        fecha: document.getElementById("post-fecha").value.trim() || formatearFechaES(fechaOrden),
         tags: tags.length ? tags : ["MUSA"],
-        imagen: currentPostImage,
+        imagenes: currentPostImages,
+        imagen: currentPostImages[0] || "",
         resumen: document.getElementById("post-resumen").value.trim(),
         contenido: document.getElementById("post-contenido").value.trim(),
         creadoEn: existingId
@@ -1108,7 +1215,7 @@
         setStatus("post-status", "Publicación guardada correctamente.", "success");
       } catch (err) {
         console.error(err);
-        setStatus("post-status", "No se pudo guardar la publicación. Verifica los permisos de tu cuenta.", "error");
+        setStatus("post-status", "No se pudo guardar. Si subiste muchas fotos pesadas, intenta con menos imágenes o enlaces directos.", "error");
       } finally {
         btn.disabled = false;
       }
@@ -1125,26 +1232,30 @@
             postsCache.push({ id: docSnap.id, ...d });
           }
         });
-        postsCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
+        ordenarPostsPorFecha(postsCache);
 
         if (postsCache.length === 0) {
           container.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Aún no hay publicaciones creadas desde el panel.</p>`;
           return;
         }
 
-        container.innerHTML = postsCache.map((p) => `
-          <div class="post-item">
-            <div class="post-item-info">
-              <div class="post-meta">${p.fecha || ""} · ${(p.tags || []).join(", ")}</div>
-              <h3>${p.titulo || "Sin título"}</h3>
-              <p style="font-size:0.88rem; color:var(--text-muted);">${p.resumen || ""}</p>
+        container.innerHTML = postsCache.map((p) => {
+          const totalImgs = Array.isArray(p.imagenes) ? p.imagenes.length : (p.imagen ? 1 : 0);
+          return `
+            <div class="post-item">
+              <div class="post-item-info">
+                <div class="post-meta">${p.fecha || ""} · ${(p.tags || []).join(", ")}${totalImgs ? ` · ${totalImgs} img` : ""}</div>
+                <h3>${p.titulo || "Sin título"}</h3>
+                <p style="font-size:0.88rem; color:var(--text-muted);">${p.resumen || ""}</p>
+              </div>
+              <div class="post-item-actions">
+                <a href="post.html?id=${encodeURIComponent(p.id)}" target="_blank" rel="noopener" class="btn outline small">Ver ↗</a>
+                <button type="button" class="btn outline small edit-post-btn" data-id="${p.id}">Editar</button>
+                <button type="button" class="btn danger small delete-post-btn" data-id="${p.id}">Eliminar</button>
+              </div>
             </div>
-            <div class="post-item-actions">
-              <button type="button" class="btn outline small edit-post-btn" data-id="${p.id}">Editar</button>
-              <button type="button" class="btn danger small delete-post-btn" data-id="${p.id}">Eliminar</button>
-            </div>
-          </div>
-        `).join("");
+          `;
+        }).join("");
 
         container.querySelectorAll(".edit-post-btn").forEach((btn) => {
           btn.addEventListener("click", () => {
@@ -1152,12 +1263,15 @@
             if (!p) return;
             document.getElementById("post-id").value = p.id;
             document.getElementById("post-titulo").value = p.titulo || "";
+            document.getElementById("post-fecha-orden").value = p.fechaOrden || "";
             document.getElementById("post-fecha").value = p.fecha || "";
             document.getElementById("post-tags").value = (p.tags || []).join(", ");
             document.getElementById("post-resumen").value = p.resumen || "";
             document.getElementById("post-contenido").value = p.contenido || "";
-            updatePostImagePreview(p.imagen || "");
-            document.getElementById("post-img-url").value = (p.imagen || "").startsWith("http") ? p.imagen : "";
+            currentPostImages = Array.isArray(p.imagenes) && p.imagenes.length
+              ? [...p.imagenes]
+              : (p.imagen ? [p.imagen] : []);
+            renderPostImagesGallery();
             document.getElementById("post-form-heading").textContent = "EDITAR PUBLICACIÓN";
             document.getElementById("post-submit-btn").textContent = "Guardar cambios";
             document.getElementById("post-cancel-btn").style.display = "inline-flex";
