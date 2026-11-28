@@ -123,6 +123,9 @@
       font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
     }
     .tab-btn.is-active {
       background: var(--musa-deep-purple);
@@ -172,6 +175,15 @@
       font-family: 'Inter', sans-serif;
       font-size: 0.93rem;
       background: var(--musa-cream);
+    }
+    .form-group input[type="color"] {
+      width: 100%;
+      height: 44px;
+      padding: 4px;
+      border: 1.5px solid var(--musa-lilac);
+      border-radius: 10px;
+      background: var(--musa-cream);
+      cursor: pointer;
     }
     .form-row {
       display: grid;
@@ -495,6 +507,8 @@
         <button type="button" class="tab-btn is-active" data-tab="miembros">Miembros y PARES MUSA</button>
         <button type="button" class="tab-btn" data-tab="imagenes">Imágenes del sitio</button>
         <button type="button" class="tab-btn" data-tab="blog">Publicaciones del Blog</button>
+        <button type="button" class="tab-btn" data-tab="actividades">Próximas Actividades</button>
+        <a href="https://correo.somosmusa.com.mx" target="_blank" rel="noopener" class="tab-btn">CORREO MUSA ↗</a>
       </div>
 
       <!-- PESTAÑA 1: MIEMBROS Y PARES MUSA -->
@@ -643,6 +657,95 @@
           <div id="posts-admin-list">Cargando publicaciones...</div>
         </div>
       </section>
+
+      <!-- PESTAÑA 4: PRÓXIMAS ACTIVIDADES -->
+      <section id="tab-actividades" class="panel-section">
+        <div class="card">
+          <h2 class="display-title" id="ev-form-heading">NUEVA ACTIVIDAD / EVENTO</h2>
+          <p class="card-desc">Crea un evento para la página de Próximas Actividades y personaliza los colores de su micrositio.</p>
+          <form id="ev-form">
+            <input type="hidden" id="ev-id" />
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ev-titulo">Nombre del evento o actividad</label>
+                <input type="text" id="ev-titulo" required placeholder="Ej. Taller de Arteterapia: Jardín MUSA" />
+              </div>
+              <div class="form-group">
+                <label for="ev-fecha-orden">Fecha del evento (ordena y agrupa por mes)</label>
+                <input type="date" id="ev-fecha-orden" required />
+              </div>
+            </div>
+
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="ev-fecha">Fecha visible</label>
+                <input type="text" id="ev-fecha" required placeholder="Ej. 15 de diciembre de 2026" />
+              </div>
+              <div class="form-group">
+                <label for="ev-hora">Hora</label>
+                <input type="text" id="ev-hora" required placeholder="Ej. 11:00 a 13:00 hrs" />
+              </div>
+              <div class="form-group">
+                <label for="ev-lugar">Lugar</label>
+                <input type="text" id="ev-lugar" required placeholder="Ej. Jardín Central Campus Campestre" />
+              </div>
+            </div>
+
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="ev-color-fondo">Color de fondo del micrositio</label>
+                <input type="color" id="ev-color-fondo" value="#fcfbf5" />
+              </div>
+              <div class="form-group">
+                <label for="ev-color-acento">Color de títulos y botones</label>
+                <input type="color" id="ev-color-acento" value="#4a145c" />
+              </div>
+              <div class="form-group">
+                <label for="ev-registro">Formulario de registro</label>
+                <select id="ev-registro">
+                  <option value="true">Activado (recibir inscripciones)</option>
+                  <option value="false">Desactivado (solo informativo)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Flyer del evento</label>
+              <div class="img-preview-box" id="ev-flyer-preview" style="max-width:240px; height:280px; margin-bottom:0.65rem;">Sin flyer seleccionado</div>
+              <div class="img-slot-actions" style="margin-bottom:0.5rem;">
+                <label class="btn outline small" style="cursor:pointer;">
+                  Subir flyer
+                  <input type="file" id="ev-flyer-file" accept="image/*" style="display:none;" />
+                </label>
+                <button type="button" class="btn danger small" id="ev-flyer-clear">Quitar flyer</button>
+              </div>
+              <input type="url" id="ev-flyer-url" placeholder="O pega un enlace directo al flyer (https://...)" />
+            </div>
+
+            <div class="form-group">
+              <label for="ev-desc-rapida">Descripción rápida (aparece en la tarjeta)</label>
+              <textarea id="ev-desc-rapida" rows="2" required placeholder="Resumen breve del evento..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="ev-info-completa">Información completa del evento (aparece en el micrositio)</label>
+              <textarea id="ev-info-completa" rows="5" required placeholder="Detalles, materiales incluidos, requisitos, etc. Puedes usar **negritas**."></textarea>
+            </div>
+
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+              <button type="submit" class="btn" id="ev-submit-btn">Publicar actividad</button>
+              <button type="button" class="btn outline" id="ev-cancel-btn" style="display:none;">Cancelar edición</button>
+            </div>
+            <p id="ev-status" class="status-msg"></p>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="display-title">ACTIVIDADES PUBLICADAS</h2>
+          <p class="card-desc">Descarga la lista de inscritos en formato Excel (.csv), edita el evento o abre su micrositio.</p>
+          <div id="events-admin-list">Cargando actividades...</div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -660,7 +763,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCwvRexIpb_5vCZ-72Hh4qWG-wwPlShY3k",
@@ -691,6 +794,8 @@
     let postsCache = [];
     let membersCache = [];
     let sessionsCache = [];
+    let currentEventFlyer = "";
+    let eventsCache = [];
 
     function setStatus(elId, text, type = "") {
       const el = document.getElementById(elId);
@@ -742,10 +847,10 @@
       return pass;
     }
 
-    document.querySelectorAll(".tab-btn").forEach((btn) => {
+    document.querySelectorAll("button.tab-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = btn.dataset.tab;
-        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("is-active", b === btn));
+        document.querySelectorAll("button.tab-btn").forEach((b) => b.classList.toggle("is-active", b === btn));
         document.querySelectorAll(".panel-section").forEach((s) => s.classList.toggle("is-active", s.id === `tab-${target}`));
       });
     });
@@ -777,7 +882,12 @@
         document.getElementById("login-view").style.display = "none";
         document.getElementById("admin-view").style.display = "block";
         document.getElementById("current-user-email").textContent = user.email;
-        await Promise.all([loadMembersAndSessions(), loadImagesFromFirestore(), loadPostsFromFirestore()]);
+        await Promise.all([
+          loadMembersAndSessions(),
+          loadImagesFromFirestore(),
+          loadPostsFromFirestore(),
+          loadEventsFromFirestore()
+        ]);
       } else {
         document.getElementById("admin-view").style.display = "none";
         document.getElementById("login-view").style.display = "flex";
@@ -1295,6 +1405,207 @@
       } catch (err) {
         console.error(err);
         container.innerHTML = `<p style="color:var(--danger);">Error al cargar publicaciones.</p>`;
+      }
+    }
+
+    // ================= PRÓXIMAS ACTIVIDADES =================
+    function updateEventFlyerPreview(src) {
+      currentEventFlyer = src || "";
+      const box = document.getElementById("ev-flyer-preview");
+      box.innerHTML = currentEventFlyer
+        ? `<img src="${currentEventFlyer}" alt="Flyer del evento">`
+        : "Sin flyer seleccionado";
+    }
+
+    document.getElementById("ev-fecha-orden").addEventListener("change", (e) => {
+      const texto = formatearFechaES(e.target.value);
+      if (texto) document.getElementById("ev-fecha").value = texto;
+    });
+
+    document.getElementById("ev-flyer-file").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const compressed = await compressImage(file, 850, false, 0.72);
+        updateEventFlyerPreview(compressed);
+        document.getElementById("ev-flyer-url").value = "";
+      } catch (err) {
+        setStatus("ev-status", err.message, "error");
+      }
+    });
+
+    document.getElementById("ev-flyer-url").addEventListener("input", (e) => {
+      updateEventFlyerPreview(e.target.value.trim());
+    });
+
+    document.getElementById("ev-flyer-clear").addEventListener("click", () => {
+      updateEventFlyerPreview("");
+      document.getElementById("ev-flyer-url").value = "";
+      document.getElementById("ev-flyer-file").value = "";
+    });
+
+    function resetEventForm() {
+      document.getElementById("ev-form").reset();
+      document.getElementById("ev-id").value = "";
+      document.getElementById("ev-color-fondo").value = "#fcfbf5";
+      document.getElementById("ev-color-acento").value = "#4a145c";
+      document.getElementById("ev-form-heading").textContent = "NUEVA ACTIVIDAD / EVENTO";
+      document.getElementById("ev-submit-btn").textContent = "Publicar actividad";
+      document.getElementById("ev-cancel-btn").style.display = "none";
+      updateEventFlyerPreview("");
+    }
+
+    document.getElementById("ev-cancel-btn").addEventListener("click", () => {
+      resetEventForm();
+      setStatus("ev-status", "");
+    });
+
+    document.getElementById("ev-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("ev-submit-btn");
+      btn.disabled = true;
+      setStatus("ev-status", "Guardando actividad...");
+
+      const existingId = document.getElementById("ev-id").value;
+      const docId = existingId || `ev_${Date.now()}`;
+      const fechaOrden = document.getElementById("ev-fecha-orden").value;
+
+      const eventData = {
+        titulo: document.getElementById("ev-titulo").value.trim(),
+        fechaOrden,
+        fecha: document.getElementById("ev-fecha").value.trim() || formatearFechaES(fechaOrden),
+        hora: document.getElementById("ev-hora").value.trim(),
+        lugar: document.getElementById("ev-lugar").value.trim(),
+        colorFondo: document.getElementById("ev-color-fondo").value,
+        colorAcento: document.getElementById("ev-color-acento").value,
+        habilitarRegistro: document.getElementById("ev-registro").value === "true",
+        flyer: currentEventFlyer,
+        descripcionRapida: document.getElementById("ev-desc-rapida").value.trim(),
+        infoCompleta: document.getElementById("ev-info-completa").value.trim(),
+        creadoEn: existingId
+          ? (eventsCache.find((x) => x.id === existingId)?.creadoEn || Date.now())
+          : Date.now()
+      };
+
+      try {
+        await setDoc(doc(db, "eventos", docId), eventData);
+        resetEventForm();
+        await loadEventsFromFirestore();
+        setStatus("ev-status", "Actividad guardada correctamente.", "success");
+      } catch (err) {
+        console.error(err);
+        setStatus("ev-status", "Error al guardar la actividad. Verifica las reglas de Firestore.", "error");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    async function exportarRegistrosCSV(eventoId, titulo) {
+      try {
+        const q = query(collection(db, "registros_eventos"), where("eventoId", "==", eventoId));
+        const snap = await getDocs(q);
+        const rows = [];
+        snap.forEach((d) => rows.push(d.data()));
+
+        if (!rows.length) {
+          alert("Aún no hay personas registradas en esta actividad.");
+          return;
+        }
+
+        rows.sort((a, b) => (a.registradoEn || 0) - (b.registradoEn || 0));
+
+        const esc = (v) => `"${String(v || "").replace(/"/g, '""')}"`;
+        const headers = ["Nombre Completo", "Matrícula", "Programa Académico", "Semestre", "Fecha de Registro"];
+        const lines = [headers.map(esc).join(",")];
+
+        rows.forEach((r) => {
+          const fechaReg = r.registradoEn ? new Date(r.registradoEn).toLocaleString("es-MX") : "";
+          lines.push([r.nombre, r.matricula, r.programa, r.semestre, fechaReg].map(esc).join(","));
+        });
+
+        const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        const nombreArchivo = (titulo || "registros").toLowerCase().replace(/[^a-z0-9]+/g, "_");
+        a.download = `inscritos_${nombreArchivo}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error(err);
+        alert("Error al descargar los registros.");
+      }
+    }
+
+    async function loadEventsFromFirestore() {
+      const container = document.getElementById("events-admin-list");
+      try {
+        const snap = await getDocs(collection(db, "eventos"));
+        eventsCache = [];
+        snap.forEach((d) => eventsCache.push({ id: d.id, ...d.data() }));
+        eventsCache.sort((a, b) => (a.fechaOrden || "9999-99-99").localeCompare(b.fechaOrden || "9999-99-99"));
+
+        if (!eventsCache.length) {
+          container.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">Aún no hay actividades creadas.</p>`;
+          return;
+        }
+
+        container.innerHTML = eventsCache.map((ev) => `
+          <div class="post-item">
+            <div class="post-item-info">
+              <div class="post-meta">${ev.fecha || ""} · ${ev.hora || ""} · ${ev.lugar || ""}</div>
+              <h3>${ev.titulo || "Sin título"}</h3>
+              <p style="font-size:0.88rem; color:var(--text-muted);">${ev.descripcionRapida || ""}</p>
+            </div>
+            <div class="post-item-actions">
+              <a href="evento.html?id=${encodeURIComponent(ev.id)}" target="_blank" rel="noopener" class="btn outline small">Micrositio ↗</a>
+              <button type="button" class="btn small export-ev-btn" data-id="${ev.id}" data-title="${ev.titulo || ""}">Excel (.csv)</button>
+              <button type="button" class="btn outline small edit-ev-btn" data-id="${ev.id}">Editar</button>
+              <button type="button" class="btn danger small del-ev-btn" data-id="${ev.id}">Eliminar</button>
+            </div>
+          </div>
+        `).join("");
+
+        container.querySelectorAll(".export-ev-btn").forEach((btn) => {
+          btn.addEventListener("click", () => exportarRegistrosCSV(btn.dataset.id, btn.dataset.title));
+        });
+
+        container.querySelectorAll(".edit-ev-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const ev = eventsCache.find((x) => x.id === btn.dataset.id);
+            if (!ev) return;
+            document.getElementById("ev-id").value = ev.id;
+            document.getElementById("ev-titulo").value = ev.titulo || "";
+            document.getElementById("ev-fecha-orden").value = ev.fechaOrden || "";
+            document.getElementById("ev-fecha").value = ev.fecha || "";
+            document.getElementById("ev-hora").value = ev.hora || "";
+            document.getElementById("ev-lugar").value = ev.lugar || "";
+            document.getElementById("ev-color-fondo").value = ev.colorFondo || "#fcfbf5";
+            document.getElementById("ev-color-acento").value = ev.colorAcento || "#4a145c";
+            document.getElementById("ev-registro").value = ev.habilitarRegistro === false ? "false" : "true";
+            document.getElementById("ev-desc-rapida").value = ev.descripcionRapida || "";
+            document.getElementById("ev-info-completa").value = ev.infoCompleta || "";
+            updateEventFlyerPreview(ev.flyer || "");
+            document.getElementById("ev-flyer-url").value = (ev.flyer || "").startsWith("http") ? ev.flyer : "";
+            document.getElementById("ev-form-heading").textContent = "EDITAR ACTIVIDAD";
+            document.getElementById("ev-submit-btn").textContent = "Guardar cambios";
+            document.getElementById("ev-cancel-btn").style.display = "inline-flex";
+            setStatus("ev-status", "");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        });
+
+        container.querySelectorAll(".del-ev-btn").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            if (!confirm("¿Seguro que deseas eliminar esta actividad?")) return;
+            await deleteDoc(doc(db, "eventos", btn.dataset.id));
+            await loadEventsFromFirestore();
+            setStatus("ev-status", "Actividad eliminada.", "success");
+          });
+        });
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style="color:var(--danger);">Error al cargar actividades.</p>`;
       }
     }
   </script>
