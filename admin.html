@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Editorial y Miembros | MUSA La Salle Bajío</title>
+  <title>Panel Editorial | MUSA La Salle Bajío</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -327,7 +327,7 @@
       line-height: 1;
     }
 
-    /* POSTS & MIEMBROS */
+    /* POSTS Y EVENTOS */
     .post-item {
       border: 1.5px solid var(--musa-lilac);
       border-radius: 14px;
@@ -358,15 +358,6 @@
       flex-wrap: wrap;
     }
 
-    .cred-box {
-      display: none;
-      background: #f0fdf4;
-      border: 2px solid var(--success);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-    }
     .table-wrap { overflow-x: auto; }
     table.musa-table {
       width: 100%;
@@ -386,17 +377,6 @@
       color: var(--musa-deep-purple);
       background: var(--musa-lilac-soft);
     }
-    .pill-tag {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      background: var(--musa-lilac-soft);
-      color: var(--musa-deep-purple);
-    }
-    .pill-ok { background: #dcfce7; color: #166534; }
-    .pill-warn { background: #fef3c7; color: #92400e; }
 
     /* MODALES */
     .modal-backdrop {
@@ -436,34 +416,6 @@
       font-weight: 800;
       cursor: pointer;
     }
-    .profile-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.65rem;
-      margin-bottom: 1.25rem;
-    }
-    .profile-field {
-      background: var(--musa-cream);
-      border: 1px solid var(--musa-lilac);
-      border-radius: 10px;
-      padding: 0.6rem 0.85rem;
-    }
-    .profile-field small {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--musa-blue);
-    }
-    .session-log-card {
-      background: var(--musa-cream);
-      border: 1.5px solid var(--musa-lilac);
-      border-left: 5px solid var(--musa-deep-purple);
-      border-radius: 12px;
-      padding: 0.95rem 1.1rem;
-      margin-bottom: 0.75rem;
-      font-size: 0.88rem;
-    }
   </style>
 </head>
 <body>
@@ -472,7 +424,7 @@
   <div id="login-view" class="login-wrap">
     <div class="login-card">
       <h1 class="display-title">MUSA LA SALLE BAJÍO</h1>
-      <p class="login-sub">Acceso exclusivo para administración editorial y gestión del Portal de Miembros.</p>
+      <p class="login-sub">Acceso exclusivo para administración editorial de MUSA La Salle Bajío.</p>
       <form id="login-form">
         <div class="form-group">
           <label for="login-email">Correo institucional</label>
@@ -496,7 +448,6 @@
         <span class="user-badge" id="current-user-email"></span>
       </div>
       <div class="topbar-actions">
-        <a href="portal.html" target="_blank" rel="noopener" class="btn outline small">Portal Miembros ↗</a>
         <a href="index.html" target="_blank" rel="noopener" class="btn outline small">Ver sitio ↗</a>
         <button type="button" class="btn danger small" id="logout-btn">Cerrar sesión</button>
       </div>
@@ -504,83 +455,14 @@
 
     <main class="admin-main">
       <div class="tabs">
-        <button type="button" class="tab-btn is-active" data-tab="miembros">Miembros y PARES MUSA</button>
-        <button type="button" class="tab-btn" data-tab="imagenes">Imágenes del sitio</button>
+        <button type="button" class="tab-btn is-active" data-tab="imagenes">Imágenes del sitio</button>
         <button type="button" class="tab-btn" data-tab="blog">Publicaciones del Blog</button>
         <button type="button" class="tab-btn" data-tab="actividades">Próximas Actividades</button>
         <a href="https://correo.somosmusa.com.mx" target="_blank" rel="noopener" class="tab-btn">CORREO MUSA ↗</a>
       </div>
 
-      <!-- PESTAÑA 1: MIEMBROS Y PARES MUSA -->
-      <section id="tab-miembros" class="panel-section is-active">
-        <div class="card">
-          <h2 class="display-title">REGISTRAR INTEGRANTE</h2>
-          <p class="card-desc">Da de alta a miembros de MUSA, de la Escuela de Medicina del Bajío (EMB) o Docentes/Maestros y asígnalos al programa PARES MUSA.</p>
-
-          <form id="member-form">
-            <div class="form-row-3">
-              <div class="form-group">
-                <label for="m-nombre">Nombre completo</label>
-                <input type="text" id="m-nombre" required placeholder="Ej. Sofía Martínez López" />
-              </div>
-              <div class="form-group">
-                <label for="m-correo">Correo electrónico</label>
-                <input type="email" id="m-correo" required placeholder="correo@ejemplo.com" />
-              </div>
-              <div class="form-group">
-                <label for="m-afiliacion">Afiliación</label>
-                <select id="m-afiliacion">
-                  <option value="Miembro MUSA">Miembro MUSA</option>
-                  <option value="Miembro EMB">Miembro EMB (Escuela de Medicina del Bajío)</option>
-                  <option value="Docente / Maestro">Docente / Maestro</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="m-pares">Programa PARES MUSA</label>
-                <select id="m-pares">
-                  <option value="No pertenece">No pertenece a PARES MUSA</option>
-                  <option value="Tutor">Tutor</option>
-                  <option value="Tutorado">Tutorado</option>
-                  <option value="Maestro / Mentor">Maestro / Mentor (Gestión PARES MUSA)</option>
-                </select>
-              </div>
-              <div class="form-group" id="m-tutor-wrap" style="display:none;">
-                <label for="m-tutor">Vincular con Tutor</label>
-                <select id="m-tutor"></select>
-              </div>
-            </div>
-            <button type="submit" class="btn" id="m-submit-btn">Registrar y generar accesos</button>
-            <p id="m-status" class="status-msg"></p>
-          </form>
-
-          <div id="m-cred-box" class="cred-box"></div>
-        </div>
-
-        <div class="card">
-          <h2 class="display-title">DIRECTORIO DE MIEMBROS (<span id="members-count">0</span>)</h2>
-          <p class="card-desc">Consulta perfiles, vinculaciones y la bitácora de sesiones de cada integrante del programa PARES MUSA.</p>
-          <div class="form-group">
-            <input type="text" id="search-member" placeholder="Buscar por nombre, usuario, afiliación o rol..." />
-          </div>
-          <div class="table-wrap">
-            <table class="musa-table">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Usuario</th>
-                  <th>Afiliación</th>
-                  <th>PARES MUSA</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="members-tbody"><tr><td colspan="5">Cargando integrantes...</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- PESTAÑA 2: IMÁGENES -->
-      <section id="tab-imagenes" class="panel-section">
+      <!-- PESTAÑA 1: IMÁGENES -->
+      <section id="tab-imagenes" class="panel-section is-active">
         <div class="card">
           <h2 class="display-title">IMÁGENES DEL MICROSITIO</h2>
           <p class="card-desc">Sube una imagen desde tu dispositivo o pega un enlace directo. Al finalizar, presiona <strong>Guardar imágenes</strong>.</p>
@@ -590,7 +472,7 @@
         </div>
       </section>
 
-      <!-- PESTAÑA 3: BLOG -->
+      <!-- PESTAÑA 2: BLOG -->
       <section id="tab-blog" class="panel-section">
         <div class="card">
           <h2 class="display-title" id="post-form-heading">NUEVA PUBLICACIÓN</h2>
@@ -658,7 +540,7 @@
         </div>
       </section>
 
-      <!-- PESTAÑA 4: PRÓXIMAS ACTIVIDADES -->
+      <!-- PESTAÑA 3: PRÓXIMAS ACTIVIDADES -->
       <section id="tab-actividades" class="panel-section">
         <div class="card">
           <h2 class="display-title" id="ev-form-heading">NUEVA ACTIVIDAD / EVENTO</h2>
@@ -754,17 +636,6 @@
     </main>
   </div>
 
-  <!-- MODAL PERFIL + BITÁCORA PARES MUSA -->
-  <div id="member-modal" class="modal-backdrop">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h2 class="display-title" style="font-size:1.35rem; color:var(--musa-deep-purple);" id="modal-m-title">PERFIL DEL INTEGRANTE</h2>
-        <button type="button" class="modal-close" id="close-member-modal">✕</button>
-      </div>
-      <div id="modal-m-body"></div>
-    </div>
-  </div>
-
   <!-- MODAL VER INSCRITOS DE EVENTO -->
   <div id="registrations-modal" class="modal-backdrop">
     <div class="modal-box" style="max-width:780px;">
@@ -808,8 +679,6 @@
     let currentImages = {};
     let currentPostImages = [];
     let postsCache = [];
-    let membersCache = [];
-    let sessionsCache = [];
     let currentEventFlyer = "";
     let eventsCache = [];
 
@@ -842,25 +711,6 @@
         };
         reader.readAsDataURL(file);
       });
-    }
-
-    function generateUsername(nombre) {
-      const clean = nombre
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-zA-Z\s]/g, "")
-        .trim()
-        .toUpperCase()
-        .split(/\s+/);
-      const base = (clean[0] || "USR").substring(0, 4) + (clean[1] ? clean[1].substring(0, 2) : "");
-      return "MUSA" + base + Math.floor(100 + Math.random() * 900);
-    }
-
-    function generatePassword(len = 9) {
-      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#$%";
-      let pass = "";
-      for (let i = 0; i < len; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
-      return pass;
     }
 
     document.querySelectorAll("button.tab-btn").forEach((btn) => {
@@ -899,7 +749,6 @@
         document.getElementById("admin-view").style.display = "block";
         document.getElementById("current-user-email").textContent = user.email;
         await Promise.all([
-          loadMembersAndSessions(),
           loadImagesFromFirestore(),
           loadPostsFromFirestore(),
           loadEventsFromFirestore()
@@ -908,209 +757,6 @@
         document.getElementById("admin-view").style.display = "none";
         document.getElementById("login-view").style.display = "flex";
       }
-    });
-
-    // ================= MIEMBROS Y PARES MUSA =================
-    document.getElementById("m-pares").addEventListener("change", (e) => {
-      document.getElementById("m-tutor-wrap").style.display = e.target.value === "Tutorado" ? "block" : "none";
-    });
-
-    function populateTutorSelect() {
-      const sel = document.getElementById("m-tutor");
-      const tutors = membersCache.filter(m => m.rolPares === "Tutor");
-      sel.innerHTML = `<option value="">-- Sin asignar por ahora --</option>` +
-        tutors.map(t => `<option value="${t.usuario}">${t.nombre} (${t.usuario})</option>`).join("");
-    }
-
-    async function loadMembersAndSessions() {
-      try {
-        const [mSnap, sSnap] = await Promise.all([getDocs(collection(db, "miembros")), getDocs(collection(db, "sesiones"))]);
-        membersCache = [];
-        mSnap.forEach(d => membersCache.push({ id: d.id, ...d.data() }));
-        membersCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
-
-        sessionsCache = [];
-        sSnap.forEach(d => sessionsCache.push({ id: d.id, ...d.data() }));
-        sessionsCache.sort((a, b) => (b.creadoEn || 0) - (a.creadoEn || 0));
-
-        populateTutorSelect();
-        renderMembersTable();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    document.getElementById("member-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById("m-submit-btn");
-      btn.disabled = true;
-      setStatus("m-status", "Registrando integrante...");
-
-      const nombre = document.getElementById("m-nombre").value.trim();
-      const correo = document.getElementById("m-correo").value.trim();
-      const afiliacion = document.getElementById("m-afiliacion").value;
-      const rolPares = document.getElementById("m-pares").value;
-      const tutorUsuario = rolPares === "Tutorado" ? document.getElementById("m-tutor").value : "";
-      const tutorObj = membersCache.find(t => t.usuario === tutorUsuario);
-
-      const usuario = generateUsername(nombre);
-      const password = generatePassword(9);
-
-      const memberData = {
-        usuario,
-        password,
-        nombre,
-        correo,
-        afiliacion,
-        rolPares,
-        tutorUsuario: tutorUsuario || "",
-        tutorNombre: tutorObj ? tutorObj.nombre : "",
-        foto: "",
-        creadoEn: Date.now()
-      };
-
-      try {
-        await setDoc(doc(db, "miembros", usuario), memberData);
-        document.getElementById("member-form").reset();
-        document.getElementById("m-tutor-wrap").style.display = "none";
-        await loadMembersAndSessions();
-        setStatus("m-status", "Integrante registrado correctamente.", "success");
-
-        const mailBody = encodeURIComponent(
-          `Hola ${nombre},\n\nTe damos la bienvenida al Portal de Miembros MUSA La Salle Bajío.\n\nTus accesos personales son:\nUsuario: ${usuario}\nContraseña: ${password}\n\nIngresa en: ${window.location.origin}/portal.html\n\nSaludos,\nMUSA La Salle Bajío`
-        );
-        const box = document.getElementById("m-cred-box");
-        box.innerHTML = `
-          <strong>Accesos generados para ${nombre}:</strong><br>
-          Usuario: <strong>${usuario}</strong> &nbsp;|&nbsp; Contraseña: <strong>${password}</strong>
-          <div style="margin-top:0.65rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
-            <a class="btn small" href="mailto:${correo}?subject=${encodeURIComponent("Tus accesos al Portal de Miembros MUSA")}&body=${mailBody}">Enviar por correo</a>
-            <button type="button" class="btn outline small" onclick="navigator.clipboard.writeText('Usuario: ${usuario} | Contraseña: ${password}'); alert('Copiado al portapapeles.');">Copiar accesos</button>
-          </div>
-        `;
-        box.style.display = "block";
-      } catch (err) {
-        setStatus("m-status", "Error al registrar: " + err.message, "error");
-      } finally {
-        btn.disabled = false;
-      }
-    });
-
-    document.getElementById("search-member").addEventListener("input", renderMembersTable);
-
-    function renderMembersTable() {
-      const q = (document.getElementById("search-member").value || "").toLowerCase();
-      const filtered = membersCache.filter(m =>
-        (m.nombre || "").toLowerCase().includes(q) ||
-        (m.usuario || "").toLowerCase().includes(q) ||
-        (m.afiliacion || "").toLowerCase().includes(q) ||
-        (m.rolPares || "").toLowerCase().includes(q)
-      );
-      document.getElementById("members-count").textContent = membersCache.length;
-      const tbody = document.getElementById("members-tbody");
-      if (!filtered.length) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:1rem;">Sin integrantes registrados.</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = filtered.map(m => `
-        <tr>
-          <td><strong>${m.nombre}</strong><br><small style="color:var(--text-muted);">${m.correo}</small></td>
-          <td><strong>${m.usuario}</strong></td>
-          <td><span class="pill-tag">${m.afiliacion}</span></td>
-          <td>
-            <span class="pill-tag">${m.rolPares}</span>
-            ${m.rolPares === "Tutorado" && m.tutorNombre ? `<br><small style="color:var(--text-muted);">Tutor: ${m.tutorNombre}</small>` : ""}
-          </td>
-          <td style="display:flex; gap:0.4rem; flex-wrap:wrap;">
-            <button type="button" class="btn outline small view-member-btn" data-id="${m.usuario}">Perfil / Bitácora</button>
-            <button type="button" class="btn danger small del-member-btn" data-id="${m.usuario}" data-name="${m.nombre}">Baja</button>
-          </td>
-        </tr>
-      `).join("");
-
-      tbody.querySelectorAll(".view-member-btn").forEach(btn => {
-        btn.addEventListener("click", () => openMemberProfileModal(btn.dataset.id));
-      });
-      tbody.querySelectorAll(".del-member-btn").forEach(btn => {
-        btn.addEventListener("click", async () => {
-          if (!confirm(`¿Dar de baja a ${btn.dataset.name} (${btn.dataset.id})?`)) return;
-          await deleteDoc(doc(db, "miembros", btn.dataset.id));
-          await loadMembersAndSessions();
-        });
-      });
-    }
-
-    function openMemberProfileModal(usuario) {
-      const m = membersCache.find(x => x.usuario === usuario);
-      if (!m) return;
-      const body = document.getElementById("modal-m-body");
-      const tutors = membersCache.filter(t => t.rolPares === "Tutor");
-
-      let bitacoraHtml = "";
-      if (m.rolPares === "Tutor" || m.rolPares === "Tutorado") {
-        const relSessions = sessionsCache.filter(s => s.tutorUsuario === m.usuario || s.tutoradoUsuario === m.usuario);
-        bitacoraHtml = `
-          <hr style="margin:1.1rem 0; border:none; border-top:1.5px solid var(--musa-lilac-soft);" />
-          <h3 class="display-title" style="color:var(--musa-deep-purple); font-size:1.1rem; margin-bottom:0.65rem;">BITÁCORA DE SESIONES PARES MUSA (${relSessions.length})</h3>
-          ${relSessions.length ? relSessions.map(s => `
-            <div class="session-log-card">
-              <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.35rem;">
-                <strong>${s.fecha} · ${s.hora} (${s.modalidad})</strong>
-                <span class="pill-tag ${s.confirmado ? "pill-ok" : "pill-warn"}">${s.confirmado ? "✓ Confirmada por Tutorado" : "Pendiente de confirmación"}</span>
-              </div>
-              <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.4rem;">
-                Tutor: <strong>${s.tutorNombre}</strong> · Tutorado: <strong>${s.tutoradoNombre}</strong>
-              </div>
-              <p><strong>Temas tratados:</strong> ${s.temas}</p>
-              <p style="margin-top:0.25rem;"><strong>Acuerdos:</strong> ${s.acuerdos}</p>
-            </div>
-          `).join("") : `<p style="font-size:0.88rem; color:var(--text-muted);">Aún no hay sesiones registradas para este integrante.</p>`}
-        `;
-      }
-
-      const relinkHtml = m.rolPares === "Tutorado" ? `
-        <div style="background:var(--musa-lilac-soft); padding:0.85rem; border-radius:12px; margin-bottom:1rem;">
-          <label style="display:block; font-size:0.78rem; font-weight:700; color:var(--musa-deep-purple); margin-bottom:0.35rem;">Reasignar Tutor vinculado:</label>
-          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-            <select id="relink-tutor-sel" style="flex:1; padding:0.45rem; border-radius:8px; border:1px solid var(--musa-lilac);">
-              <option value="">-- Sin asignar --</option>
-              ${tutors.map(t => `<option value="${t.usuario}" ${t.usuario === m.tutorUsuario ? "selected" : ""}>${t.nombre} (${t.usuario})</option>`).join("")}
-            </select>
-            <button type="button" class="btn small" id="save-relink-btn">Guardar vínculo</button>
-          </div>
-        </div>
-      ` : "";
-
-      body.innerHTML = `
-        <div class="profile-grid">
-          <div class="profile-field"><small>Nombre</small><strong>${m.nombre}</strong></div>
-          <div class="profile-field"><small>Usuario</small><strong>${m.usuario}</strong></div>
-          <div class="profile-field"><small>Contraseña</small><strong>${m.password}</strong></div>
-          <div class="profile-field"><small>Correo</small><strong>${m.correo}</strong></div>
-          <div class="profile-field"><small>Afiliación</small><strong>${m.afiliacion}</strong></div>
-          <div class="profile-field"><small>PARES MUSA</small><strong>${m.rolPares}</strong></div>
-        </div>
-        ${relinkHtml}
-        ${bitacoraHtml}
-      `;
-
-      const relinkBtn = document.getElementById("save-relink-btn");
-      if (relinkBtn) {
-        relinkBtn.addEventListener("click", async () => {
-          const newTutorUser = document.getElementById("relink-tutor-sel").value;
-          const tObj = membersCache.find(t => t.usuario === newTutorUser);
-          await setDoc(doc(db, "miembros", m.usuario), { tutorUsuario: newTutorUser, tutorNombre: tObj ? tObj.nombre : "" }, { merge: true });
-          await loadMembersAndSessions();
-          alert("Vínculo actualizado.");
-          openMemberProfileModal(m.usuario);
-        });
-      }
-
-      document.getElementById("member-modal").classList.add("open");
-    }
-
-    document.getElementById("close-member-modal").addEventListener("click", () => {
-      document.getElementById("member-modal").classList.remove("open");
     });
 
     // ================= IMÁGENES =================
