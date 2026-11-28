@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Próximas Actividades | MUSA La Salle Bajío</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --musa-deep-purple: #4a145c;
+      --musa-lilac: #c59cd9;
+      --musa-lilac-soft: #efe5f5;
+      --musa-blue: #7d93c8;
+      --musa-cream: #fcfbf5;
+      --text-dark: #1f1627;
+      --text-muted: #4b3f54;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--musa-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .display-title {
+      font-family: 'Anton', Impact, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.08;
+    }
+
+    .topbar {
+      background: #ffffff;
+      border-bottom: 3px solid var(--musa-lilac);
+      padding: 0.9rem 1.25rem;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .topbar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.35rem;
+      color: var(--musa-deep-purple);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .musa-btn {
+      background-color: var(--musa-deep-purple);
+      color: #ffffff;
+      border: 2px solid var(--musa-deep-purple);
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    .musa-btn:hover { opacity: 0.92; }
+
+    .main-wrap {
+      max-width: 960px;
+      width: 100%;
+      margin: 2.5rem auto 3.5rem;
+      padding: 0 1.25rem;
+      flex: 1;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .page-header h1 {
+      font-size: clamp(2.1rem, 5vw, 3rem);
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.4rem;
+    }
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .month-group {
+      margin-bottom: 2.5rem;
+    }
+    .month-heading {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.75rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 1rem;
+      padding-left: 0.25rem;
+      letter-spacing: 0.03em;
+    }
+
+    .event-card {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 22px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      box-shadow: 0 6px 18px rgba(74, 20, 92, 0.05);
+    }
+    @media (max-width: 680px) {
+      .event-card {
+        grid-template-columns: 1fr;
+      }
+    }
+    .event-flyer {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--musa-lilac-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--musa-deep-purple);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 0.75rem;
+    }
+    .event-flyer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .event-info {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .event-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.6rem;
+      color: var(--musa-deep-purple);
+      margin-bottom: 0.5rem;
+      line-height: 1.12;
+    }
+    .event-meta {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+    }
+    .event-meta div {
+      margin-bottom: 0.2rem;
+    }
+    .event-meta strong {
+      color: var(--musa-blue);
+    }
+    .event-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    .event-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+    }
+
+    .empty-card {
+      background: #ffffff;
+      border: 2px solid var(--musa-lilac);
+      border-radius: 18px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    footer {
+      background-color: var(--musa-deep-purple);
+      color: #ffffff;
+      text-align: center;
+      padding: 1.75rem 1rem;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+    footer a { color: var(--musa-lilac); font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="brand">MUSA · LA SALLE BAJÍO</a>
+      <a href="index.html" class="musa-btn">← Volver al inicio</a>
+    </div>
+  </header>
+
+  <main class="main-wrap">
+    <div class="page-header">
+      <h1 class="display-title">PRÓXIMAS ACTIVIDADES</h1>
+      <p>Consulta nuestros talleres, brigadas y eventos abiertos a la comunidad universitaria.</p>
+    </div>
+
+    <div id="activities-container">
+      <div class="empty-card">Cargando actividades...</div>
+    </div>
+  </main>
+
+  <footer>
+    <p>MUSA · Capítulo Estudiantil Universidad La Salle Bajío · <a href="index.html">Ir al inicio</a></p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwvRexIpb_5vCZ-72Hh4qWG-wwPlShY3k",
+      authDomain: "musa-lasallebjx.firebaseapp.com",
+      projectId: "musa-lasallebjx",
+      storageBucket: "musa-lasallebjx.firebasestorage.app",
+      messagingSenderId: "987361839924",
+      appId: "1:987361839924:web:7611bcd62db66df4217361",
+      measurementId: "G-C342LRNRCD"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function obtenerMesTexto(ev) {
+      if (ev.mes && ev.mes.trim()) return ev.mes.trim().toUpperCase();
+      if (ev.fechaOrden && ev.fechaOrden.includes("-")) {
+        const [y, m] = ev.fechaOrden.split("-").map(Number);
+        const meses = [
+          "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+          "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
+        ];
+        return `${meses[m - 1]} ${y}`;
+      }
+      return "PRÓXIMAMENTE";
+    }
+
+    async function cargarActividades() {
+      const container = document.getElementById("activities-container");
+      try {
+        const snap = await getDocs(collection(db, "eventos"));
+        const eventos = [];
+        snap.forEach((docSnap) => eventos.push({ id: docSnap.id, ...docSnap.data() }));
+
+        // Ordenar cronológicamente (próximo evento primero)
+        eventos.sort((a, b) => (a.fechaOrden || "9999-99-99").localeCompare(b.fechaOrden || "9999-99-99"));
+
+        if (!eventos.length) {
+          container.innerHTML = `<div class="empty-card">Por el momento no hay actividades programadas. ¡Vuelve pronto!</div>`;
+          return;
+        }
+
+        // Agrupar por mes
+        const grupos = new Map();
+        eventos.forEach((ev) => {
+          const mes = obtenerMesTexto(ev);
+          if (!grupos.has(mes)) grupos.set(mes, []);
+          grupos.get(mes).push(ev);
+        });
+
+        let html = "";
+        grupos.forEach((lista, mes) => {
+          html += `
+            <section class="month-group">
+              <h2 class="month-heading">${mes}</h2>
+              ${lista.map((ev) => `
+                <article class="event-card">
+                  <div class="event-flyer">
+                    ${ev.flyer ? `<img src="${ev.flyer}" alt="${ev.titulo || "Flyer"}">` : "Espacio para flyer"}
+                  </div>
+                  <div class="event-info">
+                    <div>
+                      <h3 class="event-title">${ev.titulo || "Evento MUSA"}</h3>
+                      <div class="event-meta">
+                        ${ev.fecha ? `<div><strong>Fecha:</strong> ${ev.fecha}</div>` : ""}
+                        ${ev.hora ? `<div><strong>Hora:</strong> ${ev.hora}</div>` : ""}
+                        ${ev.lugar ? `<div><strong>Lugar:</strong> ${ev.lugar}</div>` : ""}
+                      </div>
+                      <p class="event-desc">${ev.descripcionRapida || ""}</p>
+                    </div>
+                    <div class="event-actions">
+                      <a href="evento.html?id=${encodeURIComponent(ev.id)}" class="musa-btn">Conocer Más</a>
+                    </div>
+                  </div>
+                </article>
+              `).join("")}
+            </section>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<div class="empty-card">No se pudieron cargar las actividades.</div>`;
+      }
+    }
+
+    cargarActividades();
+  </script>
+</body>
+</html>
